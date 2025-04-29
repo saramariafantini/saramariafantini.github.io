@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sara Maria Fantini</title>
+    <link rel="icon" type="image/x-icon" href="imgs/favicon-rosa.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Ysabeau:wght@400;700&display=swap" rel="stylesheet">
+    <style id="index-style">
+
+      body {
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          font-family: 'Ysabeau', sans-serif;
+          background: url('imgs/chitarrino.jpg') no-repeat center center / cover;
+          color: #f9f4e0; /* Bianco panna */
+      }
+
+      h1 {
+          margin: 0;
+          padding: 0;
+          font-family: "Cinzel Decorative", serif;
+          font-weight: 400;
+          font-style: normal;
+          font-size: clamp(2rem, 6vw, 6rem); /* Adatta la dimensione ai dispositivi */
+          text-align: left;
+          width: 90%; /* Margine laterale automatico */
+          z-index: 1;
+          position: relative;
+          margin-top: -20px; /* Sposta il titolo un po' più in alto */
+      }
+
+      #nome {
+          margin-bottom: 0.1em; /* Spazio tra i due titoli */
+      }
+
+      /* Contenitore generale per sottotitolo e pulsanti */
+      .strumenti-e-lingue {
+          display: flex;
+          flex-direction: column; /* Posiziona il sottotitolo sopra i pulsanti */
+          align-items: center;
+          justify-content: flex-start;
+          
+      }
+
+      h2 {
+          font-family: 'Ysabeau', sans-serif;
+          font-size: clamp(1rem, 2vw, 2rem); /* Adatta la dimensione al dispositivo */
+          text-align: center;
+          width: 100%; /* Centro rispetto ai pulsanti */
+          color: #f9f4e0; /* Bianco panna */
+          margin: 1em 0; /* Spazio sopra e sotto */
+          z-index: 1;
+          position: relative;
+      }
+
+      /* Contenitore pulsanti */
+      .button-container {
+          display: flex;
+          justify-content: center;
+          gap: 1em; /* Spazio tra i pulsanti */
+          flex-wrap: wrap; /* Permette il riadattamento su dispositivi piccoli */
+          margin-top: 15%; /* Spostato più in basso rispetto al titolo */
+          margin-left: 30%; /* Decentrato più a sinistra rispetto al centro */
+          width: 80%; /* Occupa l'80% della larghezza della pagina */
+          max-width: 600px; /* Limita la larghezza totale */
+      }
+
+      /* Stile dei pulsanti */
+      .lingua {
+          display: inline-block;
+          padding: clamp(0.6em, 1.5vw, 1em) clamp(1.5em, 3vw, 2em); /* Spazi adattivi */
+          font-size: clamp(0.8rem, 1.5vw, 1rem); /* Dimensione del testo responsive */
+          text-decoration: none;
+          color: #f9f4e0; /* Testo bianco panna */
+          background: transparent; /* Sfondo trasparente */
+          border: 2px solid #f9f4e0; /* Bordo bianco panna */
+          border-radius: 5px;
+          transition: all 0.3s ease;
+      }
+
+      .lingua:hover {
+          background: rgba(249, 244, 224, 0.2); /* Sfondo leggermente opaco al passaggio del mouse */
+          color: #fff; /* Testo bianco */
+          transform: scale(1.05); /* Effetto zoom */
+      }
+
+      /* Media Query per dispositivi piccoli */
+      @media screen and (max-width: 600px) {
+          /* Disposizione verticale dei pulsanti */
+          .button-container {
+              flex-direction: column; /* Cambia la disposizione da riga a colonna */
+              align-items: center; /* Centra i pulsanti */
+              width: 100%; /* Adatta i pulsanti alla larghezza del contenitore */
+          }
+
+          h1 {
+          font-size: 10vw;
+          }
+
+          .lingua {
+              max-width:5em;
+              text-align: center; /* Centra il testo nei pulsanti */
+              margin-bottom: 0.8em; /* Spazio tra i pulsanti */
+              font-size: clamp(1rem, 4vw, 1.2rem); /* Aumenta la dimensione del testo per dispositivi piccoli */
+          }
+
+      }
+
+    </style>
+  </head>
+  <body>
+    <h1 id="nome">Sara Maria</h1>
+    <h1 id="cognome">Fantini</h1>
+      <div class="button-container">
+        <a class="lingua" href="home-en.html">English</a>
+        <a class="lingua" href="home-it.html">Italiano</a>
+        <a class="lingua" href="home-fr.html">Français</a>
+      </div>
+  </body>
+</html>
