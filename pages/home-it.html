@@ -20,10 +20,16 @@
         font-size: 1.2em;
       }
 
-      h1, h2, h3, h4, h5, h6 {
+      h1, h2, h4, h5, h6 {
         font-family: 'Lora', serif;
         padding-left: 2em;
         padding-top: 1.2em;
+      }
+
+      h3 {
+        font-family: 'Lora', serif;
+        padding-top: 1.2em;
+        font-size: 1em;
       }
 
       p {
@@ -67,6 +73,12 @@
           height: 100vh;
         }
       }
+
+      @media (max-width: 576px) {
+      .social-icons-mobile i {
+        font-size: 1.2em !important; /* o 1em per le dimensioni standard */
+      }
+    }
 
     </style>
 
@@ -172,9 +184,9 @@
       <div class="row no-gutters align-items-center">
         <!-- Colonna sinistra: Testo e contatti -->
         <div class="col-md-6 px-5 py-5">
-          <h1 class="display-4 text-right">
+          <h3>
             Informazioni e contatti
-          </h1>
+          </h3>
 
           <p>
             <a href="mailto:saramariafantini01@gmail.com" class="btn btn-outline-light btn-lg rounded-pill mx-auto my-4">
@@ -182,7 +194,7 @@
             </a>
           </p>
 
-          <div class="mb-4" style="padding-left: 2em;">
+          <div class="mb-4 social-icons-mobile" style="padding-left: 2em;">
             <a href="https://www.linkedin.com/in/sara-maria-fantini-5a789412b/" class="text-white mr-3"><i class="fab fa-linkedin fa-lg fa-2x"></i></a>
             <a href="https://www.instagram.com/saram.fantini?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-white mr-3"><i class="fab fa-instagram fa-lg fa-2x"></i></a>
             <a href="https://www.facebook.com/saramaria.fantini" class="text-white mr-3"><i class="fab fa-facebook fa-lg fa-2x"></i></a>
