@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Media | Sara Maria Fantini</title>
+  <link rel="icon" type="image/x-icon" href="../imgs/favicon-rosa.ico">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lora&family=Ysabeau&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      overflow-x: hidden;
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 1.2em;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Lora', serif;
+    }
+
+    h3 {
+      padding: 2em 0 1em;
+      font-size: 1.5em;
+      text-align: center;
+    }
+
+    .navbar {
+      background-color: #9caf88;
+      color: #060608;
+      font-size: 1.2em;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .container-fluid {
+      background-color: #9caf88;
+      color: #060608;
+      padding: 50px 0;
+    }
+
+    .container p {
+      text-align: justify;
+    }
+
+    .parallax {
+      position: relative;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .parallax-title h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      color: antiquewhite;
+    }
+
+    #parallax1 { background-image: url("../imgs/chitarrino.jpg"); }
+    #parallax2 { background-image: url("../imgs/sibilla.png"); }
+    #parallax3 { background-image: url("../imgs/marginalia.jpeg"); }
+    #parallax4 { background-image: url("../imgs/chordacordis.png"); }
+    
+    .carousel-inner img {
+      border-radius: 20px;
+      object-fit: cover;
+      max-height: 600px;
+    }
+
+    .thumb {
+      cursor: pointer;
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+      transition: transform 0.2s ease;
+    }
+
+    .thumb:hover {
+      transform: scale(1.05);
+      border: 2px solid #9caf88;
+    }
+
+    @media (max-width: 576px) {
+      .social-icons-mobile i {
+        font-size: 1.2em !important;
+      }
+      .text-center-mobile {
+        text-align: center;
+      }
+    }
+
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
+    <a class="navbar-brand d-block d-sm-none" href="../index.html">
+      <img src="../imgs/favicon-rosa.ico" alt="Logo" style="width:20px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+      <a class="navbar-brand justify-content-center" href="../index.html">Sara Maria Fantini</a>
+      <ul class="navbar-nav text-md-nowrap">
+        <li class="nav-item"><a class="nav-link" href="#bio">Bio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#progetti">Progetti</a></li>
+        <li class="nav-item"><a class="nav-link" href="#media">Media</a></li>
+        <li class="nav-item"><a class="nav-link" href="#agenda">Agenda</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contatti">Contatti</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="parallax" id="parallax1">
+    <div class="parallax-title">
+      <h1>Media</h1>
+    </div>
+  </div>
+
+  <section class="container-fluid py-5" id="media">
+    <div class="container">
+      <h3>Video</h3>
+      <div class="row">
+        <!-- Griglia Video -->
+        <div class="col-md-6 col-lg-4 mb-4">
+          <iframe width="100%" height="200" src="https://www.youtube.com/embed/nplr1inhbgc?si=Q5whjW-QB1y6ZoJa" title="YouTube video player" frameborder="0" allowtransparency="true" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <iframe width="100%" height="200" src="https://www.youtube.com/embed/qTzaeGGDn1s?si=rUslLxDITV37o5gF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <iframe width="100%" height="200" src="https://www.youtube.com/embed/zByjUrDbocY?si=3Tj5FcPJgH0sYh99" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <iframe width="100%" height="200" src="https://www.youtube.com/embed/ARHwitDa658?si=9y3TGGqYOGfATbb3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <iframe width="100%" height="200" src="https://www.youtube.com/embed/EgaYX8-OCZY?si=_CB7o7KA-KkcR84F" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <iframe width="100%" height="200" src="https://www.youtube.com/embed/sgkfTYNmHe0?si=E88aehUjEsuDujKa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <!-- Aggiungi altre righe di video qui -->
+      </div>
+
+      <h3 class="mt-5">Spotify</h3>
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://open.spotify.com/embed/album/xyz" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+      </div>
+
+      <!-- carosello immagini -->
+      <h3 class="mt-5 text-center">Galleria Immagini</h3>
+
+      <div id="galleryCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="../imgs/chordacordis.png" alt="Image 1">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="../imgs/sara+natalie.jpg" alt="Image 2">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="../imgs/troisanneux.jpg" alt="Image 3">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="../imgs/saraScura.jpg" alt="Image 4">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="../imgs/sara+colin.png" alt="Image 5">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="../imgs/rubensrosa.jpg" alt="Image 6">
+          </div>
+        </div>
+      
+        <!-- Controlli -->
+        <a class="carousel-control-prev" href="#galleryCarousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Precedente</span>
+        </a>
+        <a class="carousel-control-next" href="#galleryCarousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Successivo</span>
+        </a>
+      </div>
+      
+      <!-- Thumbnails -->
+      <div class="row mt-3 justify-content-center">
+        <div class="col-auto px-1">
+          <img src="../imgs/chordacordis.png" class="img-thumbnail thumb" data-target="#galleryCarousel" data-slide-to="0">
+        </div>
+        <div class="col-auto px-1">
+          <img src="../imgs/sara+natalie.jpg" class="img-thumbnail thumb" data-target="#galleryCarousel" data-slide-to="1">
+        </div>
+        <div class="col-auto px-1">
+          <img src="../imgs/troisanneux.jpg" class="img-thumbnail thumb" data-target="#galleryCarousel" data-slide-to="2">
+        </div>
+        <div class="col-auto px-1">
+          <img src="../imgs/saraScura.jpg" class="img-thumbnail thumb" data-target="#galleryCarousel" data-slide-to="3">
+        </div>
+        <div class="col-auto px-1">
+          <img src="../imgs/sara+colin.png" class="img-thumbnail thumb" data-target="#galleryCarousel" data-slide-to="4">
+        </div>
+        <div class="col-auto px-1">
+          <img src="../imgs/rubensrosa.jpg" class="img-thumbnail thumb" data-target="#galleryCarousel" data-slide-to="5">
+        </div>
+      </div>
+      
+      
+
+      <h3 class="mt-5">Social</h3>
+      <div id="instagram-feed">
+        <!-- Elfsight Instagram Feed | Untitled Instagram Feed -->
+        <script src="https://static.elfsight.com/platform/platform.js" async></script>
+        <div class="elfsight-app-3d2b3894-1f2f-4e92-b89f-04d9f5c7660c" data-elfsight-app-lazy></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-fluid py-5" id="contatti">
+    <div class="row no-gutters align-items-center">
+      <div class="col-md-6 px-5 py-5 text-center-mobile">
+        <h3 class="text-white">Informazioni e contatti</h3>
+        <p>
+          <a href="mailto:saramariafantini01@gmail.com" class="btn btn-outline-light btn-lg rounded-pill my-4">Contattami</a>
+        </p>
+        <div class="mb-4 social-icons-mobile">
+          <a href="#" class="text-white mr-3"><i class="fab fa-linkedin fa-lg fa-2x"></i></a>
+          <a href="#" class="text-white mr-3"><i class="fab fa-instagram fa-lg fa-2x"></i></a>
+          <a href="#" class="text-white mr-3"><i class="fab fa-facebook fa-lg fa-2x"></i></a>
+          <a href="#" class="text-white mr-3"><i class="fab fa-twitter fa-lg fa-2x"></i></a>
+          <a href="#" class="text-white mr-3"><i class="fab fa-youtube fa-lg fa-2x"></i></a>
+        </div>
+        <p class="text-white">saramariafantini[at]gmail[punto]com<br>012 3456789</p>
+        <p class="text-white">Foto di Clara Brunet, Alessandro de Carolis, Rebecca Maria Fantini, Danko Strahinić.<br>
+        © 2025 Sara Maria Fantini. Tutti i diritti riservati.</p>
+      </div>
+      <div class="col-md-6 text-right">
+        <img src="../imgs/contacts.jpg" alt="Sara Maria Fantini" class="img-right img-fluid w-75 mb-0 pb-0">
+      </div>
+    </div>
+  </section>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- script per incorporare feed instagram senza passare da Elfsight con account annagalinda, procedimento lungo, vedi appunti -->
+  <script>
+    const accessToken = 'IL_TUO_ACCESS_TOKEN';
+    const userId = 'saram.fantini';
+    
+    fetch(`https://graph.instagram.com/${userId}/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink&access_token=${accessToken}`)
+      .then(response => response.json())
+      .then(data => {
+        let posts = '';
+        data.data.forEach(post => {
+          posts += `
+            <div class="instagram-post">
+              <a href="${post.permalink}" target="_blank">
+                <img src="${post.media_url}" alt="${post.caption}" />
+              </a>
+            </div>
+          `;
+        });
+        document.getElementById('instagram-feed').innerHTML = posts;
+      })
+      .catch(error => console.log('Errore:', error));
+  </script>
+</body>
+</html>
