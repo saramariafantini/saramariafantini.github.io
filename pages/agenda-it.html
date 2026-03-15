@@ -206,6 +206,139 @@
       font-style: italic;
     }
 
+
+    /* ── Horizontal timeline ── */
+    .htl-wrap {
+      position: relative;
+      overflow-x: auto;
+      overflow-y: visible;
+      padding: 80px 0 48px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: #9caf88 #d4e4cc;
+      cursor: grab;
+    }
+    .htl-wrap:active { cursor: grabbing; }
+    .htl-wrap::-webkit-scrollbar { height: 4px; }
+    .htl-wrap::-webkit-scrollbar-track { background: #d4e4cc; border-radius: 2px; }
+    .htl-wrap::-webkit-scrollbar-thumb { background: #9caf88; border-radius: 2px; }
+    .htl-inner { position: relative; min-width: 100%; }
+    .htl-line {
+      position: absolute;
+      top: 50%; left: 0; right: 0;
+      height: 1.5px;
+      background: #b8cfb0;
+      transform: translateY(-50%);
+    }
+    .htl-year {
+      position: absolute;
+      bottom: -30px;
+      transform: translateX(-50%);
+      font-family: 'Lora', serif;
+      font-size: 0.72em;
+      letter-spacing: 0.1em;
+      color: #7a9470;
+      white-space: nowrap;
+    }
+    .htl-dot-wrap {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+    .htl-dot {
+      width: 11px; height: 11px;
+      border-radius: 50%;
+      border: 2px solid;
+      cursor: pointer;
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .htl-dot-wrap:hover .htl-dot, .htl-dot-wrap.active .htl-dot {
+      transform: scale(1.6);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .htl-c-marginalia   { background:#4a5e3a; border-color:#4a5e3a; }
+    .htl-c-siobule      { background:#7a6040; border-color:#7a6040; }
+    .htl-c-chordacordis { background:#3a5e58; border-color:#3a5e58; }
+    .htl-c-troisanneaux { background:#5a3e6a; border-color:#5a3e6a; }
+    .htl-c-rubensrosa   { background:#8a3e3e; border-color:#8a3e3e; }
+    .htl-c-other        { background:#6a6a5a; border-color:#6a6a5a; }
+    .htl-tooltip {
+      position: absolute;
+      bottom: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border: 1px solid #c8d9bf;
+      border-radius: 6px;
+      padding: 8px 12px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.18s;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+    .htl-dot-wrap:hover .htl-tooltip, .htl-dot-wrap.active .htl-tooltip { opacity: 1; }
+    .htl-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%; left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #c8d9bf;
+    }
+    .htl-tt-date  { font-family:'Ysabeau',sans-serif; font-size:0.72em; color:#7a9470; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:2px; }
+    .htl-tt-prog  { font-family:'Lora',serif; font-size:0.92em; color:#2a2a2a; display:block; }
+    .htl-tt-venue { font-family:'Ysabeau',sans-serif; font-size:0.8em; color:#666; display:block; }
+    .htl-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 1.2rem;
+    }
+    .htl-header-left .section-label { margin-bottom: 0.15rem; }
+    .htl-header-left .section-title  { margin-bottom: 0; }
+    .htl-legend-inline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      align-items: center;
+      padding-bottom: 4px;
+    }
+    .htl-legend-inline .htl-legend-item {
+      display: flex; align-items: center; gap: 6px;
+      font-family: 'Ysabeau', sans-serif; font-size: 0.78em; color: #555;
+    }
+    .htl-legend-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+    .htl-hint {
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.76em;
+      color: #9caf88;
+      letter-spacing: 0.04em;
+      text-align: center;
+      margin: 4px 0 0;
+    }
+    .htl-hint-mobile { display: none; }
+    .htl-section-sep {
+      border: none;
+      border-top: 1px solid #c8d9bf;
+      margin: 2rem 0 1.8rem;
+    }
+    .archive-note {
+      font-size: 0.82em;
+      color: #888;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+    @media (max-width: 576px) {
+      .htl-hint-desktop { display: none; }
+      .htl-hint-mobile  { display: block; }
+      .htl-header { flex-direction: column; align-items: flex-start; }
+    }
+
     /* ── Empty state ── */
     .no-concerts {
       text-align: center;
@@ -290,7 +423,22 @@
       <p class="section-label">Archivio</p>
       <h2 class="section-title">Concerti passati</h2>
       <div id="map-archive"></div>
-      <p class="archive-note">Clicca su un segnaposto per visualizzare i dettagli del concerto.</p>
+      <p class="archive-note-hidden" style="display:none"></p>
+      <hr class="htl-section-sep">
+      <div class="htl-header">
+        <div class="htl-header-left">
+          <p class="section-label">Linea del tempo</p>
+          <h3 class="section-title" style="font-size:1.4em;">Dove e quando</h3>
+        </div>
+        <div class="htl-legend-inline" id="htl-legend"></div>
+      </div>
+      <div class="htl-wrap" id="htl-wrap">
+        <div class="htl-inner" id="htl-inner">
+          <div class="htl-line"></div>
+        </div>
+      </div>
+      <p class="htl-hint htl-hint-desktop">&#8592; scorri &nbsp;·&nbsp; rotella del mouse per zoomare &nbsp;·&nbsp; passa il mouse su un punto</p>
+      <p class="htl-hint htl-hint-mobile">scorri orizzontalmente &nbsp;·&nbsp; pizzica per zoomare &nbsp;·&nbsp; tocca un punto per i dettagli</p>
     </div>
   </section>
 
@@ -726,6 +874,239 @@
   if (archiveBounds.length > 0) mapA.fitBounds(archiveBounds, {padding: [40,40]});
   else mapA.setView([46, 8], 4);
 
+  </script>
+
+  <script>
+  /* ── Horizontal timeline ── */
+  (function() {
+    var archive = concerts.filter(function(c){ return !c.upcoming; })
+                          .sort(function(a,b){ return a.date > b.date ? 1 : -1; });
+    if (!archive.length) return;
+
+    var colorMap = {
+      'marginalia':    'htl-c-marginalia',
+      'siobulé':       'htl-c-siobule',
+      'siobule':       'htl-c-siobule',
+      'rubens rosa':   'htl-c-rubensrosa',
+      'chordacordis':  'htl-c-chordacordis',
+      'trois anneaux': 'htl-c-troisanneaux',
+      'nel bel giardino': 'htl-c-other',
+      'olla vogala':   'htl-c-other',
+      'jerusalem':     'htl-c-other',
+      'la tempesta':   'htl-c-other',
+      'li gieus':      'htl-c-other',
+      'atelier':       'htl-c-other',
+      'cantigas':      'htl-c-other',
+    };
+    var legendLabels = {
+      'htl-c-marginalia':    'Marginalia',
+      'htl-c-siobule':       'Siobulé',
+      'htl-c-rubensrosa':    'Rubens Rosa',
+      'htl-c-chordacordis':  'ChordaCordis',
+      'htl-c-troisanneaux':  'Trois Anneaux',
+      'htl-c-other':         'Altri progetti',
+    };
+    var legendColors = {
+      'htl-c-marginalia':'#4a5e3a','htl-c-siobule':'#7a6040',
+      'htl-c-rubensrosa':'#8a3e3e','htl-c-chordacordis':'#3a5e58',
+      'htl-c-troisanneaux':'#5a3e6a','htl-c-other':'#6a6a5a'
+    };
+
+    function getClass(prog) {
+      var p = prog.toLowerCase();
+      for (var key in colorMap) {
+        if (p.indexOf(key) !== -1) return colorMap[key];
+      }
+      return 'htl-c-other';
+    }
+
+    var months = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+
+    var minTs = new Date(archive[0].date + 'T00:00:00').getTime();
+    var maxTs = new Date(archive[archive.length-1].date + 'T00:00:00').getTime();
+    var range = maxTs - minTs || 1;
+
+    // padding in percent so dots on edges aren't clipped
+    var PAD = 5;
+
+    var wrap = document.getElementById('htl-inner');
+    // set min-width so dots have breathing room
+    var minPx = Math.max(archive.length * 50, 600);
+    wrap.style.minWidth = minPx + 'px';
+    wrap.style.height = '1px'; // height is driven by padding on .htl-wrap
+
+    // Year markers
+    var years = {};
+    archive.forEach(function(c) {
+      var y = c.date.slice(0, 4);
+      if (!years[y]) {
+        var ts = new Date(y + '-01-01T00:00:00').getTime();
+        var pct = PAD + ((ts - minTs) / range) * (100 - PAD * 2);
+        pct = Math.max(PAD, Math.min(100 - PAD, pct));
+        years[y] = pct;
+      }
+    });
+    for (var yr in years) {
+      var yl = document.createElement('span');
+      yl.className = 'htl-year';
+      yl.style.left = years[yr] + '%';
+      yl.textContent = yr;
+      wrap.appendChild(yl);
+    }
+
+    // Dots
+    var usedClasses = {};
+    archive.forEach(function(c, i) {
+      var ts = new Date(c.date + 'T00:00:00').getTime();
+      var pct = PAD + ((ts - minTs) / range) * (100 - PAD * 2);
+      var cls = getClass(c.program);
+      usedClasses[cls] = true;
+
+      var dt = new Date(c.date + 'T00:00:00');
+      var dateStr = dt.getDate() + ' ' + months[dt.getMonth()] + ' ' + dt.getFullYear();
+
+      var dw = document.createElement('div');
+      dw.className = 'htl-dot-wrap';
+      dw.style.left = pct + '%';
+
+      var dot = document.createElement('div');
+      dot.className = 'htl-dot ' + cls;
+
+      var tip = document.createElement('div');
+      tip.className = 'htl-tooltip';
+      tip.innerHTML =
+        '<span class="htl-tt-date">' + dateStr + '</span>' +
+        '<span class="htl-tt-prog">' + c.program + '</span>' +
+        '<span class="htl-tt-venue">' + c.venue + '</span>';
+
+      // toggle on click (for mobile)
+      dw.addEventListener('click', function(dw) {
+        return function(e) {
+          e.stopPropagation();
+          document.querySelectorAll('.htl-dot-wrap.active').forEach(function(el) {
+            if (el !== dw) el.classList.remove('active');
+          });
+          dw.classList.toggle('active');
+        };
+      }(dw));
+
+      dw.appendChild(dot);
+      dw.appendChild(tip);
+      wrap.appendChild(dw);
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function() {
+      document.querySelectorAll('.htl-dot-wrap.active').forEach(function(el) {
+        el.classList.remove('active');
+      });
+    });
+
+    // Legend
+    var legend = document.getElementById('htl-legend');
+    for (var cls in legendLabels) {
+      if (!usedClasses[cls]) continue;
+      var li = document.createElement('div');
+      li.className = 'htl-legend-item';
+      li.innerHTML = '<div class="htl-legend-dot" style="background:' + legendColors[cls] + '"></div>' + legendLabels[cls];
+      legend.appendChild(li);
+    }
+
+    // ── Wheel zoom (centred on cursor) ──────────────────────────
+    var wrapEl  = document.getElementById('htl-wrap');
+    var innerEl = document.getElementById('htl-inner');
+    var BASE_PX = Math.max(archive.length * 50, 600);
+    var zoom    = 1;
+    var MIN_ZOOM = 1, MAX_ZOOM = 8;
+
+    function applyZoom(newZoom, anchorRatio) {
+      newZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, newZoom));
+      var ratio = anchorRatio !== undefined
+        ? anchorRatio
+        : (wrapEl.scrollLeft + wrapEl.clientWidth / 2) / innerEl.scrollWidth;
+      zoom = newZoom;
+      innerEl.style.minWidth = (BASE_PX * zoom) + 'px';
+      wrapEl.scrollLeft = ratio * innerEl.scrollWidth - wrapEl.clientWidth / 2;
+    }
+
+    wrapEl.addEventListener('wheel', function(e) {
+      e.preventDefault();
+      var rect    = wrapEl.getBoundingClientRect();
+      var cursorX = e.clientX - rect.left + wrapEl.scrollLeft;
+      var anchor  = cursorX / innerEl.scrollWidth;
+      applyZoom(zoom * (e.deltaY < 0 ? 1.2 : 1 / 1.2), anchor);
+    }, { passive: false });
+
+    // Pinch-to-zoom (mobile)
+    var initDist = null, initZoom = 1;
+    wrapEl.addEventListener('touchstart', function(e) {
+      if (e.touches.length === 2) {
+        initDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+        initZoom = zoom;
+      }
+    }, { passive: true });
+    wrapEl.addEventListener('touchmove', function(e) {
+      if (e.touches.length === 2 && initDist) {
+        var dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+        applyZoom(initZoom * (dist / initDist));
+      }
+    }, { passive: true });
+    wrapEl.addEventListener('touchend', function() { initDist = null; });
+
+    // ── Wheel zoom (centred on cursor) ──────────────────────────
+    var wrapEl  = document.getElementById('htl-wrap');
+    var innerEl = document.getElementById('htl-inner');
+    var BASE_PX = Math.max(archive.length * 50, 600);
+    var zoom    = 1;
+    var MIN_ZOOM = 1, MAX_ZOOM = 8;
+
+    function applyZoom(newZoom, anchorRatio) {
+      newZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, newZoom));
+      var ratio = anchorRatio !== undefined
+        ? anchorRatio
+        : (wrapEl.scrollLeft + wrapEl.clientWidth / 2) / innerEl.scrollWidth;
+      zoom = newZoom;
+      innerEl.style.minWidth = (BASE_PX * zoom) + 'px';
+      wrapEl.scrollLeft = ratio * innerEl.scrollWidth - wrapEl.clientWidth / 2;
+    }
+
+    wrapEl.addEventListener('wheel', function(e) {
+      e.preventDefault();
+      var rect    = wrapEl.getBoundingClientRect();
+      var cursorX = e.clientX - rect.left + wrapEl.scrollLeft;
+      var anchor  = cursorX / innerEl.scrollWidth;
+      applyZoom(zoom * (e.deltaY < 0 ? 1.2 : 1 / 1.2), anchor);
+    }, { passive: false });
+
+    // Pinch-to-zoom (mobile)
+    var initDist = null, initZoom = 1;
+    wrapEl.addEventListener('touchstart', function(e) {
+      if (e.touches.length === 2) {
+        initDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+        initZoom = zoom;
+      }
+    }, { passive: true });
+    wrapEl.addEventListener('touchmove', function(e) {
+      if (e.touches.length === 2 && initDist) {
+        var dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+        applyZoom(initZoom * (dist / initDist));
+      }
+    }, { passive: true });
+    wrapEl.addEventListener('touchend', function() { initDist = null; });
+
+    // Drag to scroll
+    var isDown = false, startX, scrollLeft;
+    wrapEl.addEventListener('mousedown', function(e) {
+      isDown = true; startX = e.pageX - wrapEl.offsetLeft; scrollLeft = wrapEl.scrollLeft;
+    });
+    wrapEl.addEventListener('mouseleave', function() { isDown = false; });
+    wrapEl.addEventListener('mouseup',    function() { isDown = false; });
+    wrapEl.addEventListener('mousemove',  function(e) {
+      if (!isDown) return;
+      e.preventDefault();
+      wrapEl.scrollLeft = scrollLeft - (e.pageX - wrapEl.offsetLeft - startX);
+    });
+  })();
   </script>
 </body>
 </html>
