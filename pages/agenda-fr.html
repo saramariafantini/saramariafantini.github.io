@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sara Maria Fantini — agenda de concerts, prochaines dates et archives.">
+  <title>Agenda | Sara Maria Fantini</title>
+  <link rel="icon" type="image/x-icon" href="../imgs/favicon-rosa.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Lora&family=Ysabeau&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      overflow-x: hidden;
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 1.1em;
+      background-color: #f5f0e8;
+      color: #2a2a2a;
+      margin: 0; padding: 0;
+    }
+    h1,h2,h3,h4,h5,h6 { font-family: 'Lora', serif; }
+
+    /* ── Navbar ── */
+    .navbar {
+      background-color: #9caf88;
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 1.2em;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    /* ── Hero ── */
+    .agenda-hero {
+      background: url('../imgs/saraScura.jpg') center center / cover no-repeat;
+      min-height: 55vh;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 3rem;
+      position: relative;
+    }
+    .agenda-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%);
+    }
+    .agenda-hero-title {
+      position: relative;
+      z-index: 1;
+      color: #f9f4e0;
+      padding-left: 2rem;
+    }
+    .agenda-hero-title h1 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 400;
+      margin: 0;
+      letter-spacing: 0.04em;
+    }
+    .agenda-hero-title p {
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 1em;
+      opacity: 0.85;
+      margin: 0.3rem 0 0;
+    }
+    @media (max-width: 768px) {
+      .agenda-hero { min-height: 40vh; }
+    }
+
+    /* ── Section headers ── */
+    .section-label {
+      font-family: 'Lora', serif;
+      font-size: 0.78em;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #7a9470;
+      margin-bottom: 0.3rem;
+    }
+    .section-title {
+      font-size: 1.9em;
+      font-weight: 400;
+      color: #2a2a2a;
+      margin-bottom: 2.2rem;
+      border-bottom: 1.5px solid #c8d9bf;
+      padding-bottom: 0.6rem;
+    }
+
+    /* ── Timeline concerti ── */
+    .timeline { position: relative; padding-left: 0; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 90px;
+      top: 0; bottom: 0;
+      width: 1.5px;
+      background: #c8d9bf;
+    }
+    .concert-item {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2.4rem;
+      position: relative;
+      align-items: flex-start;
+    }
+    .concert-date {
+      flex: 0 0 90px;
+      text-align: right;
+      padding-right: 24px;
+      padding-top: 2px;
+    }
+    .concert-date .day {
+      font-family: 'Lora', serif;
+      font-size: 2em;
+      line-height: 1;
+      color: #4a5e3a;
+      display: block;
+    }
+    .concert-date .month-year {
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.72em;
+      color: #7a9470;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 84px;
+      top: 8px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #9caf88;
+      border: 2.5px solid #7a9470;
+      z-index: 1;
+    }
+    .concert-body {
+      flex: 1;
+      padding-left: 28px;
+      padding-top: 0;
+    }
+    .concert-program {
+      font-family: 'Lora', serif;
+      font-size: 1.05em;
+      color: #2a2a2a;
+      margin-bottom: 0.2rem;
+    }
+    .concert-venue {
+      font-size: 0.88em;
+      color: #5a5a5a;
+      margin-bottom: 0.15rem;
+    }
+    .concert-venue i { color: #9caf88; margin-right: 5px; }
+    .concert-note {
+      font-size: 0.82em;
+      color: #888;
+      font-style: italic;
+      margin-bottom: 0.4rem;
+    }
+    .concert-social a {
+      color: #9caf88;
+      font-size: 0.95em;
+      margin-right: 10px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .concert-social a:hover { color: #4a5e3a; }
+    .concert-map-link {
+      font-size: 0.82em;
+      color: #7a9470;
+      text-decoration: none;
+      border-bottom: 1px dotted #9caf88;
+      cursor: pointer;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      padding: 0;
+      font-family: 'Ysabeau', sans-serif;
+    }
+    .concert-map-link:hover { color: #4a5e3a; }
+    @media (max-width: 576px) {
+      .timeline::before { left: 60px; }
+      .concert-date { flex: 0 0 60px; padding-right: 16px; }
+      .concert-date .day { font-size: 1.5em; }
+      .timeline-dot { left: 54px; }
+      .concert-body { padding-left: 20px; }
+    }
+
+    /* ── Upcoming map ── */
+    #map-upcoming {
+      height: 340px;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── Archive map ── */
+    #map-archive {
+      height: 420px;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .archive-note {
+      font-size: 0.82em;
+      color: #888;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+
+    /* ── Empty state ── */
+    .no-concerts {
+      text-align: center;
+      color: #aaa;
+      font-style: italic;
+      padding: 2rem 0;
+    }
+
+    /* ── Leaflet popup custom ── */
+    .leaflet-popup-content-wrapper {
+      border-radius: 6px;
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.95em;
+    }
+    .popup-date { font-size: 0.8em; color: #7a9470; letter-spacing: 0.08em; text-transform: uppercase; }
+    .popup-program { font-family: 'Lora', serif; font-size: 1em; margin: 2px 0; }
+    .popup-venue { font-size: 0.85em; color: #666; }
+
+    /* ── Footer ── */
+    .footer-section {
+      background-color: #9caf88;
+      color: #060608;
+      padding: 50px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar navbar-expand-sm navbar-dark fixed-top" id="mainNavbar">
+    <a class="navbar-brand d-block d-sm-none" href="../index.html">
+      <img src="../imgs/favicon-rosa.ico" alt="Logo" style="width:20px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+      <a class="navbar-brand justify-content-center" href="../index.html">Sara Maria Fantini</a>
+      <ul class="navbar-nav text-md-nowrap">
+        <li class="nav-item"><a class="nav-link" href="home-fr.html#bio">Bio</a></li>
+        <li class="nav-item"><a class="nav-link" href="progetti-fr.html">Projets</a></li>
+        <li class="nav-item"><a class="nav-link" href="home-fr.html#media">Media</a></li>
+        <li class="nav-item"><a class="nav-link active" href="agenda-fr.html">Agenda</a></li>
+        <li class="nav-item"><a class="nav-link" href="home-fr.html#contacts">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <div class="agenda-hero" style="margin-top:56px;">
+    <div class="agenda-hero-title">
+      <h1>Agenda</h1>
+      <p>Prochaines dates &amp; archives</p>
+    </div>
+  </div>
+
+  <!-- ══ PROSSIME DATE ══ -->
+  <section class="container py-5" id="prossime-date">
+    <p class="section-label">Calendrier</p>
+    <h2 class="section-title">Prochaines dates</h2>
+
+    <!-- ╔══════════════════════════════════════════════════════════════╗
+         ║  COMMENT AJOUTER UN CONCERT                                ║
+         ║  Copiez un des blocs ci-dessous et modifiez les valeurs.       ║
+         ║  Mettez upcoming: true pour les prochains concerts,               ║
+         ║  upcoming: false pour les archives.                            ║
+         ╚══════════════════════════════════════════════════════════════╝ -->
+    <div class="timeline" id="upcoming-timeline"></div>
+    <p class="no-concerts" id="no-upcoming" style="display:none;">Aucun concert prévu pour le moment. Revenez bientôt !</p>
+  </section>
+
+  <!-- ══ MAPPA PROSSIME DATE ══ -->
+  <section class="container pb-5" id="mappa-concerti">
+    <p class="section-label">Où</p>
+    <h2 class="section-title">Carte des prochains concerts</h2>
+    <div id="map-upcoming"></div>
+  </section>
+
+  <!-- ══ ARCHIVIO ══ -->
+  <section style="background:#e8f0e2; padding: 3rem 0;">
+    <div class="container" id="archivio">
+      <p class="section-label">Archives</p>
+      <h2 class="section-title">Concerts passés</h2>
+      <div id="map-archive"></div>
+      <p class="archive-note">Cliquez sur un marqueur pour afficher les détails du concert.</p>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <section class="footer-section py-5" id="contatti">
+    <div class="row no-gutters align-items-center">
+      <div class="col-md-6 px-5 py-4 text-center">
+        <h3 style="font-family:'Lora',serif; padding:1em 0 0.5em;">Informations et contact</h3>
+        <p>
+          <a href="mailto:saramariafantini01@gmail.com" class="btn btn-outline-dark btn-lg rounded-pill mx-auto my-3">Contactez-moi</a>
+        </p>
+        <div class="mb-4">
+          <a href="https://www.linkedin.com/in/sara-maria-fantini-5a789412b/" class="mr-3"><i class="fab fa-linkedin fa-2x" style="color:#2a2a2a;"></i></a>
+          <a href="https://www.instagram.com/saram.fantini" class="mr-3"><i class="fab fa-instagram fa-2x" style="color:#2a2a2a;"></i></a>
+          <a href="https://www.facebook.com/saramaria.fantini" class="mr-3"><i class="fab fa-facebook fa-2x" style="color:#2a2a2a;"></i></a>
+          <a href="https://x.com/saramfantini" class="mr-3"><i class="fab fa-twitter fa-2x" style="color:#2a2a2a;"></i></a>
+          <a href="https://www.youtube.com/@saramariafantini8715" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube fa-2x" style="color:#2a2a2a;"></i></a>
+        </div>
+        <p>saramariafantini[at]gmail[point]com</p>
+        <p style="font-size:0.85em; color:#444;">© 2025 Sara Maria Fantini. Tous droits réservés.</p>
+      </div>
+      <div class="col-md-6 text-right">
+        <img src="../imgs/contacts.jpg" alt="Sara Maria Fantini" class="img-fluid w-75" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+  /* ════════════════════════════════════════════════════════════════════
+     DATI CONCERTI
+     ────────────────────────────────────────────────────────────────────
+     Ogni concerto è un oggetto con le seguenti proprietà:
+       date    : "YYYY-MM-DD"   (data del concerto)
+       program : "Titolo"       (nome del programma / spettacolo)
+       venue   : "Nome del luogo" (teatro, chiesa, festival…)
+       city    : "Città, Paese"
+       note    : "testo libero" (facoltativo — es. "con Ensemble X")
+       lat/lng : coordinate per la mappa (cerca su maps.google.com)
+       upcoming: true = prossimo / false = archivio
+       instagram: "" (URL post Instagram facoltativo)
+       facebook : "" (URL evento Facebook facoltativo)
+  ════════════════════════════════════════════════════════════════════ */
+  var concerts = [
+
+    /* ── PROSSIMI CONCERTI ── */
+    {
+      date: "2025-06-14",
+      program: "Marginalia",
+      venue: "Abbazia di Fossanova",
+      city: "Priverno (LT), Italia",
+      note: "Ensemble Fragmenta",
+      lat: 41.4867, lng: 13.1733,
+      upcoming: true,
+      instagram: "",
+      facebook: ""
+    },
+    {
+      date: "2025-07-19",
+      program: "Siobulé",
+      venue: "Festival de Musique Ancienne de Moissac",
+      city: "Moissac, Francia",
+      note: "",
+      lat: 44.1044, lng: 1.0836,
+      upcoming: true,
+      instagram: "",
+      facebook: ""
+    },
+    {
+      date: "2025-09-06",
+      program: "Trois Anneaux",
+      venue: "Chapelle des Pénitents Blancs",
+      city: "Avignon, Francia",
+      note: "Ensemble Oineroï",
+      lat: 43.9493, lng: 4.8059,
+      upcoming: true,
+      instagram: "",
+      facebook: ""
+    },
+
+    /* ── ARCHIVIO CONCERTI ── */
+    {
+      date: "2025-05-04",
+      program: "Marginalia",
+      venue: "Festival dell'Ascensione",
+      city: "Milan, Italie",
+      note: "Ensemble Fragmenta",
+      lat: 45.4642, lng: 9.1900,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    {
+      date: "2024-11-23",
+      program: "Siobulé",
+      venue: "Abbaye de Royaumont",
+      city: "Asnières-sur-Oise, Francia",
+      note: "Résidence artistique",
+      lat: 49.1421, lng: 2.3634,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    {
+      date: "2024-10-05",
+      program: "Trois Anneaux",
+      venue: "JM France",
+      city: "Parigi, Francia",
+      note: "Ensemble Oineroï",
+      lat: 48.8566, lng: 2.3522,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    {
+      date: "2024-06-21",
+      program: "ChordaCordis",
+      venue: "Kulturo Rümmingen",
+      city: "Rümmingen, Germania",
+      note: "",
+      lat: 47.6247, lng: 7.5892,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    {
+      date: "2023-08-12",
+      program: "Marginalia",
+      venue: "Festival Voix et Route Romane",
+      city: "Strasburgo, Francia",
+      note: "",
+      lat: 48.5734, lng: 7.7521,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    {
+      date: "2023-03-18",
+      program: "Cantigas de Santa Maria",
+      venue: "Abbaye de Royaumont",
+      city: "Asnières-sur-Oise, Francia",
+      note: "",
+      lat: 49.1421, lng: 2.3634,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    {
+      date: "2022-10-01",
+      program: "Rubens Rosa",
+      venue: "Festival Medimus",
+      city: "Split, Croatie",
+      note: "",
+      lat: 43.5081, lng: 16.4402,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    }
+  ];
+  /* ════ fine dati ════ */
+
+  /* ── helpers ── */
+  function fmtDate(d) {
+    var dt = new Date(d + 'T00:00:00');
+    var days = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+    var months = ['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
+    return {
+      day:    dt.getDate(),
+      wd:     days[dt.getDay()],
+      month:  months[dt.getMonth()],
+      year:   dt.getFullYear()
+    };
+  }
+  function shareUrl(type, concert) {
+    var text = encodeURIComponent(concert.program + ' — ' + concert.venue + ', ' + concert.city);
+    if (type === 'fb')
+      return 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href);
+    if (type === 'ig')
+      return concert.instagram || 'https://www.instagram.com/saram.fantini';
+    return '#';
+  }
+
+  /* ── build upcoming timeline ── */
+  var upcoming = concerts.filter(function(c){ return c.upcoming; })
+                         .sort(function(a,b){ return a.date > b.date ? 1 : -1; });
+
+  var tl = document.getElementById('upcoming-timeline');
+  if (upcoming.length === 0) {
+    document.getElementById('no-upcoming').style.display = 'block';
+  } else {
+    upcoming.forEach(function(c) {
+      var d = fmtDate(c.date);
+      var social = '';
+      if (c.facebook || true)
+        social += '<a href="' + shareUrl('fb', c) + '" target="_blank" rel="noopener noreferrer" title="Partager sur Facebook"><i class="fab fa-facebook"></i></a>';
+      if (c.instagram || true)
+        social += '<a href="' + shareUrl('ig', c) + '" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>';
+
+      tl.innerHTML +=
+        '<div class="concert-item">' +
+        '  <div class="concert-date">' +
+        '    <span class="day">' + d.day + '</span>' +
+        '    <span class="month-year">' + d.wd + ' ' + d.month + ' ' + d.year + '</span>' +
+        '  </div>' +
+        '  <div class="timeline-dot"></div>' +
+        '  <div class="concert-body">' +
+        '    <div class="concert-program">' + c.program + '</div>' +
+        '    <div class="concert-venue"><i class="fas fa-map-marker-alt"></i>' + c.venue + ' — ' + c.city + '</div>' +
+        (c.note ? '<div class="concert-note">' + c.note + '</div>' : '') +
+        '    <div class="concert-social">' + social + '</div>' +
+        '  </div>' +
+        '</div>';
+    });
+  }
+
+  /* ── upcoming map ── */
+  var mapU = L.map('map-upcoming', { zoomControl: true, scrollWheelZoom: false });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> © <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd', maxZoom: 19
+  }).addTo(mapU);
+
+  var greenIcon = L.divIcon({
+    className: '',
+    html: '<div style="width:14px;height:14px;border-radius:50%;background:#4a5e3a;border:2.5px solid #9caf88;box-shadow:0 1px 4px rgba(0,0,0,0.3);"></div>',
+    iconSize: [14,14], iconAnchor: [7,7]
+  });
+
+  if (upcoming.length > 0) {
+    var bounds = [];
+    upcoming.forEach(function(c) {
+      var d = fmtDate(c.date);
+      var popup = '<div class="popup-date">' + d.wd + ' ' + d.day + ' ' + d.month + ' ' + d.year + '</div>' +
+                  '<div class="popup-program">' + c.program + '</div>' +
+                  '<div class="popup-venue">' + c.venue + '<br>' + c.city + '</div>';
+      L.marker([c.lat, c.lng], {icon: greenIcon}).addTo(mapU).bindPopup(popup);
+      bounds.push([c.lat, c.lng]);
+    });
+    mapU.fitBounds(bounds, {padding: [40,40]});
+  } else {
+    mapU.setView([44, 10], 4);
+  }
+
+  /* ── archive map ── */
+  var mapA = L.map('map-archive', { zoomControl: true, scrollWheelZoom: false });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> © <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd', maxZoom: 19
+  }).addTo(mapA);
+
+  var archiveIcon = L.divIcon({
+    className: '',
+    html: '<div style="width:11px;height:11px;border-radius:50%;background:#9caf88;border:2px solid #7a9470;box-shadow:0 1px 3px rgba(0,0,0,0.2);"></div>',
+    iconSize: [11,11], iconAnchor: [5.5,5.5]
+  });
+
+  var archive = concerts.filter(function(c){ return !c.upcoming; })
+                        .sort(function(a,b){ return a.date < b.date ? 1 : -1; });
+  var archiveBounds = [];
+  archive.forEach(function(c) {
+    var d = fmtDate(c.date);
+    var popup = '<div class="popup-date">' + d.day + ' ' + d.month + ' ' + d.year + '</div>' +
+                '<div class="popup-program">' + c.program + '</div>' +
+                '<div class="popup-venue">' + c.venue + '<br>' + c.city + '</div>' +
+                (c.note ? '<div class="popup-venue" style="font-style:italic;">' + c.note + '</div>' : '');
+    L.marker([c.lat, c.lng], {icon: archiveIcon}).addTo(mapA).bindPopup(popup);
+    archiveBounds.push([c.lat, c.lng]);
+  });
+  if (archiveBounds.length > 0) mapA.fitBounds(archiveBounds, {padding: [40,40]});
+  else mapA.setView([46, 8], 4);
+
+  </script>
+</body>
+</html>
