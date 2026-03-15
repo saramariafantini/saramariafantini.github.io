@@ -86,6 +86,105 @@
         text-align: center;
       }
     }
+
+    /* ── Gallery strip ── */
+    .gallery-strip-wrap {
+      position: relative;
+      margin-top: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .gallery-strip {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: #7a9470 #c8d9bf;
+    }
+    .gallery-strip::-webkit-scrollbar { height: 5px; }
+    .gallery-strip::-webkit-scrollbar-track { background: #c8d9bf; border-radius: 3px; }
+    .gallery-strip::-webkit-scrollbar-thumb { background: #7a9470; border-radius: 3px; }
+    .gallery-thumb {
+      flex: 0 0 auto;
+      height: 200px;
+      width: auto;
+      object-fit: cover;
+      cursor: pointer;
+      opacity: 0.85;
+      transition: opacity 0.25s, transform 0.25s;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    .gallery-thumb:hover {
+      opacity: 1;
+      transform: scale(1.02);
+    }
+    .strip-arrow {
+      display: none;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-60%);
+      background: rgba(156,175,136,0.85);
+      color: #fff;
+      border: none;
+      font-size: 1.8rem;
+      padding: 0.1em 0.45em;
+      cursor: pointer;
+      z-index: 5;
+      line-height: 1;
+      border-radius: 3px;
+      transition: background 0.2s;
+    }
+    .strip-arrow:hover { background: rgba(100,120,88,0.95); }
+    .strip-left  { left:  0; }
+    .strip-right { right: 0; }
+    @media (min-width: 768px) {
+      .strip-arrow { display: block; }
+      .gallery-thumb { height: 220px; }
+    }
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      font-size: 2.5rem;
+      padding: 0.15em 0.5em;
+      cursor: pointer;
+      z-index: 10;
+      line-height: 1;
+      border-radius: 4px;
+    }
+    .gallery-nav:hover { background: rgba(0,0,0,0.85); }
+    .gallery-prev { left: 10px; }
+    .gallery-next { right: 10px; }
+    .gallery-close {
+      position: absolute;
+      top: 8px;
+      right: 14px;
+      color: #fff;
+      font-size: 2rem;
+      opacity: 0.8;
+      z-index: 10;
+      background: none;
+      border: none;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .gallery-close:hover { opacity: 1; }
+    #galleryModalImg {
+      max-height: 80vh;
+      width: 100%;
+      object-fit: contain;
+    }
+    .gallery-counter {
+      color: #ccc;
+      font-size: 0.9rem;
+      padding: 6px 0 4px;
+    }
   </style>
 </head>
 <body>
@@ -151,6 +250,19 @@
         d’union, la lauda polifonica, genere d’elezione dei ceti urbani, in cui musica liturgica e secolare si
         incontrano nella pratica del contrafactum.
       </p>
+      
+      <div class="gallery-strip-wrap">
+        <button class="strip-arrow strip-left"  onclick="scrollStrip('marginaliaStrip', -320)" aria-label="Scorri a sinistra">&#8249;</button>
+        <div class="gallery-strip" id="marginaliaStrip">
+        <img src="../imgs/marginalia/marginalia-1.png" alt="Marginalia (1)" class="gallery-thumb" onclick="openGallery('marginalia', 0)" loading="lazy">
+        <img src="../imgs/marginalia/marginalia-2.png" alt="Marginalia (2)" class="gallery-thumb" onclick="openGallery('marginalia', 1)" loading="lazy">
+        <img src="../imgs/marginalia/marginalia-3.jpg" alt="Marginalia (3)" class="gallery-thumb" onclick="openGallery('marginalia', 2)" loading="lazy">
+        <img src="../imgs/marginalia/marginalia-4.jpg" alt="Marginalia (4)" class="gallery-thumb" onclick="openGallery('marginalia', 3)" loading="lazy">
+        <img src="../imgs/marginalia/marginalia-5.jpg" alt="Marginalia (5)" class="gallery-thumb" onclick="openGallery('marginalia', 4)" loading="lazy">
+        <img src="../imgs/marginalia/marginalia-6.jpg" alt="Marginalia (6)" class="gallery-thumb" onclick="openGallery('marginalia', 5)" loading="lazy">
+        </div>
+        <button class="strip-arrow strip-right" onclick="scrollStrip('marginaliaStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
+      </div>
     </div>
   </section>
 
@@ -160,6 +272,21 @@
     <div class="container">
       <h3>Projet <em>Siobulé</em></h3>
       <p><em>Siobulé</em> est le nom par lequel le grammairien latin Varron expliquait l'origine du mot « Sibylle » : une translittération du grec signifiant, en dialecte éolien, « conseil de Dieu ». C'est aussi le titre choisi par l'Ensemble Fragmenta pour un projet articulé autour du <em>Paradis de la reine Sibylle</em> d'Antoine de La Sale (1437–1442), récit de voyage fantastique situé dans les montagnes de Norcia et la grotte où — selon la légende médiévale — la Sibylle règne sur une cour où toutes les langues du monde sont parlées et comprises. Le point de départ est un territoire réel : les Monts Sibyllins, terre d'origine d'une partie de l'ensemble, marquée par les tremblements de terre de 2016. De cette fracture naît la question au cœur du projet : non pas comment récupérer des fragments d'une culture perdue, mais comment participer à la continuité vivante d'une tradition. Le répertoire met en dialogue des pièces musicales transmises par des sources fragmentaires du XVe siècle trouvées entre l'Ombrie et les Marches, des musiques traditionnelles du même territoire, la musique classique ottomane et crétoise, et des compositions originales. La musique est accompagnée par le dessin en direct d'Alessandro de Carolis, conçu dans le style des <em>marginalia</em> médiévaux, qui suit le fil narratif du récit.</p>
+      <div class="gallery-strip-wrap">
+        <button class="strip-arrow strip-left"  onclick="scrollStrip('siobuleStrip', -320)" aria-label="Scorri a sinistra">&#8249;</button>
+        <div class="gallery-strip" id="siobuleStrip">
+        <img src="../imgs/siobule/siobule-1.jpg" alt="Siobulé (1)" class="gallery-thumb" onclick="openGallery('siobule', 0)" loading="lazy">
+        <img src="../imgs/siobule/siobule-2.jpg" alt="Siobulé (2)" class="gallery-thumb" onclick="openGallery('siobule', 1)" loading="lazy">
+        <img src="../imgs/siobule/siobule-3.jpg" alt="Siobulé (3)" class="gallery-thumb" onclick="openGallery('siobule', 2)" loading="lazy">
+        <img src="../imgs/siobule/siobule-4.jpg" alt="Siobulé (4)" class="gallery-thumb" onclick="openGallery('siobule', 3)" loading="lazy">
+        <img src="../imgs/siobule/siobule-5.jpg" alt="Siobulé (5)" class="gallery-thumb" onclick="openGallery('siobule', 4)" loading="lazy">
+        <img src="../imgs/siobule/siobule-6.jpg" alt="Siobulé (6)" class="gallery-thumb" onclick="openGallery('siobule', 5)" loading="lazy">
+        <img src="../imgs/siobule/siobule-7.jpg" alt="Siobulé (7)" class="gallery-thumb" onclick="openGallery('siobule', 6)" loading="lazy">
+        <img src="../imgs/siobule/siobule-8.jpg" alt="Siobulé (8)" class="gallery-thumb" onclick="openGallery('siobule', 7)" loading="lazy">
+        <img src="../imgs/siobule/siobule-9.jpg" alt="Siobulé (9)" class="gallery-thumb" onclick="openGallery('siobule', 8)" loading="lazy">
+        </div>
+        <button class="strip-arrow strip-right" onclick="scrollStrip('siobuleStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
+      </div>
     </div>
   </section>
 
@@ -169,6 +296,17 @@
     <div class="container">
       <h3>Projet <em>ChordaCordis</em></h3>
       <p>ChordaCordis est né de la rencontre entre Sara Maria Fantini et Colin Heller à la Schola Cantorum Basiliensis de Bâle, où tous deux se sont formés à l'étude des répertoires historiques. Sara joue du oud, du luth médiéval et du chitarrino ; Colin est spécialisé dans les instruments à archet à cordes sympathiques — nyckelharpa, vièle médiévale et viole d'amour. Le duo explore la chanson européenne du Moyen Âge à nos jours, traçant un parcours qui de la France méridionale et de l'Italie s'étend à travers la Méditerranée jusqu'au Proche-Orient, mettant en dialogue des traditions diverses à travers la voix commune des instruments à cordes.</p>
+      
+      <div class="gallery-strip-wrap">
+        <button class="strip-arrow strip-left"  onclick="scrollStrip('chordacordisStrip', -320)" aria-label="Scorri a sinistra">&#8249;</button>
+        <div class="gallery-strip" id="chordacordisStrip">
+        <img src="../imgs/chordacordis/chordacordis-1.png" alt="ChordaCordis (1)" class="gallery-thumb" onclick="openGallery('chordacordis', 0)" loading="lazy">
+        <img src="../imgs/chordacordis/chordacordis-2.png" alt="ChordaCordis (2)" class="gallery-thumb" onclick="openGallery('chordacordis', 1)" loading="lazy">
+        <img src="../imgs/chordacordis/chordacordis-3.jpg" alt="ChordaCordis (3)" class="gallery-thumb" onclick="openGallery('chordacordis', 2)" loading="lazy">
+        <img src="../imgs/chordacordis/chordacordis-4.jpg" alt="ChordaCordis (4)" class="gallery-thumb" onclick="openGallery('chordacordis', 3)" loading="lazy">
+        </div>
+        <button class="strip-arrow strip-right" onclick="scrollStrip('chordacordisStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
+      </div>
     </div>
   </section>
 
@@ -178,6 +316,21 @@
     <div class="container">
       <h3>Projet <em>Trois Anneaux</em></h3>
       <p><em>Trois Anneaux — et autres récits décaméronesques</em> est un spectacle inspiré du <em>Décaméron</em> de Boccace (1313–1375), situé dans la Méditerranée médiévale, entre Occident et Orient. Trois histoires se racontent à travers les instruments et les voix : la vièle à archet, la flûte, le oud, le chitarrino et le chant s'alternent et s'entremêlent à la narration dans un programme incluant des musiques de Thibaut de Champagne, Lorenzo da Firenze, Francesco Landini, Guillaume de Machaut, des pièces anonymes des XIIe–XIVe siècles et des compositions originales de Sara Maria Fantini. Sur scène : Sara Maria Fantini (oud, chitarrino), Maud Haering (chant), Valentine Lorentz (vièle à archet, flûte) et une conteuse. Le spectacle, produit par l'Ensemble Oineroï en coproduction avec la Fondation Royaumont et la DRAC Île-de-France, est disponible en version famille et scolaire ainsi qu'en concert du soir.</p>
+      
+      <div class="gallery-strip-wrap">
+        <button class="strip-arrow strip-left"  onclick="scrollStrip('troisanneauxStrip', -320)" aria-label="Scorri a sinistra">&#8249;</button>
+        <div class="gallery-strip" id="troisanneauxStrip">
+        <img src="../imgs/troisanneaux/trois-anneaux-1.png" alt="Trois Anneaux (1)" class="gallery-thumb" onclick="openGallery('troisanneaux', 0)" loading="lazy">
+        <img src="../imgs/troisanneaux/trois-anneaux-2.jpg" alt="Trois Anneaux (2)" class="gallery-thumb" onclick="openGallery('troisanneaux', 1)" loading="lazy">
+        <img src="../imgs/troisanneaux/trois-anneaux-3.jpg" alt="Trois Anneaux (3)" class="gallery-thumb" onclick="openGallery('troisanneaux', 2)" loading="lazy">
+        <img src="../imgs/troisanneaux/trois-anneaux-4.jpg" alt="Trois Anneaux (4)" class="gallery-thumb" onclick="openGallery('troisanneaux', 3)" loading="lazy">
+        <img src="../imgs/troisanneaux/trois-anneaux-5.jpg" alt="Trois Anneaux (5)" class="gallery-thumb" onclick="openGallery('troisanneaux', 4)" loading="lazy">
+        <img src="../imgs/troisanneaux/trois-anneaux-6.jpg" alt="Trois Anneaux (6)" class="gallery-thumb" onclick="openGallery('troisanneaux', 5)" loading="lazy">
+        <img src="../imgs/troisanneaux/trois-anneaux-7.jpg" alt="Trois Anneaux (7)" class="gallery-thumb" onclick="openGallery('troisanneaux', 6)" loading="lazy">
+        <img src="../imgs/troisanneaux/trois-anneaux-8.jpg" alt="Trois Anneaux (8)" class="gallery-thumb" onclick="openGallery('troisanneaux', 7)" loading="lazy">
+        </div>
+        <button class="strip-arrow strip-right" onclick="scrollStrip('troisanneauxStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
+      </div>
     </div>
   </section>
 
@@ -206,6 +359,98 @@
       </div>
     </div>
   </section>
+
+
+  <!-- Gallery lightbox modal -->
+  <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-label="Fermer">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+      <div class="modal-content bg-dark border-0">
+        <div class="modal-body p-0 text-center position-relative">
+          <button class="gallery-close" data-dismiss="modal" aria-label="Fermer">&times;</button>
+          <button class="gallery-nav gallery-prev" onclick="galleryNav(-1)" aria-label="Precedente">&#8249;</button>
+          <img id="galleryModalImg" src="" alt="" class="img-fluid">
+          <button class="gallery-nav gallery-next" onclick="galleryNav(1)" aria-label="Successiva">&#8250;</button>
+          <div class="gallery-counter" id="galleryCounter"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    function scrollStrip(id, px) {
+      var el = document.getElementById(id);
+      if (el) el.scrollBy({ left: px, behavior: 'smooth' });
+    }
+
+    var galleries = {
+      marginalia: [
+        { src: '../imgs/marginalia/marginalia-1.png', alt: 'Marginalia (1)' },
+        { src: '../imgs/marginalia/marginalia-2.png', alt: 'Marginalia (2)' },
+        { src: '../imgs/marginalia/marginalia-3.jpg', alt: 'Marginalia (3)' },
+        { src: '../imgs/marginalia/marginalia-4.jpg', alt: 'Marginalia (4)' },
+        { src: '../imgs/marginalia/marginalia-5.jpg', alt: 'Marginalia (5)' },
+        { src: '../imgs/marginalia/marginalia-6.jpg', alt: 'Marginalia (6)' }
+      ],
+      siobule: [
+        { src: '../imgs/siobule/siobule-1.jpg', alt: 'Siobulé (1)' },
+        { src: '../imgs/siobule/siobule-2.jpg', alt: 'Siobulé (2)' },
+        { src: '../imgs/siobule/siobule-3.jpg', alt: 'Siobulé (3)' },
+        { src: '../imgs/siobule/siobule-4.jpg', alt: 'Siobulé (4)' },
+        { src: '../imgs/siobule/siobule-5.jpg', alt: 'Siobulé (5)' },
+        { src: '../imgs/siobule/siobule-6.jpg', alt: 'Siobulé (6)' },
+        { src: '../imgs/siobule/siobule-7.jpg', alt: 'Siobulé (7)' },
+        { src: '../imgs/siobule/siobule-8.jpg', alt: 'Siobulé (8)' },
+        { src: '../imgs/siobule/siobule-9.jpg', alt: 'Siobulé (9)' }
+      ],
+      chordacordis: [
+        { src: '../imgs/chordacordis/chordacordis-1.png', alt: 'ChordaCordis (1)' },
+        { src: '../imgs/chordacordis/chordacordis-2.png', alt: 'ChordaCordis (2)' },
+        { src: '../imgs/chordacordis/chordacordis-3.jpg', alt: 'ChordaCordis (3)' },
+        { src: '../imgs/chordacordis/chordacordis-4.jpg', alt: 'ChordaCordis (4)' }
+      ],
+      troisanneaux: [
+        { src: '../imgs/troisanneaux/trois-anneaux-1.png', alt: 'Trois Anneaux (1)' },
+        { src: '../imgs/troisanneaux/trois-anneaux-2.jpg', alt: 'Trois Anneaux (2)' },
+        { src: '../imgs/troisanneaux/trois-anneaux-3.jpg', alt: 'Trois Anneaux (3)' },
+        { src: '../imgs/troisanneaux/trois-anneaux-4.jpg', alt: 'Trois Anneaux (4)' },
+        { src: '../imgs/troisanneaux/trois-anneaux-5.jpg', alt: 'Trois Anneaux (5)' },
+        { src: '../imgs/troisanneaux/trois-anneaux-6.jpg', alt: 'Trois Anneaux (6)' },
+        { src: '../imgs/troisanneaux/trois-anneaux-7.jpg', alt: 'Trois Anneaux (7)' },
+        { src: '../imgs/troisanneaux/trois-anneaux-8.jpg', alt: 'Trois Anneaux (8)' }
+      ]
+    };
+
+    var currentGallery = null;
+    var currentIndex   = 0;
+
+    function openGallery(galleryId, index) {
+      currentGallery = galleries[galleryId];
+      currentIndex   = index;
+      updateModalImage();
+      $('#galleryModal').modal('show');
+    }
+
+    function updateModalImage() {
+      var item = currentGallery[currentIndex];
+      document.getElementById('galleryModalImg').src = item.src;
+      document.getElementById('galleryModalImg').alt = item.alt;
+      document.getElementById('galleryCounter').textContent =
+        (currentIndex + 1) + ' / ' + currentGallery.length;
+    }
+
+    function galleryNav(dir) {
+      currentIndex = (currentIndex + dir + currentGallery.length) % currentGallery.length;
+      updateModalImage();
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (!document.getElementById('galleryModal').classList.contains('show')) return;
+      if (e.key === 'ArrowLeft')  galleryNav(-1);
+      if (e.key === 'ArrowRight') galleryNav(1);
+      if (e.key === 'Escape')     $('#galleryModal').modal('hide');
+    });
+  </script>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
