@@ -66,6 +66,9 @@
       justify-content: center;
       text-align: center;
     }
+    @media (max-width: 768px) {
+      .parallax { min-height: 50vh; background-attachment: scroll; }
+    }
 
     .parallax-title h1 {
       font-size: clamp(2rem, 6vw, 4rem);
@@ -197,6 +200,94 @@
       font-size: 0.9rem;
       padding: 6px 0 4px;
     }
+
+    /* ── Project dot-nav (lateral) ── */
+    .project-dotnav {
+      position: fixed;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 950;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: flex-end;
+    }
+    .project-dotnav a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .dotnav-label {
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.78em;
+      color: #4a5e3a;
+      opacity: 0;
+      transform: translateX(6px);
+      transition: opacity 0.2s, transform 0.2s;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .dotnav-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #9caf88;
+      border: 2px solid #7a9470;
+      transition: background 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    .project-dotnav a:hover .dotnav-label,
+    .project-dotnav a.active .dotnav-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .project-dotnav a.active .dotnav-dot {
+      background: #4a5e3a;
+      transform: scale(1.35);
+    }
+    .project-dotnav a:hover .dotnav-dot {
+      background: #7a9470;
+    }
+    @media (max-width: 768px) {
+      .project-dotnav { display: none; }
+    }
+    /* ── Project link (more info) ── */
+    .project-link {
+      display: inline-block;
+      margin-top: 1.2rem;
+      margin-bottom: 0.4rem;
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.95em;
+      color: #4a5e3a;
+      text-decoration: none;
+      border-bottom: 1px solid #4a5e3a;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .project-link:hover { color: #2a3e22; border-color: #2a3e22; }
+    /* ── YouTube embed ── */
+    h4.yt-label {
+      font-family: 'Lora', serif;
+      font-size: 1em;
+      text-align: center;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #4a5e3a;
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+      padding: 0;
+    }
+    .yt-wrap {
+      margin-top: 1.6rem;
+      margin-bottom: 0.4rem;
+    }
+    .yt-wrap .embed-responsive {
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
   </style>
 </head>
 <body>
@@ -219,13 +310,20 @@
     </div>
   </nav>
 
+  <nav class="project-dotnav" id="projectDotnav" aria-label="Navigazione progetti">
+    <a href="#marginalia"><span class="dotnav-label">Marginalia</span><span class="dotnav-dot"></span></a>
+    <a href="#siobule"><span class="dotnav-label">Siobulé</span><span class="dotnav-dot"></span></a>
+    <a href="#chordacordis"><span class="dotnav-label">ChordaCordis</span><span class="dotnav-dot"></span></a>
+    <a href="#troisanneaux"><span class="dotnav-label">Trois Anneaux</span><span class="dotnav-dot"></span></a>
+  </nav>
+
   <div class="parallax" id="parallax1">
     <div class="parallax-title">
       <h1>Projets</h1>
     </div>
   </div>
 
-  <section class="container-fluid" id="projets">
+  <section class="container-fluid" id="marginalia">
     <div class="container">
       <h3>Projet <em>Marginalia</em></h3>
       <p>
@@ -276,12 +374,14 @@
         </div>
         <button class="strip-arrow strip-right" onclick="scrollStrip('marginaliaStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
       </div>
+      <h4 class="yt-label">Extrait</h4>
+      <div class="yt-wrap"><div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UHS6Y1-KZVc" allowfullscreen loading="lazy" title="Partete core — lauda du XVe siècle"></iframe></div></div>
     </div>
   </section>
 
   <div class="parallax" id="parallax2"></div>
 
-  <section class="container-fluid">
+  <section class="container-fluid" id="siobule">
     <div class="container">
       <h3>Projet <em>Siobulé</em></h3>
       <p><em>Siobulé</em> est le nom par lequel le grammairien latin Varron expliquait l'origine du mot « Sibylle » : une translittération du grec signifiant, en dialecte éolien, « conseil de Dieu ». C'est aussi le titre choisi par l'Ensemble Fragmenta pour un projet articulé autour du <em>Paradis de la reine Sibylle</em> d'Antoine de La Sale (1437–1442), récit de voyage fantastique situé dans les montagnes de Norcia et la grotte où — selon la légende médiévale — la Sibylle règne sur une cour où toutes les langues du monde sont parlées et comprises. Le point de départ est un territoire réel : les Monts Sibyllins, terre d'origine d'une partie de l'ensemble, marquée par les tremblements de terre de 2016. De cette fracture naît la question au cœur du projet : non pas comment récupérer des fragments d'une culture perdue, mais comment participer à la continuité vivante d'une tradition. Comme le rappelait Mahler, la tradition, c'est la transmission du feu, et non l'adoration des cendres.</p><p>Le répertoire met en dialogue des pièces musicales transmises par des sources fragmentaires du XVe siècle trouvées entre l'Ombrie et les Marches, des musiques traditionnelles du même territoire retravaillées par l'ensemble, des pièces anciennes de la Méditerranée orientale — en particulier de Crète et du monde ottoman — et des compositions originales. Un fil commun traverse ces univers sonores : les instruments à cordes sous leurs formes les plus diverses, du luth médiéval au oud et au laouto crétois, jusqu'à la nyckelharpa suédoise et la viole d'amour, toutes deux dotées de cordes sympathiques comme la politiki lyra. Des instruments à vent et des percussions répandus dans le bassin méditerranéen — flûte double, tambourin, castagnettes — complètent le tableau.</p><p>La musique est accompagnée par le dessin en direct d'Alessandro de Carolis — auteur également des photographies en noir et blanc qui documentent le territoire des Sibyllins — réalisé dans le style des <em>marginalia</em> médiévaux contemporains, qui émergent des ombres et des plis de ces mêmes images pour suivre le fil narratif du récit.</p>
@@ -308,12 +408,13 @@
           <source src="../imgs/siobule/siobule-teaser.mp4" type="video/mp4">
         </video>
       </div>
+      <p><a href="https://www.royaumont.com" class="project-link" target="_blank" rel="noopener noreferrer">Fondation Royaumont →</a></p>
     </div>
   </section>
 
   <div class="parallax" id="parallax3"></div>
 
-  <section class="container-fluid">
+  <section class="container-fluid" id="chordacordis">
     <div class="container">
       <h3>Projet <em>ChordaCordis</em></h3>
       <p>ChordaCordis est né de la rencontre entre Sara Maria Fantini et Colin Heller à la Schola Cantorum Basiliensis de Bâle, où tous deux se sont formés à l'étude des répertoires historiques. Sara joue du oud, du luth médiéval et du chitarrino ; Colin est spécialisé dans les instruments à archet à cordes sympathiques — nyckelharpa, vièle médiévale et viole d'amour. Le duo explore la chanson européenne du Moyen Âge à nos jours, traçant un parcours qui de la France méridionale et de l'Italie s'étend à travers la Méditerranée jusqu'au Proche-Orient, mettant en dialogue des traditions diverses à travers la voix commune des instruments à cordes.</p>
@@ -329,15 +430,17 @@
         </div>
         <button class="strip-arrow strip-right" onclick="scrollStrip('chordacordisStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
       </div>
+      <h4 class="yt-label">Extrait</h4>
+      <div class="yt-wrap"><div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/sgkfTYNmHe0" allowfullscreen loading="lazy" title="ChordaCordis — Bacchu-ber"></iframe></div></div>
     </div>
   </section>
 
   <div class="parallax" id="parallax4"></div>
 
-  <section class="container-fluid">
+  <section class="container-fluid" id="troisanneaux">
     <div class="container">
       <h3>Projet <em>Trois Anneaux</em></h3>
-      <p><em>Trois Anneaux — et autres récits décaméronesques</em> est un spectacle musical inspiré du <em>Décaméron</em> de Boccace (1313–1375). Florence, 1348 : tandis que la peste ravage l'Europe, un groupe de jeunes décide de se réfugier à la campagne pour survivre à travers les récits et les chants. Le <em>Décaméron</em>, écrin de la sensibilité raffinée du XIVe siècle, guide le public dans un monde où les cultures d'Orient et d'Occident dialoguent et se font écho.</p><p>La musique du spectacle se fonde sur des répertoires lointains dans l'espace et dans le temps : des manuscrits médiévaux ayant survécu aux vicissitudes de l'histoire, des mélodies anciennes transmises oralement, des improvisations instrumentales (<em>taksimat</em>) suivant les modes (<em>maqâm</em>) du Proche-Orient et du Maghreb, et des compositions originales. Les sources privilégiées sont celles liées aux lieux mentionnés dans les nouvelles : le manuscrit Reina, le codex Squarcialupi, le manuscrit de Londres, les <em>Cantigas</em> espagnoles. Les instruments sur scène sont eux aussi des voyageurs : le oud, prince des instruments selon les cultures nord-africaines et moyen-orientales ; le chitarrino, son cousin médiéval occidental ; la vièle, compagne des poètes et chanteurs d'amour dans toute l'Europe médiévale ; les flûtes, liées à la danse et au banquet depuis les temps les plus anciens.</p><p>Trois histoires se racontent à travers les instruments et les voix : la vièle à archet, la flûte, le oud, le chitarrino et le chant s'alternent et s'entremêlent à la narration dans un programme incluant des musiques de Thibaut de Champagne, Lorenzo da Firenze, Francesco Landini, Guillaume de Machaut, des pièces anonymes des XIIe–XIVe siècles et des compositions originales de Sara Maria Fantini. Sur scène : Sara Maria Fantini (oud, chitarrino), Maud Haering (soprano), Valentine Lorentz (vièle à archet, flûte) et une conteuse. Le spectacle, produit par l'Ensemble Oineroï en coproduction avec la Fondation Royaumont et la DRAC Île-de-France, est disponible en version scolaire (1h) et en version complète (1h20).</p>
+      <p><em>Trois Anneaux — et autres récits décaméronesques</em> est un spectacle musical inspiré du <em>Décaméron</em> de Boccace (1313–1375). Florence, 1348 : tandis que la peste ravage l'Europe, un groupe de jeunes décide de se réfugier à la campagne pour survivre à travers les récits et les chants. Le <em>Décaméron</em>, écrin de la sensibilité raffinée du XIVe siècle, guide le public dans un monde où les cultures d'Orient et d'Occident dialoguent et se font écho.</p><p>La musique du spectacle se fonde sur des répertoires lointains dans l'espace et dans le temps : des manuscrits médiévaux ayant survécu aux vicissitudes de l'histoire, des mélodies anciennes transmises oralement, des improvisations instrumentales (<em>taksimat</em>) suivant les modes (<em>maqâm</em>) du Proche-Orient et du Maghreb, et des compositions originales. Les sources privilégiées sont celles liées aux lieux mentionnés dans les nouvelles : le manuscrit Reina, le codex Squarcialupi, le manuscrit de Londres, les <em>Cantigas</em> espagnoles. Les instruments sur scène sont eux aussi des voyageurs : le oud, prince des instruments selon les cultures nord-africaines et moyen-orientales ; le chitarrino, son cousin médiéval occidental ; la vièle, compagne des poètes et chanteurs d'amour dans toute l'Europe médiévale ; les flûtes, liées à la danse et au banquet depuis les temps les plus anciens.</p><p>Trois histoires se racontent à travers les instruments et les voix : la vièle à archet, la flûte, le oud, le chitarrino et le chant s'alternent et s'entremêlent à la narration dans un programme incluant des musiques de Thibaut de Champagne, Lorenzo da Firenze, Francesco Landini, Guillaume de Machaut, des pièces anonymes des XIIe–XIVe siècles et des compositions originales de Sara Maria Fantini. Sur scène : Sara Maria Fantini (oud, chitarrino), Maud Haering (soprano), Valentine Lorentz (vièle à archet, flûte) et une conteuse (Sylvie Mombo/Julia Alimasi). Le spectacle, produit par l'Ensemble Oineroï en coproduction avec la Fondation Royaumont et la DRAC Île-de-France, est disponible en version scolaire (1h) et en version complète (1h20).</p>
       
       <h4 class="gallery-heading">Galerie photos</h4>
       <div class="gallery-strip-wrap">
@@ -354,6 +457,9 @@
         </div>
         <button class="strip-arrow strip-right" onclick="scrollStrip('troisanneauxStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
       </div>
+      <h4 class="yt-label">Teaser</h4>
+      <div class="yt-wrap"><div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Tfhcs8YofRg" allowfullscreen loading="lazy" title="Trois Anneaux — teaser"></iframe></div></div>
+      <p><a href="https://ensembleoneiroi.wixsite.com/monsite/trois-anneaux" class="project-link" target="_blank" rel="noopener noreferrer">Ensemble Oineroï →</a>&emsp;<a href="https://www.jmfrance.org/spectacles/trois-anneaux-et-autres-recits-decameronesques" class="project-link" target="_blank" rel="noopener noreferrer">JM France →</a></p>
     </div>
   </section>
 
@@ -479,5 +585,25 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    (function() {
+      var sections = ['marginalia','siobule','chordacordis','troisanneaux'];
+      var links = document.querySelectorAll('.project-dotnav a');
+      function setActive() {
+        var scrollY = window.scrollY + 120;
+        var current = sections[0];
+        sections.forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el && el.offsetTop <= scrollY) current = id;
+        });
+        links.forEach(function(a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+        });
+      }
+      window.addEventListener('scroll', setActive, { passive: true });
+      setActive();
+    })();
+  </script>
 </body>
 </html>
