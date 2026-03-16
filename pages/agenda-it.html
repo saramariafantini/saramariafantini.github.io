@@ -186,12 +186,14 @@
     }
 
     /* ── Upcoming map ── */
+    /*
     #map-upcoming {
       height: 340px;
       border-radius: 8px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.12);
       margin-bottom: 0.5rem;
     }
+    */
 
     /* ── Archive map ── */
     #map-archive {
@@ -410,12 +412,12 @@
     <p class="no-concerts" id="no-upcoming" style="display:none;">Nessun concerto in programma al momento. Torna presto!</p>
   </section>
 
-  <!-- ══ MAPPA PROSSIME DATE ══ -->
+  <!-- ══ MAPPA PROSSIME DATE ══ 
   <section class="container pb-5" id="mappa-concerti">
     <p class="section-label">Dove</p>
     <h2 class="section-title">Mappa dei prossimi concerti</h2>
     <div id="map-upcoming"></div>
-  </section>
+  </section>-->
 
   <!-- ══ ARCHIVIO ══ -->
   <section style="background:#e8f0e2; padding: 3rem 0;">
@@ -819,11 +821,13 @@
   }
 
   /* ── upcoming map ── */
+   /*
   var mapU = L.map('map-upcoming', { zoomControl: true, scrollWheelZoom: false });
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> © <a href="https://carto.com/">CARTO</a>',
     subdomains: 'abcd', maxZoom: 19
   }).addTo(mapU);
+  */
 
   var greenIcon = L.divIcon({
     className: '',
