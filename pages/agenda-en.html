@@ -203,21 +203,28 @@
 
 
     /* ── Archive timeline (mirrored) ── */
-    .timeline-archive { position: relative; margin-top: 2.5rem; }
-    .timeline-archive::before {
-      content: '';
-      position: absolute;
-      right: 90px;
-      top: 0; bottom: 0;
-      width: 1.5px;
-      background: #c8d9bf;
-    }
+    .timeline-archive { position: relative; margin-top: 4rem; }
     .archive-item {
       display: flex;
       flex-direction: row-reverse;
-      margin-bottom: 2.4rem;
+      margin-bottom: 0;
+      padding-bottom: 2.4rem;
       position: relative;
       align-items: flex-start;
+    }
+    /* Vertical line: right border on the body+dot wrapper */
+    .archive-item::after {
+      content: '';
+      position: absolute;
+      right: 90px;
+      top: 8px;
+      bottom: 0;
+      width: 1.5px;
+      background: #c8d9bf;
+      z-index: 0;
+    }
+    .timeline-archive > .archive-item:last-child::after {
+      display: none;
     }
     .archive-date {
       flex: 0 0 90px;
@@ -245,7 +252,7 @@
     .archive-body .concert-venue { font-size:0.88em; color:#5a5a5a; margin-bottom:0.15rem; }
     .archive-body .concert-note { font-size:0.82em; color:#888; font-style:italic; }
     @media (max-width:576px) {
-      .timeline-archive::before { right:60px; }
+      .archive-item::after { right:60px; }
       .archive-date { flex:0 0 60px; padding-left:12px; }
       .archive-date .day { font-size:1.5em; }
       .archive-dot { right:54px; }
