@@ -186,14 +186,12 @@
     }
 
     /* ── Upcoming map ── */
-    /*
     #map-upcoming {
       height: 340px;
       border-radius: 8px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.12);
       margin-bottom: 0.5rem;
     }
-    */
 
     /* ── Archive map ── */
     #map-archive {
@@ -403,21 +401,21 @@
     <h2 class="section-title">Prossime date</h2>
 
     <!-- ╔══════════════════════════════════════════════════════════════╗
-         ║  COME AGGIUNGERE UN CONCERTO                                 ║
-         ║  Copia uno dei blocchi qui sotto e modifica i valori.        ║
-         ║  Lascia upcoming: true per i concerti futuri,                ║
-         ║  upcoming: false per l'archivio.                             ║
+         ║  COME AGGIUNGERE UN CONCERTO                                ║
+         ║  Copia uno dei blocchi qui sotto e modifica i valori.       ║
+         ║  Lascia upcoming: true per i concerti futuri,               ║
+         ║  upcoming: false per l'archivio.                            ║
          ╚══════════════════════════════════════════════════════════════╝ -->
     <div class="timeline" id="upcoming-timeline"></div>
     <p class="no-concerts" id="no-upcoming" style="display:none;">Nessun concerto in programma al momento. Torna presto!</p>
   </section>
 
-  <!-- ══ MAPPA PROSSIME DATE ══ 
+  <!-- ══ MAPPA PROSSIME DATE ══ -->
   <section class="container pb-5" id="mappa-concerti">
     <p class="section-label">Dove</p>
     <h2 class="section-title">Mappa dei prossimi concerti</h2>
     <div id="map-upcoming"></div>
-  </section>-->
+  </section>
 
   <!-- ══ ARCHIVIO ══ -->
   <section style="background:#e8f0e2; padding: 3rem 0;">
@@ -439,7 +437,7 @@
           <div class="htl-line"></div>
         </div>
       </div>
-      <p class="htl-hint htl-hint-desktop">&#8592; scorri &nbsp;·&nbsp; rotella del mouse per zoomare &nbsp;·&nbsp; passa il mouse su un punto</p>
+      <p class="htl-hint htl-hint-desktop">&#8592; scorri &nbsp;·&nbsp; rotella del mouse per zoomare del mouse per zoomare &nbsp;·&nbsp; passa il mouse su un punto</p>
       <p class="htl-hint htl-hint-mobile">scorri orizzontalmente &nbsp;·&nbsp; pizzica per zoomare &nbsp;·&nbsp; tocca un punto per i dettagli</p>
     </div>
   </section>
@@ -476,20 +474,15 @@
 
   <script>
   /* ════════════════════════════════════════════════════════════════════
-     DATI CONCERTI
-     ────────────────────────────────────────────────────────────────────
-     Ogni concerto è un oggetto con le seguenti proprietà:
-       date    : "YYYY-MM-DD"   (data del concerto)
-       program : "Titolo"       (nome del programma / spettacolo)
-       venue   : "Nome del luogo" (teatro, chiesa, festival…)
-       city    : "Città, Paese"
-       note    : "testo libero" (facoltativo — es. "con Ensemble X")
-       lat/lng : coordinate per la mappa (cerca su maps.google.com)
-       upcoming: true = prossimo / false = archivio
-       instagram: "" (URL post Instagram facoltativo)
-       facebook : "" (URL evento Facebook facoltativo)
+     AGENDA — dati caricati da Google Sheets
+     Per aggiungere o modificare concerti, usare il foglio Google.
+     Il sito si aggiorna entro qualche minuto dal salvataggio.
   ════════════════════════════════════════════════════════════════════ */
-  var concerts = [
+
+  var SHEET_CSV = 'https://docs.google.com/spreadsheets/d/16VxYSyygExIHCiduLSxbIsz_-FlskgcDMVNRuIcpjfc/export?format=csv&gid=0';
+
+  /* ── Fallback: usato se il foglio Google non è raggiungibile ── */
+  var FALLBACK_CONCERTS = [
 
     /* ── PROSSIMI CONCERTI ── */
     {
@@ -764,142 +757,190 @@
       facebook: ""
     }
   ];
-  /* ════ fine dati ════ */
+  /* ════ fine fallback ════ */
+
+  /* ── CSV parser ── */
+  function parseCSVLine(line) {
+    var result = [], cur = '', inQuotes = false;
+    for (var i = 0; i < line.length; i++) {
+      var ch = line[i];
+      if (ch === '"') { inQuotes = !inQuotes; }
+      else if (ch === ',' && !inQuotes) { result.push(cur); cur = ''; }
+      else { cur += ch; }
+    }
+    result.push(cur);
+    return result;
+  }
+
+  function parseCSV(text) {
+    var lines = text.replace(/\r/g, '').split('\n');
+    var headers = parseCSVLine(lines[0]).map(function(h) { return h.trim().replace(/^"|"$/g, ''); });
+    var concerts = [];
+    for (var i = 1; i < lines.length; i++) {
+      var line = lines[i].trim();
+      if (!line) continue;
+      var cols = parseCSVLine(line);
+      var c = {};
+      headers.forEach(function(h, idx) {
+        c[h] = (cols[idx] || '').trim().replace(/^"|"$/g, '');
+      });
+      if (!c.date || !c.date.match(/^\d{4}-\d{2}-\d{2}$/)) continue;
+      c.lat = parseFloat(c.lat) || 0;
+      c.lng = parseFloat(c.lng) || 0;
+      concerts.push(c);
+    }
+    return concerts;
+  }
 
   /* ── helpers ── */
+  var DAYS   = ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
+  var MONTHS = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+
   function fmtDate(d) {
     var dt = new Date(d + 'T00:00:00');
-    var days = ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
-    var months = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
     return {
-      day:    dt.getDate(),
-      wd:     days[dt.getDay()],
-      month:  months[dt.getMonth()],
-      year:   dt.getFullYear()
+      day:   dt.getDate(),
+      wd:    DAYS[dt.getDay()],
+      month: MONTHS[dt.getMonth()],
+      year:  dt.getFullYear()
     };
   }
+
+  function fmtDateRange(date, date_end) {
+    var d1 = new Date(date + 'T00:00:00');
+    if (!date_end) {
+      return d1.getDate() + ' ' + MONTHS[d1.getMonth()] + ' ' + d1.getFullYear();
+    }
+    var d2 = new Date(date_end + 'T00:00:00');
+    if (d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth()) {
+      return d1.getDate() + '–' + d2.getDate() + ' ' + MONTHS[d1.getMonth()] + ' ' + d1.getFullYear();
+    }
+    if (d1.getFullYear() === d2.getFullYear()) {
+      return d1.getDate() + ' ' + MONTHS[d1.getMonth()] + ' – ' + d2.getDate() + ' ' + MONTHS[d2.getMonth()] + ' ' + d1.getFullYear();
+    }
+    return d1.getDate() + ' ' + MONTHS[d1.getMonth()] + ' ' + d1.getFullYear() +
+           ' – ' + d2.getDate() + ' ' + MONTHS[d2.getMonth()] + ' ' + d2.getFullYear();
+  }
+
+  function isUpcoming(c) {
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var end = c.date_end && c.date_end.match(/^\d{4}-\d{2}-\d{2}$/)
+      ? new Date(c.date_end + 'T00:00:00')
+      : new Date(c.date + 'T00:00:00');
+    return end >= today;
+  }
+
   function shareUrl(type, concert) {
-    var text = encodeURIComponent(concert.program + ' — ' + concert.venue + ', ' + concert.city);
-    if (type === 'fb')
-      return 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href);
-    if (type === 'ig')
-      return concert.instagram || 'https://www.instagram.com/saram.fantini';
+    if (type === 'fb') return concert.facebook || 'https://www.facebook.com/saramaria.fantini';
+    if (type === 'ig') return concert.instagram || 'https://www.instagram.com/saram.fantini';
     return '#';
   }
 
-  /* ── build upcoming timeline ── */
-  var upcoming = concerts.filter(function(c){ return c.upcoming; })
-                         .sort(function(a,b){ return a.date > b.date ? 1 : -1; });
+  /* ── render everything ── */
+  function initAgenda(concerts) {
+    var upcoming = concerts.filter(isUpcoming)
+                           .sort(function(a,b){ return a.date > b.date ? 1 : -1; });
+    var archive  = concerts.filter(function(c){ return !isUpcoming(c); })
+                           .sort(function(a,b){ return a.date < b.date ? 1 : -1; });
 
-  var tl = document.getElementById('upcoming-timeline');
-  if (upcoming.length === 0) {
-    document.getElementById('no-upcoming').style.display = 'block';
-  } else {
-    upcoming.forEach(function(c) {
-      var d = fmtDate(c.date);
-      var social = '';
-      if (c.facebook || true)
-        social += '<a href="' + shareUrl('fb', c) + '" target="_blank" rel="noopener noreferrer" title="Condividi su Facebook"><i class="fab fa-facebook"></i></a>';
-      if (c.instagram || true)
-        social += '<a href="' + shareUrl('ig', c) + '" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>';
+    /* ── vertical timeline (prossimi concerti) ── */
+    var tl = document.getElementById('upcoming-timeline');
+    tl.innerHTML = '';
+    if (upcoming.length === 0) {
+      document.getElementById('no-upcoming').style.display = 'block';
+    } else {
+      document.getElementById('no-upcoming').style.display = 'none';
+      upcoming.forEach(function(c) {
+        var d = fmtDate(c.date);
+        var endLine = '';
+        if (c.date_end && c.date_end.match(/^\d{4}-\d{2}-\d{2}$/)) {
+          var de = fmtDate(c.date_end);
+          endLine = '<span class="month-year" style="display:block;color:#9caf88;">– ' + de.day + ' ' + de.month + ' ' + de.year + '</span>';
+        }
+        var social = '';
+        if (c.facebook) social += '<a href="' + c.facebook + '" target="_blank" rel="noopener noreferrer" title="Condividi su Facebook"><i class="fab fa-facebook"></i></a>';
+        if (c.instagram) social += '<a href="' + c.instagram + '" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>';
+        tl.innerHTML +=
+          '<div class="concert-item">' +
+          '  <div class="concert-date">' +
+          '    <span class="day">' + d.day + '</span>' +
+          '    <span class="month-year">' + d.wd + ' ' + d.month + ' ' + d.year + '</span>' +
+          endLine +
+          '  </div>' +
+          '  <div class="timeline-dot"></div>' +
+          '  <div class="concert-body">' +
+          '    <div class="concert-program">' + c.program + '</div>' +
+          '    <div class="concert-venue"><i class="fas fa-map-marker-alt"></i>' + c.venue + ' — ' + c.city + '</div>' +
+          (c.note ? '<div class="concert-note">' + c.note + '</div>' : '') +
+          (social ? '<div class="concert-social">' + social + '</div>' : '') +
+          '  </div>' +
+          '</div>';
+      });
+    }
 
-      tl.innerHTML +=
-        '<div class="concert-item">' +
-        '  <div class="concert-date">' +
-        '    <span class="day">' + d.day + '</span>' +
-        '    <span class="month-year">' + d.wd + ' ' + d.month + ' ' + d.year + '</span>' +
-        '  </div>' +
-        '  <div class="timeline-dot"></div>' +
-        '  <div class="concert-body">' +
-        '    <div class="concert-program">' + c.program + '</div>' +
-        '    <div class="concert-venue"><i class="fas fa-map-marker-alt"></i>' + c.venue + ' — ' + c.city + '</div>' +
-        (c.note ? '<div class="concert-note">' + c.note + '</div>' : '') +
-        '    <div class="concert-social">' + social + '</div>' +
-        '  </div>' +
-        '</div>';
+    /* ── upcoming map (commentata: ripristinare quando ci sono più date) ──
+    var greenIcon = L.divIcon({
+      className: '',
+      html: '<div style="width:14px;height:14px;border-radius:50%;background:#4a5e3a;border:2.5px solid #9caf88;box-shadow:0 1px 4px rgba(0,0,0,0.3);"></div>',
+      iconSize: [14,14], iconAnchor: [7,7]
     });
-  }
+    var mapU = L.map('map-upcoming', { zoomControl: true, scrollWheelZoom: false });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> © <a href="https://carto.com/">CARTO</a>',
+      subdomains: 'abcd', maxZoom: 19
+    }).addTo(mapU);
+    if (upcoming.length > 0) {
+      var bounds = [];
+      upcoming.forEach(function(c) {
+        var d = fmtDate(c.date);
+        var popup = '<div class="popup-date">' + fmtDateRange(c.date, c.date_end) + '</div>' +
+                    '<div class="popup-program">' + c.program + '</div>' +
+                    '<div class="popup-venue">' + c.venue + '<br>' + c.city + '</div>';
+        L.marker([c.lat, c.lng], {icon: greenIcon}).addTo(mapU).bindPopup(popup);
+        bounds.push([c.lat, c.lng]);
+      });
+      mapU.fitBounds(bounds, {padding: [40,40]});
+    } else { mapU.setView([44, 10], 4); }
+    ── fine mappa prossimi concerti ── */
 
-  /* ── upcoming map ── */
-   /*
-  var mapU = L.map('map-upcoming', { zoomControl: true, scrollWheelZoom: false });
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> © <a href="https://carto.com/">CARTO</a>',
-    subdomains: 'abcd', maxZoom: 19
-  }).addTo(mapU);
-  
-  var greenIcon = L.divIcon({
-    className: '',
-    html: '<div style="width:14px;height:14px;border-radius:50%;background:#4a5e3a;border:2.5px solid #9caf88;box-shadow:0 1px 4px rgba(0,0,0,0.3);"></div>',
-    iconSize: [14,14], iconAnchor: [7,7]
-  });
-
-  if (upcoming.length > 0) {
-    var bounds = [];
-    upcoming.forEach(function(c) {
-      var d = fmtDate(c.date);
-      var popup = '<div class="popup-date">' + d.wd + ' ' + d.day + ' ' + d.month + ' ' + d.year + '</div>' +
+    /* ── archive map ── */
+    var mapA = L.map('map-archive', { zoomControl: true, scrollWheelZoom: false });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> © <a href="https://carto.com/">CARTO</a>',
+      subdomains: 'abcd', maxZoom: 19
+    }).addTo(mapA);
+    var archiveIcon = L.divIcon({
+      className: '',
+      html: '<div style="width:11px;height:11px;border-radius:50%;background:#9caf88;border:2px solid #7a9470;box-shadow:0 1px 3px rgba(0,0,0,0.2);"></div>',
+      iconSize: [11,11], iconAnchor: [5.5,5.5]
+    });
+    var archiveBounds = [];
+    archive.forEach(function(c) {
+      if (!c.lat || !c.lng) return;
+      var popup = '<div class="popup-date">' + fmtDateRange(c.date, c.date_end) + '</div>' +
                   '<div class="popup-program">' + c.program + '</div>' +
-                  '<div class="popup-venue">' + c.venue + '<br>' + c.city + '</div>';
-      L.marker([c.lat, c.lng], {icon: greenIcon}).addTo(mapU).bindPopup(popup);
-      bounds.push([c.lat, c.lng]);
+                  '<div class="popup-venue">' + c.venue + '<br>' + c.city + '</div>' +
+                  (c.note ? '<div class="popup-venue" style="font-style:italic;">' + c.note + '</div>' : '');
+      L.marker([c.lat, c.lng], {icon: archiveIcon}).addTo(mapA).bindPopup(popup);
+      archiveBounds.push([c.lat, c.lng]);
     });
-    mapU.fitBounds(bounds, {padding: [40,40]});
-  } else {
-    mapU.setView([44, 10], 4);
+    if (archiveBounds.length > 0) mapA.fitBounds(archiveBounds, {padding: [40,40]});
+    else mapA.setView([46, 8], 4);
+
+    /* ── horizontal timeline ── */
+    buildHTL(archive);
   }
-  */
-  /* ── archive map ── */
-  var mapA = L.map('map-archive', { zoomControl: true, scrollWheelZoom: false });
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> © <a href="https://carto.com/">CARTO</a>',
-    subdomains: 'abcd', maxZoom: 19
-  }).addTo(mapA);
 
-  var archiveIcon = L.divIcon({
-    className: '',
-    html: '<div style="width:11px;height:11px;border-radius:50%;background:#9caf88;border:2px solid #7a9470;box-shadow:0 1px 3px rgba(0,0,0,0.2);"></div>',
-    iconSize: [11,11], iconAnchor: [5.5,5.5]
-  });
-
-  var archive = concerts.filter(function(c){ return !c.upcoming; })
-                        .sort(function(a,b){ return a.date < b.date ? 1 : -1; });
-  var archiveBounds = [];
-  archive.forEach(function(c) {
-    var d = fmtDate(c.date);
-    var popup = '<div class="popup-date">' + d.day + ' ' + d.month + ' ' + d.year + '</div>' +
-                '<div class="popup-program">' + c.program + '</div>' +
-                '<div class="popup-venue">' + c.venue + '<br>' + c.city + '</div>' +
-                (c.note ? '<div class="popup-venue" style="font-style:italic;">' + c.note + '</div>' : '');
-    L.marker([c.lat, c.lng], {icon: archiveIcon}).addTo(mapA).bindPopup(popup);
-    archiveBounds.push([c.lat, c.lng]);
-  });
-  if (archiveBounds.length > 0) mapA.fitBounds(archiveBounds, {padding: [40,40]});
-  else mapA.setView([46, 8], 4);
-
-  </script>
-
-  <script>
-  /* ── Horizontal timeline ── */
-  (function() {
-    var archive = concerts.filter(function(c){ return !c.upcoming; })
-                          .sort(function(a,b){ return a.date > b.date ? 1 : -1; });
+  /* ── horizontal timeline builder ── */
+  function buildHTL(archive) {
     if (!archive.length) return;
 
     var colorMap = {
-      'marginalia':    'htl-c-marginalia',
-      'siobulé':       'htl-c-siobule',
-      'siobule':       'htl-c-siobule',
-      'rubens rosa':   'htl-c-rubensrosa',
-      'chordacordis':  'htl-c-chordacordis',
-      'trois anneaux': 'htl-c-troisanneaux',
-      'nel bel giardino': 'htl-c-other',
-      'olla vogala':   'htl-c-other',
-      'jerusalem':     'htl-c-other',
-      'la tempesta':   'htl-c-other',
-      'li gieus':      'htl-c-other',
-      'atelier':       'htl-c-other',
-      'cantigas':      'htl-c-other',
+      'marginalia':       'htl-c-marginalia',
+      'siobul':           'htl-c-siobule',
+      'rubens rosa':      'htl-c-rubensrosa',
+      'chordacordis':     'htl-c-chordacordis',
+      'trois anneaux':    'htl-c-troisanneaux',
     };
     var legendLabels = {
       'htl-c-marginalia':    'Marginalia',
@@ -910,43 +951,37 @@
       'htl-c-other':         'Altri progetti',
     };
     var legendColors = {
-      'htl-c-marginalia':'#4a5e3a','htl-c-siobule':'#7a6040',
-      'htl-c-rubensrosa':'#8a3e3e','htl-c-chordacordis':'#3a5e58',
-      'htl-c-troisanneaux':'#5a3e6a','htl-c-other':'#6a6a5a'
+      'htl-c-marginalia':'#4a5e3a', 'htl-c-siobule':'#7a6040',
+      'htl-c-rubensrosa':'#8a3e3e', 'htl-c-chordacordis':'#3a5e58',
+      'htl-c-troisanneaux':'#5a3e6a', 'htl-c-other':'#6a6a5a'
     };
 
     function getClass(prog) {
       var p = prog.toLowerCase();
-      for (var key in colorMap) {
-        if (p.indexOf(key) !== -1) return colorMap[key];
-      }
+      for (var key in colorMap) { if (p.indexOf(key) !== -1) return colorMap[key]; }
       return 'htl-c-other';
     }
 
-    var months = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
-
-    var minTs = new Date(archive[0].date + 'T00:00:00').getTime();
-    var maxTs = new Date(archive[archive.length-1].date + 'T00:00:00').getTime();
+    var sorted = archive.slice().sort(function(a,b){ return a.date > b.date ? 1 : -1; });
+    var minTs = new Date(sorted[0].date + 'T00:00:00').getTime();
+    var maxTs = new Date(sorted[sorted.length-1].date + 'T00:00:00').getTime();
     var range = maxTs - minTs || 1;
-
-    // padding in percent so dots on edges aren't clipped
     var PAD = 5;
 
     var wrap = document.getElementById('htl-inner');
-    // set min-width so dots have breathing room
-    var minPx = Math.max(archive.length * 50, 600);
+    wrap.innerHTML = '<div class="htl-line"></div>';
+    var minPx = Math.max(sorted.length * 50, 600);
     wrap.style.minWidth = minPx + 'px';
-    wrap.style.height = '1px'; // height is driven by padding on .htl-wrap
+    wrap.style.height = '1px';
 
-    // Year markers
+    /* year markers */
     var years = {};
-    archive.forEach(function(c) {
+    sorted.forEach(function(c) {
       var y = c.date.slice(0, 4);
       if (!years[y]) {
         var ts = new Date(y + '-01-01T00:00:00').getTime();
         var pct = PAD + ((ts - minTs) / range) * (100 - PAD * 2);
-        pct = Math.max(PAD, Math.min(100 - PAD, pct));
-        years[y] = pct;
+        years[y] = Math.max(PAD, Math.min(100 - PAD, pct));
       }
     });
     for (var yr in years) {
@@ -957,16 +992,13 @@
       wrap.appendChild(yl);
     }
 
-    // Dots
+    /* dots */
     var usedClasses = {};
-    archive.forEach(function(c, i) {
+    sorted.forEach(function(c) {
       var ts = new Date(c.date + 'T00:00:00').getTime();
       var pct = PAD + ((ts - minTs) / range) * (100 - PAD * 2);
       var cls = getClass(c.program);
       usedClasses[cls] = true;
-
-      var dt = new Date(c.date + 'T00:00:00');
-      var dateStr = dt.getDate() + ' ' + months[dt.getMonth()] + ' ' + dt.getFullYear();
 
       var dw = document.createElement('div');
       dw.className = 'htl-dot-wrap';
@@ -978,11 +1010,10 @@
       var tip = document.createElement('div');
       tip.className = 'htl-tooltip';
       tip.innerHTML =
-        '<span class="htl-tt-date">' + dateStr + '</span>' +
+        '<span class="htl-tt-date">' + fmtDateRange(c.date, c.date_end) + '</span>' +
         '<span class="htl-tt-prog">' + c.program + '</span>' +
         '<span class="htl-tt-venue">' + c.venue + '</span>';
 
-      // toggle on click (for mobile)
       dw.addEventListener('click', function(dw) {
         return function(e) {
           e.stopPropagation();
@@ -998,15 +1029,15 @@
       wrap.appendChild(dw);
     });
 
-    // Close on outside click
     document.addEventListener('click', function() {
       document.querySelectorAll('.htl-dot-wrap.active').forEach(function(el) {
         el.classList.remove('active');
       });
     });
 
-    // Legend
+    /* legend */
     var legend = document.getElementById('htl-legend');
+    legend.innerHTML = '';
     for (var cls in legendLabels) {
       if (!usedClasses[cls]) continue;
       var li = document.createElement('div');
@@ -1015,12 +1046,11 @@
       legend.appendChild(li);
     }
 
-    // ── Wheel zoom (centred on cursor) ──────────────────────────
+    /* zoom + drag */
     var wrapEl  = document.getElementById('htl-wrap');
     var innerEl = document.getElementById('htl-inner');
-    var BASE_PX = Math.max(archive.length * 50, 600);
-    var zoom    = 1;
-    var MIN_ZOOM = 1, MAX_ZOOM = 8;
+    var BASE_PX = Math.max(sorted.length * 50, 600);
+    var zoom = 1, MIN_ZOOM = 1, MAX_ZOOM = 8;
 
     function applyZoom(newZoom, anchorRatio) {
       newZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, newZoom));
@@ -1034,13 +1064,11 @@
 
     wrapEl.addEventListener('wheel', function(e) {
       e.preventDefault();
-      var rect    = wrapEl.getBoundingClientRect();
-      var cursorX = e.clientX - rect.left + wrapEl.scrollLeft;
-      var anchor  = cursorX / innerEl.scrollWidth;
+      var rect = wrapEl.getBoundingClientRect();
+      var anchor = (e.clientX - rect.left + wrapEl.scrollLeft) / innerEl.scrollWidth;
       applyZoom(zoom * (e.deltaY < 0 ? 1.2 : 1 / 1.2), anchor);
     }, { passive: false });
 
-    // Pinch-to-zoom (mobile)
     var initDist = null, initZoom = 1;
     wrapEl.addEventListener('touchstart', function(e) {
       if (e.touches.length === 2) {
@@ -1056,48 +1084,6 @@
     }, { passive: true });
     wrapEl.addEventListener('touchend', function() { initDist = null; });
 
-    // ── Wheel zoom (centred on cursor) ──────────────────────────
-    var wrapEl  = document.getElementById('htl-wrap');
-    var innerEl = document.getElementById('htl-inner');
-    var BASE_PX = Math.max(archive.length * 50, 600);
-    var zoom    = 1;
-    var MIN_ZOOM = 1, MAX_ZOOM = 8;
-
-    function applyZoom(newZoom, anchorRatio) {
-      newZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, newZoom));
-      var ratio = anchorRatio !== undefined
-        ? anchorRatio
-        : (wrapEl.scrollLeft + wrapEl.clientWidth / 2) / innerEl.scrollWidth;
-      zoom = newZoom;
-      innerEl.style.minWidth = (BASE_PX * zoom) + 'px';
-      wrapEl.scrollLeft = ratio * innerEl.scrollWidth - wrapEl.clientWidth / 2;
-    }
-
-    wrapEl.addEventListener('wheel', function(e) {
-      e.preventDefault();
-      var rect    = wrapEl.getBoundingClientRect();
-      var cursorX = e.clientX - rect.left + wrapEl.scrollLeft;
-      var anchor  = cursorX / innerEl.scrollWidth;
-      applyZoom(zoom * (e.deltaY < 0 ? 1.2 : 1 / 1.2), anchor);
-    }, { passive: false });
-
-    // Pinch-to-zoom (mobile)
-    var initDist = null, initZoom = 1;
-    wrapEl.addEventListener('touchstart', function(e) {
-      if (e.touches.length === 2) {
-        initDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-        initZoom = zoom;
-      }
-    }, { passive: true });
-    wrapEl.addEventListener('touchmove', function(e) {
-      if (e.touches.length === 2 && initDist) {
-        var dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-        applyZoom(initZoom * (dist / initDist));
-      }
-    }, { passive: true });
-    wrapEl.addEventListener('touchend', function() { initDist = null; });
-
-    // Drag to scroll
     var isDown = false, startX, scrollLeft;
     wrapEl.addEventListener('mousedown', function(e) {
       isDown = true; startX = e.pageX - wrapEl.offsetLeft; scrollLeft = wrapEl.scrollLeft;
@@ -1109,7 +1095,26 @@
       e.preventDefault();
       wrapEl.scrollLeft = scrollLeft - (e.pageX - wrapEl.offsetLeft - startX);
     });
-  })();
+  }
+
+  /* ── fetch dal foglio Google, con fallback ── */
+  document.getElementById('upcoming-timeline').innerHTML =
+    '<p style="color:#aaa;font-style:italic;padding:1rem 0;">Caricamento concerti...</p>';
+
+  fetch(SHEET_CSV)
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.text();
+    })
+    .then(function(text) {
+      initAgenda(parseCSV(text));
+    })
+    .catch(function(err) {
+      console.warn('Google Sheets non raggiungibile, uso fallback:', err);
+      initAgenda(FALLBACK_CONCERTS);
+    });
+
   </script>
+
 </body>
 </html>
