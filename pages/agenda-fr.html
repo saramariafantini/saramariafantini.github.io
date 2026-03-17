@@ -197,139 +197,75 @@
       margin-top: 0.5rem;
       font-style: italic;
     }
-
-
-    /* ── Horizontal timeline ── */
-    .htl-wrap {
-      position: relative;
-      overflow-x: auto;
-      overflow-y: visible;
-      padding: 80px 0 48px;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-      scrollbar-color: #9caf88 #d4e4cc;
-      cursor: grab;
-    }
-    .htl-wrap:active { cursor: grabbing; }
-    .htl-wrap::-webkit-scrollbar { height: 4px; }
-    .htl-wrap::-webkit-scrollbar-track { background: #d4e4cc; border-radius: 2px; }
-    .htl-wrap::-webkit-scrollbar-thumb { background: #9caf88; border-radius: 2px; }
-    .htl-inner { position: relative; min-width: 100%; }
-    .htl-line {
-      position: absolute;
-      top: 50%; left: 0; right: 0;
-      height: 1.5px;
-      background: #b8cfb0;
-      transform: translateY(-50%);
-    }
-    .htl-year {
-      position: absolute;
-      bottom: -30px;
-      transform: translateX(-50%);
-      font-family: 'Lora', serif;
-      font-size: 0.72em;
-      letter-spacing: 0.1em;
-      color: #7a9470;
-      white-space: nowrap;
-    }
-    .htl-dot-wrap {
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 2;
-    }
-    .htl-dot {
-      width: 11px; height: 11px;
-      border-radius: 50%;
-      border: 2px solid;
-      cursor: pointer;
-      transition: transform 0.18s, box-shadow 0.18s;
-    }
-    .htl-dot-wrap:hover .htl-dot, .htl-dot-wrap.active .htl-dot {
-      transform: scale(1.6);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-    .htl-c-marginalia   { background:#4a5e3a; border-color:#4a5e3a; }
-    .htl-c-siobule      { background:#7a6040; border-color:#7a6040; }
-    .htl-c-chordacordis { background:#3a5e58; border-color:#3a5e58; }
-    .htl-c-troisanneaux { background:#5a3e6a; border-color:#5a3e6a; }
-    .htl-c-rubensrosa   { background:#8a3e3e; border-color:#8a3e3e; }
-    .htl-c-other        { background:#6a6a5a; border-color:#6a6a5a; }
-    .htl-tooltip {
-      position: absolute;
-      bottom: calc(100% + 14px);
-      left: 50%;
-      transform: translateX(-50%);
-      background: #fff;
-      border: 1px solid #c8d9bf;
-      border-radius: 6px;
-      padding: 8px 12px;
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.18s;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      z-index: 10;
-    }
-    .htl-dot-wrap:hover .htl-tooltip, .htl-dot-wrap.active .htl-tooltip { opacity: 1; }
-    .htl-tooltip::after {
-      content: '';
-      position: absolute;
-      top: 100%; left: 50%;
-      transform: translateX(-50%);
-      border: 5px solid transparent;
-      border-top-color: #c8d9bf;
-    }
-    .htl-tt-date  { font-family:'Ysabeau',sans-serif; font-size:0.72em; color:#7a9470; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:2px; }
-    .htl-tt-prog  { font-family:'Lora',serif; font-size:0.92em; color:#2a2a2a; display:block; }
-    .htl-tt-venue { font-family:'Ysabeau',sans-serif; font-size:0.8em; color:#666; display:block; }
-    .htl-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 1.2rem;
-    }
-    .htl-header-left .section-label { margin-bottom: 0.15rem; }
-    .htl-header-left .section-title  { margin-bottom: 0; }
-    .htl-legend-inline {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 16px;
-      align-items: center;
-      padding-bottom: 4px;
-    }
-    .htl-legend-inline .htl-legend-item {
-      display: flex; align-items: center; gap: 6px;
-      font-family: 'Ysabeau', sans-serif; font-size: 0.78em; color: #555;
-    }
-    .htl-legend-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
-    .htl-hint {
-      font-family: 'Ysabeau', sans-serif;
-      font-size: 0.76em;
-      color: #9caf88;
-      letter-spacing: 0.04em;
-      text-align: center;
-      margin: 4px 0 0;
-    }
-    .htl-hint-mobile { display: none; }
-    .htl-section-sep {
-      border: none;
-      border-top: 1px solid #c8d9bf;
-      margin: 2rem 0 1.8rem;
-    }
-    .archive-note {
-      font-size: 0.82em;
-      color: #888;
-      margin-top: 0.5rem;
-      font-style: italic;
-    }
-    @media (max-width: 576px) {
-      .htl-hint-desktop { display: none; }
       .htl-hint-mobile  { display: block; }
       .htl-header { flex-direction: column; align-items: flex-start; }
     }
+
+
+    /* ── Archive timeline (mirrored) ── */
+    .timeline-archive { position: relative; margin-top: 2.5rem; }
+    .timeline-archive::before {
+      content: '';
+      position: absolute;
+      right: 90px;
+      top: 0; bottom: 0;
+      width: 1.5px;
+      background: #c8d9bf;
+    }
+    .archive-item {
+      display: flex;
+      flex-direction: row-reverse;
+      margin-bottom: 2.4rem;
+      position: relative;
+      align-items: flex-start;
+    }
+    .archive-date {
+      flex: 0 0 90px;
+      text-align: left;
+      padding-left: 20px;
+      padding-top: 2px;
+    }
+    .archive-date .day { font-family:'Lora',serif; font-size:2em; line-height:1; color:#7a9470; display:block; }
+    .archive-date .month-year { font-family:'Ysabeau',sans-serif; font-size:0.72em; color:#9caf88; letter-spacing:0.1em; text-transform:uppercase; }
+    .archive-dot {
+      position: absolute;
+      right: 84px; top: 8px;
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      background: #c8d9bf;
+      border: 2.5px solid #9caf88;
+      z-index: 1;
+    }
+    .archive-body {
+      flex: 1;
+      padding-right: 28px;
+      text-align: right;
+    }
+    .archive-body .concert-program { font-family:'Lora',serif; font-size:1.05em; color:#2a2a2a; margin-bottom:0.2rem; }
+    .archive-body .concert-venue { font-size:0.88em; color:#5a5a5a; margin-bottom:0.15rem; }
+    .archive-body .concert-note { font-size:0.82em; color:#888; font-style:italic; }
+    @media (max-width:576px) {
+      .timeline-archive::before { right:60px; }
+      .archive-date { flex:0 0 60px; padding-left:12px; }
+      .archive-date .day { font-size:1.5em; }
+      .archive-dot { right:54px; }
+      .archive-body { padding-right:20px; }
+    }
+
+
+    /* ── Compact footer ── */
+    .site-footer { background-color: #f5f0e8; padding: 0.8rem 2rem; }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.4rem; max-width: 1140px; margin: 0 auto;
+      font-family: 'Ysabeau', sans-serif; font-size: 0.8em; color: #2a2a2a;
+    }
+    .footer-copy { opacity: 0.75; }
+    .footer-social a { color: #2a2a2a; margin-right: 0.55rem; font-size: 1.05em; transition: color 0.2s; }
+    .footer-social a:hover { color: #4a5e3a; }
+    .footer-contact-link { color: #4a5e3a; text-decoration: none; border-bottom: 1px dotted #4a5e3a; }
+    .footer-contact-link:hover { color: #2a2a2a; }
+    @media (max-width: 576px) { .footer-inner { justify-content: center; text-align: center; } }
 
     /* ── Empty state ── */
     .no-concerts {
@@ -348,18 +284,21 @@
     .popup-date { font-size: 0.8em; color: #7a9470; letter-spacing: 0.08em; text-transform: uppercase; }
     .popup-program { font-family: 'Lora', serif; font-size: 1em; margin: 2px 0; }
     .popup-venue { font-size: 0.85em; color: #666; }
-
-    /* ── Footer ── */
-    .footer-section {
-      background-color: #9caf88;
-      color: #060608;
-      padding: 50px 0;
-    }
   </style>
 </head>
 <body>
 
   <!-- ══ NAVBAR ══ -->
+    <style>
+    .navbar { background-color: #9caf88; font-family: 'Ysabeau', sans-serif; font-size: 1.15em; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .navbar .nav-link { color: rgba(255,255,255,0.85) !important; transition: color 0.2s; }
+    .navbar .nav-link:hover, .navbar .nav-link.active { color: #fff !important; }
+    .dropdown-menu { background-color: #7a9470; border: none; border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.18); padding: 0.3rem 0; min-width: 160px; }
+    .dropdown-item { font-family: 'Ysabeau', sans-serif; color: #2a2a2a; font-size: 0.95em; padding: 0.45rem 1.1rem; }
+    .dropdown-item:hover, .dropdown-item:focus { background-color: #4a5e3a; color: #fff; }
+    .dropdown-item.disabled { color: #aaa; pointer-events: none; }
+    .dropdown-divider { border-color: rgba(255,255,255,0.15); margin: 0.2rem 0; }
+  </style>
   <nav class="navbar navbar-expand-sm navbar-dark fixed-top" id="mainNavbar">
     <a class="navbar-brand d-block d-sm-none" href="../index.html">
       <img src="../imgs/favicon-rosa.ico" alt="Logo" style="width:20px;">
@@ -368,13 +307,18 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
-      <a class="navbar-brand justify-content-center" href="../index.html">Sara Maria Fantini</a>
+      <a class="navbar-brand justify-content-center" href="../index.html">Home</a>
       <ul class="navbar-nav text-md-nowrap">
-        <li class="nav-item"><a class="nav-link" href="home-fr.html#bio">Bio</a></li>
-        <li class="nav-item"><a class="nav-link" href="progetti-fr.html">Projets</a></li>
-        <li class="nav-item"><a class="nav-link" href="home-fr.html#media">Media</a></li>
+        <li class="nav-item"><a class="nav-link " href="home-fr.html#bio">Sara Maria Fantini</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle " href="#" data-toggle="dropdown">Projets</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="fragmenta-fr.html">Fragmenta</a><a class="dropdown-item" href="chordacordis-fr.html">ChordaCordis</a><a class="dropdown-item" href="collaborazioni-fr.html">Collaborazioni</a>
+          </div>
+        </li>
+        <li class="nav-item"><a class="nav-link " href="media-fr.html">Médias</a></li>
         <li class="nav-item"><a class="nav-link active" href="agenda-fr.html">Agenda</a></li>
-        <li class="nav-item"><a class="nav-link" href="home-fr.html#contacts">Contact</a></li>
+        <li class="nav-item"><a class="nav-link " href="contatti-fr.html">Contact</a></li>
       </ul>
     </div>
   </nav>
@@ -408,48 +352,24 @@
       <p class="section-label">Archives</p>
       <h2 class="section-title">Concerts passés</h2>
       <div id="map-archive"></div>
-      <p class="archive-note-hidden" style="display:none"></p>
-      <hr class="htl-section-sep">
-      <div class="htl-header">
-        <div class="htl-header-left">
-          <p class="section-label">Frise chronologique</p>
-          <h3 class="section-title" style="font-size:1.4em;">Où et quand</h3>
-        </div>
-        <div class="htl-legend-inline" id="htl-legend"></div>
-      </div>
-      <div class="htl-wrap" id="htl-wrap">
-        <div class="htl-inner" id="htl-inner">
-          <div class="htl-line"></div>
-        </div>
-      </div>
-      <p class="htl-hint htl-hint-desktop">&#8592; défiler &nbsp;·&nbsp; molette pour zoomer &nbsp;·&nbsp; survolez un point pour les détails</p>
-      <p class="htl-hint htl-hint-mobile">glissez pour défiler &nbsp;·&nbsp; pincez pour zoomer &nbsp;·&nbsp; touchez un point pour les détails</p>
+      <div class="timeline-archive" id="archive-timeline"></div>
     </div>
   </section>
 
   <!-- ══ FOOTER ══ -->
-  <section class="footer-section py-5" id="contatti">
-    <div class="row no-gutters align-items-center">
-      <div class="col-md-6 px-5 py-4 text-center">
-        <h3 style="font-family:'Lora',serif; padding:1em 0 0.5em;">Informations et contact</h3>
-        <p>
-          <a href="mailto:saramariafantini01@gmail.com" class="btn btn-outline-dark btn-lg rounded-pill mx-auto my-3">Contactez-moi</a>
-        </p>
-        <div class="mb-4">
-          <a href="https://www.linkedin.com/in/sara-maria-fantini-5a789412b/" class="mr-3"><i class="fab fa-linkedin fa-2x" style="color:#2a2a2a;"></i></a>
-          <a href="https://www.instagram.com/saram.fantini" class="mr-3"><i class="fab fa-instagram fa-2x" style="color:#2a2a2a;"></i></a>
-          <a href="https://www.facebook.com/saramaria.fantini" class="mr-3"><i class="fab fa-facebook fa-2x" style="color:#2a2a2a;"></i></a>
-          <a href="https://x.com/saramfantini" class="mr-3"><i class="fab fa-twitter fa-2x" style="color:#2a2a2a;"></i></a>
-          <a href="https://www.youtube.com/@saramariafantini8715" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube fa-2x" style="color:#2a2a2a;"></i></a>
-        </div>
-        <p>saramariafantini[at]gmail[point]com</p>
-        <p style="font-size:0.85em; color:#444;">© 2025 Sara Maria Fantini. Tous droits réservés.</p>
+  <footer class="site-footer" style="background:#f5f0e8;">
+    <div class="footer-inner" style="color:#2a2a2a;">
+      <span class="footer-copy" style="color:#2a2a2a;">Photos : Clara Brunet, Alessandro de Carolis, Rebecca Maria Fantini, Danko Strahinić.</span>
+      <span class="footer-copy" style="color:#2a2a2a; opacity:0.6;">© 2025 Sara Maria Fantini. Tous droits réservés.</span>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/in/sara-maria-fantini-5a789412b/" title="LinkedIn" style="color:#2a2a2a;"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.instagram.com/saram.fantini" title="Instagram" style="color:#2a2a2a;"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/saramaria.fantini" title="Facebook" style="color:#2a2a2a;"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.youtube.com/@saramariafantini8715" title="YouTube" target="_blank" rel="noopener noreferrer" style="color:#2a2a2a;"><i class="fab fa-youtube"></i></a>
       </div>
-      <div class="col-md-6 text-right">
-        <img src="../imgs/contacts.jpg" alt="Sara Maria Fantini" class="img-fluid w-75" loading="lazy">
-      </div>
+      <a href="contatti-fr.html" class="footer-contact-link" style="color:#4a5e3a; border-bottom-color:#4a5e3a;">Contact</a>
     </div>
-  </section>
+  </footer>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
@@ -590,7 +510,9 @@
     }
 
     /* ── archive map ── */
+    if (window._mapA) { window._mapA.remove(); window._mapA = null; }
     var mapA = L.map('map-archive', { zoomControl: true, scrollWheelZoom: false });
+    window._mapA = mapA;
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> © <a href="https://carto.com/">CARTO</a>',
       subdomains: 'abcd', maxZoom: 19
@@ -614,172 +536,40 @@
     else mapA.setView([46, 8], 4);
 
     /* ── horizontal timeline ── */
-    buildHTL(archive);
+    buildArchiveTimeline(archive);
   }
 
-  /* ── horizontal timeline builder ── */
-  function buildHTL(archive) {
-    if (!archive.length) return;
 
-    var colorMap = {
-      'marginalia':       'htl-c-marginalia',
-      'siobul':           'htl-c-siobule',
-      'rubens rosa':      'htl-c-rubensrosa',
-      'chordacordis':     'htl-c-chordacordis',
-      'trois anneaux':    'htl-c-troisanneaux',
-    };
-    var legendLabels = {
-      'htl-c-marginalia':    'Marginalia',
-      'htl-c-siobule':       'Siobulé',
-      'htl-c-rubensrosa':    'Rubens Rosa',
-      'htl-c-chordacordis':  'ChordaCordis',
-      'htl-c-troisanneaux':  'Trois Anneaux',
-      'htl-c-other':         'Autres projets',
-    };
-    var legendColors = {
-      'htl-c-marginalia':'#4a5e3a', 'htl-c-siobule':'#7a6040',
-      'htl-c-rubensrosa':'#8a3e3e', 'htl-c-chordacordis':'#3a5e58',
-      'htl-c-troisanneaux':'#5a3e6a', 'htl-c-other':'#6a6a5a'
-    };
 
-    function getClass(prog) {
-      var p = prog.toLowerCase();
-      for (var key in colorMap) { if (p.indexOf(key) !== -1) return colorMap[key]; }
-      return 'htl-c-other';
-    }
 
-    var sorted = archive.slice().sort(function(a,b){ return a.date > b.date ? 1 : -1; });
-    var minTs = new Date(sorted[0].date + 'T00:00:00').getTime();
-    var maxTs = new Date(sorted[sorted.length-1].date + 'T00:00:00').getTime();
-    var range = maxTs - minTs || 1;
-    var PAD = 5;
-
-    var wrap = document.getElementById('htl-inner');
-    wrap.innerHTML = '<div class="htl-line"></div>';
-    var minPx = Math.max(sorted.length * 50, 600);
-    wrap.style.minWidth = minPx + 'px';
-    wrap.style.height = '1px';
-
-    /* year markers */
-    var years = {};
+  /* ── Archive vertical timeline (mirrored) ── */
+  function buildArchiveTimeline(archive) {
+    var tl = document.getElementById('archive-timeline');
+    if (!tl) return;
+    tl.innerHTML = '';
+    var sorted = archive.slice().sort(function(a,b){ return a.date < b.date ? 1 : -1; });
     sorted.forEach(function(c) {
-      var y = c.date.slice(0, 4);
-      if (!years[y]) {
-        var ts = new Date(y + '-01-01T00:00:00').getTime();
-        var pct = PAD + ((ts - minTs) / range) * (100 - PAD * 2);
-        years[y] = Math.max(PAD, Math.min(100 - PAD, pct));
+      var d = fmtDate(c.date);
+      var dateLabel = fmtDateRange(c.date, c.date_end);
+      var endLine = '';
+      if (c.date_end && c.date_end.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        var de = fmtDate(c.date_end);
+        endLine = '<span class="month-year" style="display:block;">– ' + de.day + ' ' + de.month + ' ' + de.year + '</span>';
       }
-    });
-    for (var yr in years) {
-      var yl = document.createElement('span');
-      yl.className = 'htl-year';
-      yl.style.left = years[yr] + '%';
-      yl.textContent = yr;
-      wrap.appendChild(yl);
-    }
-
-    /* dots */
-    var usedClasses = {};
-    sorted.forEach(function(c) {
-      var ts = new Date(c.date + 'T00:00:00').getTime();
-      var pct = PAD + ((ts - minTs) / range) * (100 - PAD * 2);
-      var cls = getClass(c.program);
-      usedClasses[cls] = true;
-
-      var dw = document.createElement('div');
-      dw.className = 'htl-dot-wrap';
-      dw.style.left = pct + '%';
-
-      var dot = document.createElement('div');
-      dot.className = 'htl-dot ' + cls;
-
-      var tip = document.createElement('div');
-      tip.className = 'htl-tooltip';
-      tip.innerHTML =
-        '<span class="htl-tt-date">' + fmtDateRange(c.date, c.date_end) + '</span>' +
-        '<span class="htl-tt-prog">' + c.program + '</span>' +
-        '<span class="htl-tt-venue">' + c.venue + '</span>';
-
-      dw.addEventListener('click', function(dw) {
-        return function(e) {
-          e.stopPropagation();
-          document.querySelectorAll('.htl-dot-wrap.active').forEach(function(el) {
-            if (el !== dw) el.classList.remove('active');
-          });
-          dw.classList.toggle('active');
-        };
-      }(dw));
-
-      dw.appendChild(dot);
-      dw.appendChild(tip);
-      wrap.appendChild(dw);
-    });
-
-    document.addEventListener('click', function() {
-      document.querySelectorAll('.htl-dot-wrap.active').forEach(function(el) {
-        el.classList.remove('active');
-      });
-    });
-
-    /* legend */
-    var legend = document.getElementById('htl-legend');
-    legend.innerHTML = '';
-    for (var cls in legendLabels) {
-      if (!usedClasses[cls]) continue;
-      var li = document.createElement('div');
-      li.className = 'htl-legend-item';
-      li.innerHTML = '<div class="htl-legend-dot" style="background:' + legendColors[cls] + '"></div>' + legendLabels[cls];
-      legend.appendChild(li);
-    }
-
-    /* zoom + drag */
-    var wrapEl  = document.getElementById('htl-wrap');
-    var innerEl = document.getElementById('htl-inner');
-    var BASE_PX = Math.max(sorted.length * 50, 600);
-    var zoom = 1, MIN_ZOOM = 1, MAX_ZOOM = 8;
-
-    function applyZoom(newZoom, anchorRatio) {
-      newZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, newZoom));
-      var ratio = anchorRatio !== undefined
-        ? anchorRatio
-        : (wrapEl.scrollLeft + wrapEl.clientWidth / 2) / innerEl.scrollWidth;
-      zoom = newZoom;
-      innerEl.style.minWidth = (BASE_PX * zoom) + 'px';
-      wrapEl.scrollLeft = ratio * innerEl.scrollWidth - wrapEl.clientWidth / 2;
-    }
-
-    wrapEl.addEventListener('wheel', function(e) {
-      e.preventDefault();
-      var rect = wrapEl.getBoundingClientRect();
-      var anchor = (e.clientX - rect.left + wrapEl.scrollLeft) / innerEl.scrollWidth;
-      applyZoom(zoom * (e.deltaY < 0 ? 1.2 : 1 / 1.2), anchor);
-    }, { passive: false });
-
-    var initDist = null, initZoom = 1;
-    wrapEl.addEventListener('touchstart', function(e) {
-      if (e.touches.length === 2) {
-        initDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-        initZoom = zoom;
-      }
-    }, { passive: true });
-    wrapEl.addEventListener('touchmove', function(e) {
-      if (e.touches.length === 2 && initDist) {
-        var dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-        applyZoom(initZoom * (dist / initDist));
-      }
-    }, { passive: true });
-    wrapEl.addEventListener('touchend', function() { initDist = null; });
-
-    var isDown = false, startX, scrollLeft;
-    wrapEl.addEventListener('mousedown', function(e) {
-      isDown = true; startX = e.pageX - wrapEl.offsetLeft; scrollLeft = wrapEl.scrollLeft;
-    });
-    wrapEl.addEventListener('mouseleave', function() { isDown = false; });
-    wrapEl.addEventListener('mouseup',    function() { isDown = false; });
-    wrapEl.addEventListener('mousemove',  function(e) {
-      if (!isDown) return;
-      e.preventDefault();
-      wrapEl.scrollLeft = scrollLeft - (e.pageX - wrapEl.offsetLeft - startX);
+      tl.innerHTML +=
+        '<div class="archive-item">' +
+        '  <div class="archive-date">' +
+        '    <span class="day">' + d.day + '</span>' +
+        '    <span class="month-year">' + d.wd + ' ' + d.month + ' ' + d.year + '</span>' +
+        endLine +
+        '  </div>' +
+        '  <div class="archive-dot"></div>' +
+        '  <div class="archive-body">' +
+        '    <div class="concert-program">' + c.program + '</div>' +
+        '    <div class="concert-venue">' + c.venue + ' — ' + c.city + '</div>' +
+        (c.note ? '<div class="concert-note">' + c.note + '</div>' : '') +
+        '  </div>' +
+        '</div>';
     });
   }
 
