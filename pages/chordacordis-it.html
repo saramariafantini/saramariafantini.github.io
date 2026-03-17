@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sara Maria Fantini — ChordaCordis">
+  <title>ChordaCordis | Sara Maria Fantini</title>
+  <link rel="icon" type="image/x-icon" href="../imgs/favicon-rosa.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Lora&family=Ysabeau&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { overflow-x: hidden; font-family: 'Ysabeau', sans-serif; font-size: 1.2em; margin: 0; padding: 0; }
+    h1,h2,h3,h4,h5,h6 { font-family: 'Lora', serif; }
+
+    .container-fluid { background-color: #9caf88; color: #060608; padding: 50px 0; }
+    .container p { text-align: justify; }
+    .parallax {
+      position: relative; background-attachment: fixed; background-position: center;
+      background-repeat: no-repeat; background-size: cover;
+      width: 100vw; min-height: 70vh;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+    }
+    @media (max-width: 768px) { .parallax { min-height: 50vh; background-attachment: scroll; } }
+    .parallax-title h1 { font-size: clamp(2rem, 6vw, 4rem); color: antiquewhite; }
+    h3 { padding: 2em 0 1em; font-size: 1.5em; text-align: center; }
+    h4.gallery-heading { font-family:'Lora',serif; font-size:0.95em; text-align:center; letter-spacing:0.08em; text-transform:uppercase; color:#4a5e3a; margin-top:2rem; margin-bottom:0.6rem; }
+    .gallery-strip-wrap { position:relative; margin-top:1.8rem; margin-bottom:0.5rem; }
+    .gallery-strip { display:flex; gap:10px; overflow-x:auto; scroll-behavior:smooth; -webkit-overflow-scrolling:touch; padding-bottom:10px; scrollbar-width:thin; scrollbar-color:#7a9470 #c8d9bf; }
+    .gallery-strip::-webkit-scrollbar { height:5px; }
+    .gallery-strip::-webkit-scrollbar-track { background:#c8d9bf; border-radius:3px; }
+    .gallery-strip::-webkit-scrollbar-thumb { background:#7a9470; border-radius:3px; }
+    .gallery-thumb { flex:0 0 auto; height:200px; width:auto; object-fit:cover; cursor:pointer; opacity:0.85; transition:opacity 0.25s,transform 0.25s; border-radius:4px; box-shadow:0 2px 8px rgba(0,0,0,0.18); }
+    .gallery-thumb:hover { opacity:1; transform:scale(1.02); }
+    .strip-arrow { display:none; position:absolute; top:50%; transform:translateY(-60%); background:rgba(156,175,136,0.85); color:#fff; border:none; font-size:1.8rem; padding:0.1em 0.45em; cursor:pointer; z-index:5; line-height:1; border-radius:3px; transition:background 0.2s; }
+    .strip-arrow:hover { background:rgba(100,120,88,0.95); }
+    .strip-left { left:0; } .strip-right { right:0; }
+    @media (min-width:768px) { .strip-arrow { display:block; } .gallery-thumb { height:220px; } }
+    .gallery-nav { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:#fff; border:none; font-size:2.5rem; padding:0.15em 0.5em; cursor:pointer; z-index:10; line-height:1; border-radius:4px; }
+    .gallery-nav:hover { background:rgba(0,0,0,0.85); }
+    .gallery-prev { left:10px; } .gallery-next { right:10px; }
+    .gallery-close { position:absolute; top:8px; right:14px; color:#fff; font-size:2rem; opacity:0.8; z-index:10; background:none; border:none; cursor:pointer; line-height:1; }
+    .gallery-close:hover { opacity:1; }
+    #galleryModalImg { max-height:80vh; width:100%; object-fit:contain; }
+    .gallery-counter { color:#ccc; font-size:0.9rem; padding:6px 0 4px; }
+    h4.yt-label { font-family:'Lora',serif; font-size:1em; text-align:center; letter-spacing:0.06em; text-transform:uppercase; color:#4a5e3a; margin-top:2rem; margin-bottom:0.5rem; }
+    .yt-wrap { margin-top:1.6rem; margin-bottom:0.4rem; }
+    .yt-wrap .embed-responsive { border-radius:6px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.2); }
+    .project-link { display:inline-block; margin-top:1.2rem; margin-bottom:0.4rem; font-family:'Ysabeau',sans-serif; font-size:0.95em; color:#4a5e3a; text-decoration:none; border-bottom:1px solid #4a5e3a; transition:color 0.2s,border-color 0.2s; }
+    .project-link:hover { color:#2a3e22; border-color:#2a3e22; }
+
+    /* ── Compact footer ── */
+    .site-footer {
+      background-color: #9caf88;
+      padding: 0.8rem 2rem;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      max-width: 1140px;
+      margin: 0 auto;
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.8em;
+      color: #2a2a2a;
+    }
+    .footer-copy { opacity: 0.7; }
+    .footer-social a { color: #2a2a2a; margin-right: 0.55rem; font-size: 1.05em; transition: color 0.2s; }
+    .footer-social a:hover { color: #4a5e3a; }
+    .footer-contact-link { color: #2a2a2a; text-decoration: none; border-bottom: 1px dotted #4a5e3a; }
+    .footer-contact-link:hover { color: #4a5e3a; }
+    @media (max-width: 576px) {
+      .footer-inner { justify-content: center; text-align: center; }
+    }
+    #chordacordis { background-image: url("../imgs/chordacordis.png"); }
+  </style>
+</head>
+<body>
+  <style>
+    .navbar { background-color: #9caf88; font-family: 'Ysabeau', sans-serif; font-size: 1.15em; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .navbar .nav-link { color: rgba(255,255,255,0.85) !important; transition: color 0.2s; }
+    .navbar .nav-link:hover, .navbar .nav-link.active { color: #fff !important; }
+    .dropdown-menu { background-color: #7a9470; border: none; border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.18); padding: 0.3rem 0; min-width: 160px; }
+    .dropdown-item { font-family: 'Ysabeau', sans-serif; color: #2a2a2a; font-size: 0.95em; padding: 0.45rem 1.1rem; }
+    .dropdown-item:hover, .dropdown-item:focus { background-color: #4a5e3a; color: #fff; }
+    .dropdown-item.disabled { color: #aaa; pointer-events: none; }
+    .dropdown-divider { border-color: rgba(255,255,255,0.15); margin: 0.2rem 0; }
+  </style>
+  <nav class="navbar navbar-expand-sm navbar-dark fixed-top" id="mainNavbar">
+    <a class="navbar-brand d-block d-sm-none" href="../index.html">
+      <img src="../imgs/favicon-rosa.ico" alt="Logo" style="width:20px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+      <a class="navbar-brand justify-content-center" href="../index.html">Home</a>
+      <ul class="navbar-nav text-md-nowrap">
+        <li class="nav-item"><a class="nav-link " href="home-it.html#bio">Sara Maria Fantini</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" data-toggle="dropdown">Progetti</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="fragmenta-it.html">Fragmenta</a><a class="dropdown-item" href="chordacordis-it.html">ChordaCordis</a><a class="dropdown-item" href="collaborazioni-it.html">Collaborazioni</a>
+          </div>
+        </li>
+        <li class="nav-item"><a class="nav-link " href="media-it.html">Media</a></li>
+        <li class="nav-item"><a class="nav-link " href="agenda-it.html">Agenda</a></li>
+        <li class="nav-item"><a class="nav-link " href="contatti-it.html">Contatti</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="parallax" id="chordacordis">
+    <div class="parallax-title"><h1>ChordaCordis</h1></div>
+  </div>
+
+  <section class="container-fluid" id="chordacordis-content">
+<div class="container">
+      <h3>Progetto <em>ChordaCordis</em></h3>
+      <p>ChordaCordis nasce dall'incontro tra Sara Maria Fantini e Colin Heller alla Schola Cantorum Basiliensis di Basilea, dove entrambi si sono formati nello studio di repertori storici. Sara suona oud, liuto medievale e chitarrino; Colin è specializzato in strumenti ad arco con corde simpatetiche — nyckelharpa, viella medievale e viole d'amour. Il duo esplora la canzone europea dal Medioevo a oggi, tracciando un percorso che dalla Francia meridionale e dall'Italia si estende attraverso il Mediterraneo fino al Vicino Oriente, mettendo in dialogo tradizioni diverse attraverso la voce comune degli strumenti a corda.</p>
+      
+      <h4 class="gallery-heading">Galleria fotografica</h4>
+      <div class="gallery-strip-wrap">
+        <button class="strip-arrow strip-left"  onclick="scrollStrip('chordacordisStrip', -320)" aria-label="Scorri a sinistra">&#8249;</button>
+        <div class="gallery-strip" id="chordacordisStrip">
+        <img src="../imgs/chordacordis/chordacordis-1.png" alt="ChordaCordis (1)" class="gallery-thumb" onclick="openGallery('chordacordis', 0)" loading="lazy">
+        <img src="../imgs/chordacordis/chordacordis-2.png" alt="ChordaCordis (2)" class="gallery-thumb" onclick="openGallery('chordacordis', 1)" loading="lazy">
+        <img src="../imgs/chordacordis/chordacordis-3.jpg" alt="ChordaCordis (3)" class="gallery-thumb" onclick="openGallery('chordacordis', 2)" loading="lazy">
+        <img src="../imgs/chordacordis/chordacordis-4.jpg" alt="ChordaCordis (4)" class="gallery-thumb" onclick="openGallery('chordacordis', 3)" loading="lazy">
+        </div>
+        <button class="strip-arrow strip-right" onclick="scrollStrip('chordacordisStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
+      </div>
+      <h4 class="yt-label">Estratto</h4>
+      <div class="yt-wrap"><div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/sgkfTYNmHe0" allowfullscreen loading="lazy" title="ChordaCordis — Bacchu-ber"></iframe></div></div>
+    </div>
+  </section>
+
+  <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+      <div class="modal-content bg-dark border-0">
+        <div class="modal-body p-0 text-center position-relative">
+          <button class="gallery-close" data-dismiss="modal">&times;</button>
+          <button class="gallery-nav gallery-prev" onclick="galleryNav(-1)">&#8249;</button>
+          <img id="galleryModalImg" src="" alt="" class="img-fluid">
+          <button class="gallery-nav gallery-next" onclick="galleryNav(1)">&#8250;</button>
+          <div class="gallery-counter" id="galleryCounter"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function scrollStrip(id,px){ var el=document.getElementById(id); if(el) el.scrollBy({left:px,behavior:'smooth'}); }
+    var galleries = {chordacordis: [{src:'../imgs/chordacordis/chordacordis-1.png',alt:'ChordaCordis (1)'}, {src:'../imgs/chordacordis/chordacordis-2.png',alt:'ChordaCordis (2)'}, {src:'../imgs/chordacordis/chordacordis-3.jpg',alt:'ChordaCordis (3)'}, {src:'../imgs/chordacordis/chordacordis-4.jpg',alt:'ChordaCordis (4)'}]};
+    var currentGallery=null, currentIndex=0;
+    function openGallery(id,idx){ currentGallery=galleries[id]; currentIndex=idx; updateModalImage(); $('#galleryModal').modal('show'); }
+    function updateModalImage(){ var item=currentGallery[currentIndex]; document.getElementById('galleryModalImg').src=item.src; document.getElementById('galleryModalImg').alt=item.alt; document.getElementById('galleryCounter').textContent=(currentIndex+1)+' / '+currentGallery.length; }
+    function galleryNav(dir){ currentIndex=(currentIndex+dir+currentGallery.length)%currentGallery.length; updateModalImage(); }
+    document.addEventListener('keydown',function(e){ if(!document.getElementById('galleryModal').classList.contains('show')) return; if(e.key==='ArrowLeft') galleryNav(-1); if(e.key==='ArrowRight') galleryNav(1); if(e.key==='Escape') $('#galleryModal').modal('hide'); });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <footer class="site-footer" style="background:#9caf88;">
+    <div class="footer-inner" style="color:#2a2a2a;">
+      <span class="footer-copy" style="color:#2a2a2a;">Foto: Clara Brunet, Alessandro de Carolis, Rebecca Maria Fantini, Danko Strahinić.</span>
+      <span class="footer-copy" style="color:#2a2a2a; opacity:0.6;">© 2025 Sara Maria Fantini. Tutti i diritti riservati.</span>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/in/sara-maria-fantini-5a789412b/" title="LinkedIn" style="color:#2a2a2a;"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.instagram.com/saram.fantini" title="Instagram" style="color:#2a2a2a;"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/saramaria.fantini" title="Facebook" style="color:#2a2a2a;"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.youtube.com/@saramariafantini8715" title="YouTube" target="_blank" rel="noopener noreferrer" style="color:#2a2a2a;"><i class="fab fa-youtube"></i></a>
+      </div>
+      <a href="contatti-it.html" class="footer-contact-link" style="color:#4a5e3a; border-bottom-color:#4a5e3a;">Contatti</a>
+    </div>
+  </footer>
+</body>
+</html>

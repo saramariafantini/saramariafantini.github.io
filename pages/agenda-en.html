@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sara Maria Fantini — concert agenda, upcoming dates and archive.">
+  <title>Agenda | Sara Maria Fantini</title>
+  <link rel="icon" type="image/x-icon" href="../imgs/favicon-rosa.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Lora&family=Ysabeau&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      overflow-x: hidden;
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 1.1em;
+      background-color: #f5f0e8;
+      color: #2a2a2a;
+      margin: 0; padding: 0;
+    }
+    h1,h2,h3,h4,h5,h6 { font-family: 'Lora', serif; }
+
+    /* ── Navbar ── */
+    /* ── Hero ── */
+    .agenda-hero {
+      background: url('../imgs/saraScura.jpg') center center / cover no-repeat;
+      min-height: 55vh;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 3rem;
+      position: relative;
+    }
+    .agenda-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%);
+    }
+    .agenda-hero-title {
+      position: relative;
+      z-index: 1;
+      color: #f9f4e0;
+      padding-left: 2rem;
+    }
+    .agenda-hero-title h1 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 400;
+      margin: 0;
+      letter-spacing: 0.04em;
+    }
+    .agenda-hero-title p {
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 1em;
+      opacity: 0.85;
+      margin: 0.3rem 0 0;
+    }
+    @media (max-width: 768px) {
+      .agenda-hero { min-height: 40vh; }
+    }
+
+    /* ── Section headers ── */
+    .section-label {
+      font-family: 'Lora', serif;
+      font-size: 0.78em;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #7a9470;
+      margin-bottom: 0.3rem;
+    }
+    .section-title {
+      font-size: 1.9em;
+      font-weight: 400;
+      color: #2a2a2a;
+      margin-bottom: 2.2rem;
+      border-bottom: 1.5px solid #c8d9bf;
+      padding-bottom: 0.6rem;
+    }
+
+    /* ── Timeline concerti ── */
+    .timeline { position: relative; padding-left: 0; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 90px;
+      top: 0; bottom: 0;
+      width: 1.5px;
+      background: #c8d9bf;
+    }
+    .concert-item {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2.4rem;
+      position: relative;
+      align-items: flex-start;
+    }
+    .concert-date {
+      flex: 0 0 90px;
+      text-align: right;
+      padding-right: 24px;
+      padding-top: 2px;
+    }
+    .concert-date .day {
+      font-family: 'Lora', serif;
+      font-size: 2em;
+      line-height: 1;
+      color: #4a5e3a;
+      display: block;
+    }
+    .concert-date .month-year {
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.72em;
+      color: #7a9470;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 84px;
+      top: 8px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #9caf88;
+      border: 2.5px solid #7a9470;
+      z-index: 1;
+    }
+    .concert-body {
+      flex: 1;
+      padding-left: 28px;
+      padding-top: 0;
+    }
+    .concert-program {
+      font-family: 'Lora', serif;
+      font-size: 1.05em;
+      color: #2a2a2a;
+      margin-bottom: 0.2rem;
+    }
+    .concert-venue {
+      font-size: 0.88em;
+      color: #5a5a5a;
+      margin-bottom: 0.15rem;
+    }
+    .concert-venue i { color: #9caf88; margin-right: 5px; }
+    .concert-note {
+      font-size: 0.82em;
+      color: #888;
+      font-style: italic;
+      margin-bottom: 0.4rem;
+    }
+    .concert-social a {
+      color: #9caf88;
+      font-size: 0.95em;
+      margin-right: 10px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .concert-social a:hover { color: #4a5e3a; }
+    .concert-map-link {
+      font-size: 0.82em;
+      color: #7a9470;
+      text-decoration: none;
+      border-bottom: 1px dotted #9caf88;
+      cursor: pointer;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      padding: 0;
+      font-family: 'Ysabeau', sans-serif;
+    }
+    .concert-map-link:hover { color: #4a5e3a; }
+    @media (max-width: 576px) {
+      .timeline::before { left: 60px; }
+      .concert-date { flex: 0 0 60px; padding-right: 16px; }
+      .concert-date .day { font-size: 1.5em; }
+      .timeline-dot { left: 54px; }
+      .concert-body { padding-left: 20px; }
+    }
+
+    /* ── Archive map ── */
+    #map-archive {
+      height: 420px;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      margin-bottom: 3rem;
+    }
+    .archive-note {
+      font-size: 0.82em;
+      color: #888;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+      .htl-hint-mobile  { display: block; }
+      .htl-header { flex-direction: column; align-items: flex-start; }
+    }
+
+
+    /* ── Archive timeline (mirrored) ── */
+    .timeline-archive { position: relative; margin-top: 4rem; }
+    .archive-item {
+      display: flex;
+      flex-direction: row-reverse;
+      margin-bottom: 0;
+      padding-bottom: 2.4rem;
+      position: relative;
+      align-items: flex-start;
+    }
+    /* Vertical line: right border on the body+dot wrapper */
+    .archive-item::after {
+      content: '';
+      position: absolute;
+      right: 90px;
+      top: 8px;
+      bottom: 0;
+      width: 1.5px;
+      background: #c8d9bf;
+      z-index: 0;
+    }
+    .timeline-archive > .archive-item:last-child::after {
+      display: none;
+    }
+    .archive-date {
+      flex: 0 0 90px;
+      text-align: left;
+      padding-left: 20px;
+      padding-top: 2px;
+    }
+    .archive-date .day { font-family:'Lora',serif; font-size:2em; line-height:1; color:#7a9470; display:block; }
+    .archive-date .month-year { font-family:'Ysabeau',sans-serif; font-size:0.72em; color:#9caf88; letter-spacing:0.1em; text-transform:uppercase; }
+    .archive-dot {
+      position: absolute;
+      right: 84px; top: 8px;
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      background: #c8d9bf;
+      border: 2.5px solid #9caf88;
+      z-index: 1;
+    }
+    .archive-body {
+      flex: 1;
+      padding-right: 28px;
+      text-align: right;
+    }
+    .archive-body .concert-program { font-family:'Lora',serif; font-size:1.05em; color:#2a2a2a; margin-bottom:0.2rem; }
+    .archive-body .concert-venue { font-size:0.88em; color:#5a5a5a; margin-bottom:0.15rem; }
+    .archive-body .concert-note { font-size:0.82em; color:#888; font-style:italic; }
+    @media (max-width:576px) {
+      .archive-item::after { right:60px; }
+      .archive-date { flex:0 0 60px; padding-left:12px; }
+      .archive-date .day { font-size:1.5em; }
+      .archive-dot { right:54px; }
+      .archive-body { padding-right:20px; }
+    }
+
+
+    /* ── Compact footer ── */
+    .site-footer { background-color: #e8f0e2; padding: 0.8rem 2rem; }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.4rem; max-width: 1140px; margin: 0 auto;
+      font-family: 'Ysabeau', sans-serif; font-size: 0.8em; color: #2a2a2a;
+    }
+    .footer-copy { opacity: 0.75; }
+    .footer-social a { color: #2a2a2a; margin-right: 0.55rem; font-size: 1.05em; transition: color 0.2s; }
+    .footer-social a:hover { color: #4a5e3a; }
+    .footer-contact-link { color: #4a5e3a; text-decoration: none; border-bottom: 1px dotted #4a5e3a; }
+    .footer-contact-link:hover { color: #2a2a2a; }
+    @media (max-width: 576px) { .footer-inner { justify-content: center; text-align: center; } }
+
+    /* ── Empty state ── */
+    .no-concerts {
+      text-align: center;
+      color: #aaa;
+      font-style: italic;
+      padding: 2rem 0;
+    }
+
+    /* ── Leaflet popup custom ── */
+    .leaflet-popup-content-wrapper {
+      border-radius: 6px;
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.95em;
+    }
+    .popup-date { font-size: 0.8em; color: #7a9470; letter-spacing: 0.08em; text-transform: uppercase; }
+    .popup-program { font-family: 'Lora', serif; font-size: 1em; margin: 2px 0; }
+    .popup-venue { font-size: 0.85em; color: #666; }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+    <style>
+    .navbar { background-color: #9caf88; font-family: 'Ysabeau', sans-serif; font-size: 1.15em; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .navbar .nav-link { color: rgba(255,255,255,0.85) !important; transition: color 0.2s; }
+    .navbar .nav-link:hover, .navbar .nav-link.active { color: #fff !important; }
+    .dropdown-menu { background-color: #7a9470; border: none; border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.18); padding: 0.3rem 0; min-width: 160px; }
+    .dropdown-item { font-family: 'Ysabeau', sans-serif; color: #2a2a2a; font-size: 0.95em; padding: 0.45rem 1.1rem; }
+    .dropdown-item:hover, .dropdown-item:focus { background-color: #4a5e3a; color: #fff; }
+    .dropdown-item.disabled { color: #aaa; pointer-events: none; }
+    .dropdown-divider { border-color: rgba(255,255,255,0.15); margin: 0.2rem 0; }
+  </style>
+  <nav class="navbar navbar-expand-sm navbar-dark fixed-top" id="mainNavbar">
+    <a class="navbar-brand d-block d-sm-none" href="../index.html">
+      <img src="../imgs/favicon-rosa.ico" alt="Logo" style="width:20px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+      <a class="navbar-brand justify-content-center" href="../index.html">Home</a>
+      <ul class="navbar-nav text-md-nowrap">
+        <li class="nav-item"><a class="nav-link " href="home-en.html#bio">Sara Maria Fantini</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle " href="#" data-toggle="dropdown">Projects</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="fragmenta-en.html">Fragmenta</a><a class="dropdown-item" href="chordacordis-en.html">ChordaCordis</a><a class="dropdown-item" href="collaborazioni-en.html">Collaborazioni</a>
+          </div>
+        </li>
+        <li class="nav-item"><a class="nav-link " href="media-en.html">Media</a></li>
+        <li class="nav-item"><a class="nav-link active" href="agenda-en.html">Agenda</a></li>
+        <li class="nav-item"><a class="nav-link " href="contatti-en.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <div class="agenda-hero" style="margin-top:56px;">
+    <div class="agenda-hero-title">
+      <h1>Agenda</h1>
+      <p>Upcoming dates &amp; concert archive</p>
+    </div>
+  </div>
+
+  <!-- ══ PROSSIME DATE ══ -->
+  <section class="container py-5" id="prossime-date">
+    <p class="section-label">Calendar</p>
+    <h2 class="section-title">Upcoming dates</h2>
+
+    <!-- ╔══════════════════════════════════════════════════════════════╗
+         ║  HOW TO ADD A CONCERT                                ║
+         ║  Copy one of the blocks below and edit the values.       ║
+         ║  Set upcoming: true for future concerts,               ║
+         ║  upcoming: false for the archive.                            ║
+         ╚══════════════════════════════════════════════════════════════╝ -->
+    <div class="timeline" id="upcoming-timeline"></div>
+    <p class="no-concerts" id="no-upcoming" style="display:none;">No concerts currently scheduled. Check back soon!</p>
+  </section>
+
+  <!-- ══ ARCHIVIO ══ -->
+  <section style="background:#e8f0e2; padding: 3rem 0;">
+    <div class="container" id="archivio">
+      <p class="section-label">Archive</p>
+      <h2 class="section-title">Past concerts</h2>
+      <div id="map-archive"></div>
+      <div class="timeline-archive" id="archive-timeline"></div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="site-footer" style="background:#e8f0e2">
+    <div class="footer-inner" style="color:#2a2a2a;">
+      <span class="footer-copy" style="color:#2a2a2a;">Photos: Clara Brunet, Alessandro de Carolis, Rebecca Maria Fantini, Danko Strahinić.</span>
+      <span class="footer-copy" style="color:#2a2a2a; opacity:0.6;">© 2025 Sara Maria Fantini. All rights reserved.</span>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/in/sara-maria-fantini-5a789412b/" title="LinkedIn" style="color:#2a2a2a;"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.instagram.com/saram.fantini" title="Instagram" style="color:#2a2a2a;"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/saramaria.fantini" title="Facebook" style="color:#2a2a2a;"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.youtube.com/@saramariafantini8715" title="YouTube" target="_blank" rel="noopener noreferrer" style="color:#2a2a2a;"><i class="fab fa-youtube"></i></a>
+      </div>
+      <a href="contatti-en.html" class="footer-contact-link" style="color:#4a5e3a; border-bottom-color:#4a5e3a;">Contact</a>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+  /* ════════════════════════════════════════════════════════════════════
+     AGENDA — dati caricati da Google Sheets
+     Per aggiungere o modificare concerti, usare il foglio Google.
+     Il sito si aggiorna entro qualche minuto dal salvataggio.
+  ════════════════════════════════════════════════════════════════════ */
+
+  var SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUdrJfXjvEKnMsDzhOGtYW9f4cRE7iQ_YVOido6kxzLbi4yiLu4GrFz-UKcFOBDJ6Lj7NHtf5JQmRd/pub?gid=0&single=true&output=csv';
+
+  /* ── Fallback: usato se il foglio Google non è raggiungibile ── */
+  var FALLBACK_CONCERTS = [];
+  /* ════ fine fallback ════ */
+
+  /* ── CSV parser ── */
+  function parseCSVLine(line) {
+    var result = [], cur = '', inQuotes = false;
+    for (var i = 0; i < line.length; i++) {
+      var ch = line[i];
+      if (ch === '"') { inQuotes = !inQuotes; }
+      else if (ch === ',' && !inQuotes) { result.push(cur); cur = ''; }
+      else { cur += ch; }
+    }
+    result.push(cur);
+    return result;
+  }
+
+  function parseCSV(text) {
+    var lines = text.replace(/\r/g, '').split('\n');
+    var headers = parseCSVLine(lines[0]).map(function(h) { return h.trim().replace(/^"|"$/g, ''); });
+    var concerts = [];
+    for (var i = 1; i < lines.length; i++) {
+      var line = lines[i].trim();
+      if (!line) continue;
+      var cols = parseCSVLine(line);
+      var c = {};
+      headers.forEach(function(h, idx) {
+        c[h] = (cols[idx] || '').trim().replace(/^"|"$/g, '');
+      });
+      if (!c.date || !c.date.match(/^\d{4}-\d{2}-\d{2}$/)) continue;
+      c.lat = parseFloat(c.lat) || 0;
+      c.lng = parseFloat(c.lng) || 0;
+      concerts.push(c);
+    }
+    return concerts;
+  }
+
+  /* ── helpers ── */
+  var DAYS   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function fmtDate(d) {
+    var dt = new Date(d + 'T00:00:00');
+    return {
+      day:   dt.getDate(),
+      wd:    DAYS[dt.getDay()],
+      month: MONTHS[dt.getMonth()],
+      year:  dt.getFullYear()
+    };
+  }
+
+  function fmtDateRange(date, date_end) {
+    var d1 = new Date(date + 'T00:00:00');
+    if (!date_end) {
+      return d1.getDate() + ' ' + MONTHS[d1.getMonth()] + ' ' + d1.getFullYear();
+    }
+    var d2 = new Date(date_end + 'T00:00:00');
+    if (d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth()) {
+      return d1.getDate() + '–' + d2.getDate() + ' ' + MONTHS[d1.getMonth()] + ' ' + d1.getFullYear();
+    }
+    if (d1.getFullYear() === d2.getFullYear()) {
+      return d1.getDate() + ' ' + MONTHS[d1.getMonth()] + ' – ' + d2.getDate() + ' ' + MONTHS[d2.getMonth()] + ' ' + d1.getFullYear();
+    }
+    return d1.getDate() + ' ' + MONTHS[d1.getMonth()] + ' ' + d1.getFullYear() +
+           ' – ' + d2.getDate() + ' ' + MONTHS[d2.getMonth()] + ' ' + d2.getFullYear();
+  }
+
+  function isUpcoming(c) {
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var end = c.date_end && c.date_end.match(/^\d{4}-\d{2}-\d{2}$/)
+      ? new Date(c.date_end + 'T00:00:00')
+      : new Date(c.date + 'T00:00:00');
+    return end >= today;
+  }
+
+  function shareUrl(type, concert) {
+    if (type === 'fb') return concert.facebook || 'https://www.facebook.com/saramaria.fantini';
+    if (type === 'ig') return concert.instagram || 'https://www.instagram.com/saram.fantini';
+    return '#';
+  }
+
+  /* ── render everything ── */
+  function initAgenda(concerts) {
+    var upcoming = concerts.filter(isUpcoming)
+                           .sort(function(a,b){ return a.date > b.date ? 1 : -1; });
+    var archive  = concerts.filter(function(c){ return !isUpcoming(c); })
+                           .sort(function(a,b){ return a.date < b.date ? 1 : -1; });
+
+    /* ── vertical timeline (prossimi concerti) ── */
+    var tl = document.getElementById('upcoming-timeline');
+    tl.innerHTML = '';
+    if (upcoming.length === 0) {
+      document.getElementById('no-upcoming').style.display = 'block';
+    } else {
+      document.getElementById('no-upcoming').style.display = 'none';
+      upcoming.forEach(function(c) {
+        var d = fmtDate(c.date);
+        var endLine = '';
+        if (c.date_end && c.date_end.match(/^\d{4}-\d{2}-\d{2}$/)) {
+          var de = fmtDate(c.date_end);
+          endLine = '<span class="month-year" style="display:block;color:#9caf88;">– ' + de.day + ' ' + de.month + ' ' + de.year + '</span>';
+        }
+        var social = '';
+        if (c.facebook) social += '<a href="' + c.facebook + '" target="_blank" rel="noopener noreferrer" title="Share on Facebook"><i class="fab fa-facebook"></i></a>';
+        if (c.instagram) social += '<a href="' + c.instagram + '" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>';
+        tl.innerHTML +=
+          '<div class="concert-item">' +
+          '  <div class="concert-date">' +
+          '    <span class="day">' + d.day + '</span>' +
+          '    <span class="month-year">' + d.wd + ' ' + d.month + ' ' + d.year + '</span>' +
+          endLine +
+          '  </div>' +
+          '  <div class="timeline-dot"></div>' +
+          '  <div class="concert-body">' +
+          '    <div class="concert-program">' + c.program + '</div>' +
+          '    <div class="concert-venue"><i class="fas fa-map-marker-alt"></i>' + c.venue + ' — ' + c.city + '</div>' +
+          (c.note ? '<div class="concert-note">' + c.note + '</div>' : '') +
+          (social ? '<div class="concert-social">' + social + '</div>' : '') +
+          '  </div>' +
+          '</div>';
+      });
+    }
+
+    /* ── archive map ── */
+    if (window._mapA) { window._mapA.remove(); window._mapA = null; }
+    var mapA = L.map('map-archive', { zoomControl: true, scrollWheelZoom: false });
+    window._mapA = mapA;
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> © <a href="https://carto.com/">CARTO</a>',
+      subdomains: 'abcd', maxZoom: 19
+    }).addTo(mapA);
+    var archiveIcon = L.divIcon({
+      className: '',
+      html: '<div style="width:11px;height:11px;border-radius:50%;background:#9caf88;border:2px solid #7a9470;box-shadow:0 1px 3px rgba(0,0,0,0.2);"></div>',
+      iconSize: [11,11], iconAnchor: [5.5,5.5]
+    });
+    var archiveBounds = [];
+    archive.forEach(function(c) {
+      if (!c.lat || !c.lng) return;
+      var popup = '<div class="popup-date">' + fmtDateRange(c.date, c.date_end) + '</div>' +
+                  '<div class="popup-program">' + c.program + '</div>' +
+                  '<div class="popup-venue">' + c.venue + '<br>' + c.city + '</div>' +
+                  (c.note ? '<div class="popup-venue" style="font-style:italic;">' + c.note + '</div>' : '');
+      L.marker([c.lat, c.lng], {icon: archiveIcon}).addTo(mapA).bindPopup(popup);
+      archiveBounds.push([c.lat, c.lng]);
+    });
+    if (archiveBounds.length > 0) mapA.fitBounds(archiveBounds, {padding: [40,40]});
+    else mapA.setView([46, 8], 4);
+
+    /* ── horizontal timeline ── */
+    buildArchiveTimeline(archive);
+  }
+
+
+
+
+  /* ── Archive vertical timeline (mirrored) ── */
+  function buildArchiveTimeline(archive) {
+    var tl = document.getElementById('archive-timeline');
+    if (!tl) return;
+    tl.innerHTML = '';
+    var sorted = archive.slice().sort(function(a,b){ return a.date < b.date ? 1 : -1; });
+    sorted.forEach(function(c) {
+      var d = fmtDate(c.date);
+      var dateLabel = fmtDateRange(c.date, c.date_end);
+      var endLine = '';
+      if (c.date_end && c.date_end.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        var de = fmtDate(c.date_end);
+        endLine = '<span class="month-year" style="display:block;">– ' + de.day + ' ' + de.month + ' ' + de.year + '</span>';
+      }
+      tl.innerHTML +=
+        '<div class="archive-item">' +
+        '  <div class="archive-date">' +
+        '    <span class="day">' + d.day + '</span>' +
+        '    <span class="month-year">' + d.wd + ' ' + d.month + ' ' + d.year + '</span>' +
+        endLine +
+        '  </div>' +
+        '  <div class="archive-dot"></div>' +
+        '  <div class="archive-body">' +
+        '    <div class="concert-program">' + c.program + '</div>' +
+        '    <div class="concert-venue">' + c.venue + ' — ' + c.city + '</div>' +
+        (c.note ? '<div class="concert-note">' + c.note + '</div>' : '') +
+        '  </div>' +
+        '</div>';
+    });
+  }
+
+  /* ── fetch dal foglio Google, con fallback ── */
+  document.getElementById('upcoming-timeline').innerHTML =
+    '<p style="color:#aaa;font-style:italic;padding:1rem 0;">Loading concerts...</p>';
+
+  fetch(SHEET_CSV)
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.text();
+    })
+    .then(function(text) {
+      initAgenda(parseCSV(text));
+    })
+    .catch(function(err) {
+      console.warn('Google Sheets non raggiungibile, uso fallback:', err);
+      initAgenda(FALLBACK_CONCERTS);
+    });
+
+  </script>
+
+</body>
+</html>

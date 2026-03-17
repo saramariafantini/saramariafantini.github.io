@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Sara Maria Fantini — Fragmenta: Marginalia, Siobulé e i progetti dell'Ensemble Fragmenta.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fragmenta | Sara Maria Fantini</title>
+  <link rel="icon" type="image/x-icon" href="../imgs/fragmenta/favicon-fragmenta.ico">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lora&family=Ysabeau&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      overflow-x: hidden;
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 1.2em;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Lora', serif;
+    }
+
+    h3 {
+      padding: 2em 0 1em;
+      font-size: 1.5em;
+      text-align: center;
+    }
+    .container-fluid {
+      background-color: #9caf88;
+      color: #060608;
+      padding: 50px 0;
+    }
+
+    .container p {
+      text-align: justify;
+    }
+
+    .parallax {
+      position: relative;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .parallax { min-height: 50vh; background-attachment: scroll; }
+    }
+
+    .parallax-title h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      color: antiquewhite;
+    }
+
+    #parallax1 { background-image: url("../imgs/sibilla.png"); min-height: 70vh; }
+    #parallax2 { background-image: url("../imgs/marginalia.jpeg"); }
+    #parallax3 { background-image: url("../imgs/sibilla.png"); }
+    #parallax4 { background-image: url("../imgs/chordacordis.png"); }
+    #parallax5 { background-image: url("../imgs/trois-anneaux.jpg"); }
+
+    @media (max-width: 576px) {
+      .social-icons-mobile i {
+        font-size: 1.2em !important;
+      }
+      .text-center-mobile {
+        text-align: center;
+      }
+    }
+
+    h4.gallery-heading {
+      font-family: 'Lora', serif;
+      font-size: 0.95em;
+      text-align: center;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #4a5e3a;
+      margin-top: 2rem;
+      margin-bottom: 0.6rem;
+      padding: 0;
+    }
+
+    /* ── Gallery strip ── */
+    .gallery-strip-wrap {
+      position: relative;
+      margin-top: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .gallery-strip {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: #7a9470 #c8d9bf;
+    }
+    .gallery-strip::-webkit-scrollbar { height: 5px; }
+    .gallery-strip::-webkit-scrollbar-track { background: #c8d9bf; border-radius: 3px; }
+    .gallery-strip::-webkit-scrollbar-thumb { background: #7a9470; border-radius: 3px; }
+    .gallery-thumb {
+      flex: 0 0 auto;
+      height: 200px;
+      width: auto;
+      object-fit: cover;
+      cursor: pointer;
+      opacity: 0.85;
+      transition: opacity 0.25s, transform 0.25s;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    .gallery-thumb:hover {
+      opacity: 1;
+      transform: scale(1.02);
+    }
+    .strip-arrow {
+      display: none;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-60%);
+      background: rgba(156,175,136,0.85);
+      color: #fff;
+      border: none;
+      font-size: 1.8rem;
+      padding: 0.1em 0.45em;
+      cursor: pointer;
+      z-index: 5;
+      line-height: 1;
+      border-radius: 3px;
+      transition: background 0.2s;
+    }
+    .strip-arrow:hover { background: rgba(100,120,88,0.95); }
+    .strip-left  { left:  0; }
+    .strip-right { right: 0; }
+    @media (min-width: 768px) {
+      .strip-arrow { display: block; }
+      .gallery-thumb { height: 220px; }
+    }
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      font-size: 2.5rem;
+      padding: 0.15em 0.5em;
+      cursor: pointer;
+      z-index: 10;
+      line-height: 1;
+      border-radius: 4px;
+    }
+    .gallery-nav:hover { background: rgba(0,0,0,0.85); }
+    .gallery-prev { left: 10px; }
+    .gallery-next { right: 10px; }
+    .gallery-close {
+      position: absolute;
+      top: 8px;
+      right: 14px;
+      color: #fff;
+      font-size: 2rem;
+      opacity: 0.8;
+      z-index: 10;
+      background: none;
+      border: none;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .gallery-close:hover { opacity: 1; }
+    #galleryModalImg {
+      max-height: 80vh;
+      width: 100%;
+      object-fit: contain;
+    }
+    .gallery-counter {
+      color: #ccc;
+      font-size: 0.9rem;
+      padding: 6px 0 4px;
+    }
+
+
+    /* ── Fragmenta hero (parallax1 override) ── */
+    #parallax1 {
+      background-image: url("../imgs/sibilla.png");
+      min-height: 80vh;
+      position: relative;
+    }
+    .fragmenta-hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.4rem;
+    }
+    .fragmenta-hero-content img {
+      width: clamp(80px, 10vw, 120px);
+      opacity: 0.92;
+      filter: drop-shadow(0 2px 16px rgba(0,0,0,0.45));
+    }
+    .fragmenta-hero-content h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      color: antiquewhite;
+      font-weight: 400;
+      margin: 0;
+    }
+    .fragmenta-hero-content .hero-sub {
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.82em;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(249,244,224,0.7);
+      margin: 0;
+    }
+
+    /* ── Fragmenta intro text ── */
+    .fragmenta-intro {
+      background-color: #f5f0e8;
+      padding: 4.5rem 0 4rem;
+    }
+    .fragmenta-intro-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .fragmenta-intro-inner p {
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 1.05em;
+      line-height: 1.65;
+      color: #2a2a2a;
+      text-align: justify;
+      margin-bottom: 1.4em;
+    }
+    .fragmenta-intro-inner p:last-child { margin-bottom: 0; }
+    .fragmenta-intro-inner p:first-child::first-letter {
+      font-size: 3.6em;
+      line-height: 0.78;
+      float: left;
+      margin-right: 0.07em;
+      margin-top: 0.06em;
+      color: #7a9470;
+      font-family: 'Lora', serif;
+      font-weight: 400;
+    }
+
+        /* ── Project dot-nav (lateral) ── */
+    .project-dotnav {
+      position: fixed;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 950;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: flex-end;
+    }
+    .project-dotnav a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .dotnav-label {
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.78em;
+      color: #4a5e3a;
+      opacity: 0;
+      transform: translateX(6px);
+      transition: opacity 0.2s, transform 0.2s;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .dotnav-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #9caf88;
+      border: 2px solid #7a9470;
+      transition: background 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    .project-dotnav a:hover .dotnav-label,
+    .project-dotnav a.active .dotnav-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .project-dotnav a.active .dotnav-dot {
+      background: #4a5e3a;
+      transform: scale(1.35);
+    }
+    .project-dotnav a:hover .dotnav-dot {
+      background: #7a9470;
+    }
+    @media (max-width: 768px) {
+      .project-dotnav { display: none; }
+    }
+    /* ── Project link (more info) ── */
+    .project-link {
+      display: inline-block;
+      margin-top: 1.2rem;
+      margin-bottom: 0.4rem;
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.95em;
+      color: #4a5e3a;
+      text-decoration: none;
+      border-bottom: 1px solid #4a5e3a;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .project-link:hover { color: #2a3e22; border-color: #2a3e22; }
+    /* ── YouTube embed ── */
+    h4.yt-label {
+      font-family: 'Lora', serif;
+      font-size: 1em;
+      text-align: center;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #4a5e3a;
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+      padding: 0;
+    }
+    .yt-wrap {
+      margin-top: 1.6rem;
+      margin-bottom: 0.4rem;
+    }
+    .yt-wrap .embed-responsive {
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+
+    /* ── Compact footer ── */
+    .site-footer {
+      background-color: #9caf88;
+      padding: 0.8rem 2rem;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      max-width: 1140px;
+      margin: 0 auto;
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.8em;
+      color: #2a2a2a;
+    }
+    .footer-copy { opacity: 0.7; }
+    .footer-social a { color: #2a2a2a; margin-right: 0.55rem; font-size: 1.05em; transition: color 0.2s; }
+    .footer-social a:hover { color: #4a5e3a; }
+    .footer-contact-link { color: #2a2a2a; text-decoration: none; border-bottom: 1px dotted #4a5e3a; }
+    .footer-contact-link:hover { color: #4a5e3a; }
+    @media (max-width: 576px) {
+      .footer-inner { justify-content: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+    <style>
+    .navbar { background-color: #9caf88; font-family: 'Ysabeau', sans-serif; font-size: 1.15em; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .navbar .nav-link { color: rgba(255,255,255,0.85) !important; transition: color 0.2s; }
+    .navbar .nav-link:hover, .navbar .nav-link.active { color: #fff !important; }
+    .dropdown-menu { background-color: #7a9470; border: none; border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.18); padding: 0.3rem 0; min-width: 160px; }
+    .dropdown-item { font-family: 'Ysabeau', sans-serif; color: #2a2a2a; font-size: 0.95em; padding: 0.45rem 1.1rem; }
+    .dropdown-item:hover, .dropdown-item:focus { background-color: #4a5e3a; color: #fff; }
+    .dropdown-item.disabled { color: #aaa; pointer-events: none; }
+    .dropdown-divider { border-color: rgba(255,255,255,0.15); margin: 0.2rem 0; }
+  </style>
+  <nav class="navbar navbar-expand-sm navbar-dark fixed-top" id="mainNavbar">
+    <a class="navbar-brand d-block d-sm-none" href="../index.html">
+      <img src="../imgs/favicon-rosa.ico" alt="Logo" style="width:20px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+      <a class="navbar-brand justify-content-center" href="../index.html">Home</a>
+      <ul class="navbar-nav text-md-nowrap">
+        <li class="nav-item"><a class="nav-link " href="home-it.html#bio">Sara Maria Fantini</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle " href="#" data-toggle="dropdown">Progetti</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="fragmenta-it.html">Fragmenta</a><a class="dropdown-item" href="chordacordis-it.html">ChordaCordis</a><a class="dropdown-item" href="collaborazioni-it.html">Collaborazioni</a>
+          </div>
+        </li>
+        <li class="nav-item"><a class="nav-link " href="media-it.html">Media</a></li>
+        <li class="nav-item"><a class="nav-link " href="agenda-it.html">Agenda</a></li>
+        <li class="nav-item"><a class="nav-link " href="contatti-it.html">Contatti</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <nav class="project-dotnav" id="projectDotnav" aria-label="Navigazione progetti">
+    <a href="#marginalia"><span class="dotnav-label">Marginalia</span><span class="dotnav-dot"></span></a>
+    <a href="#siobule"><span class="dotnav-label">Siobulé</span><span class="dotnav-dot"></span></a>
+  </nav>
+
+  <div class="parallax" id="parallax1">
+    <div class="fragmenta-hero-content">
+      <img src="../imgs/fragmenta/fragmenta_logo_cropped.jpg" alt="Logo Fragmenta">
+      <h1>Fragmenta</h1>
+    </div>
+  </div>
+
+  <section class="fragmenta-intro">
+    <div class="fragmenta-intro-inner">
+        <p>Il progetto Fragmenta nasce all'inizio del 2017, pochi mesi dopo il terremoto che aveva devastato alcuni dei borghi medievali più belli dell'Appennino centrale. Tra le immagini del disastro, un frammento del rosone di una chiesa di campagna del XIV secolo appariva spezzato in più pezzi ma ancora meraviglioso: una scheggia di perfezione tra le macerie del passato, così vulnerabile al potere del tempo e della natura. Da quella visione nasce l'idea portante del progetto: la <em>resistenza della Bellezza</em>.</p>
+        <p>Fragmenta dà voce a repertori musicali marginali rispetto alla musica più nota del tardo Medioevo (secoli XII–XV), attraverso la ricerca e la ricostruzione di composizioni inedite o mai eseguite, tratte da fogli di guardia, pergamene di rinforzo, codici smembrati e palinsesti. Questa operazione è particolarmente importante per comprendere la musica dell'Europa medievale, caratterizzata da una frammentazione materiale e geografica caleidoscopica, un mosaico di identità regionali, corti, città, lingue, strumenti musicali. Il dialogo con il mondo musicologico è fondamentale: i membri di Fragmenta collaborano strettamente con studiosi attivi in questo campo, nella convinzione che il contatto ravvicinato tra ricerca teorica e pratica esecutiva apporti un arricchimento fondamentale da entrambe le parti. Lo spirito di ricerca e la necessità di adattarsi a repertori diversi fanno di Fragmenta più un collettivo di musicisti che un ensemble vero e proprio: ogni programma ha i propri interpreti, in base alle aree di competenza di ciascuno.</p>
+        <p>Il progetto è caratterizzato da un approccio «minimalista» al repertorio, fondato sulla convinzione che la musica medievale possa parlare all'anima anche oggi, e che il compito degli interpreti sia di trasmetterla nel modo più diretto possibile, donandole nuova vita.</p>
+    </div>
+  </section>
+
+  <section class="container-fluid" id="marginalia">
+    <div class="container">
+      <h3>Progetto <em>Marginalia</em></h3>
+      <p>
+        Il panorama musicale dell’Italia tra la fine del Trecento e l’inizio del Quattrocento è stato
+        ricostruito sulla scorta dei pochi, grandi codici musicali sopravvissuti al tempo. Ne è uscita, agli
+        occhi di molti, una storia agita da pochi protagonisti, che sembrano muoversi in un deserto
+        sonoro, o quasi: a fronte dei centri scrittori maggiori (come Firenze), poco o nulla è stato detto,
+        cantato e suonato delle periferie, delle tracce musicali nascoste ai margini dei manoscritti
+        monumentali e delle grandi città.</p><p>
+        Il ‘canone’ scaturito da questa operazione di sintesi è diventato il repertorio comunemente
+        praticato da chi esegue la musica medievale oggi. Con Marginalia vogliamo dare voce e suono a
+        frammenti musicali riscoperti, spesso in maniera del tutto casuale, nelle coperte degli antichi
+        registri notarili, nei fogli di rinforzo degli incunaboli, in fascicoli di codici smembrati e dispersi.
+        Alcuni frammenti trasmettono brani musicali intatti, in altri casi siamo intervenute a ricostruire
+        voci mancanti o a colmare lacune testuali o musicali; talvolta abbiamo scelto la via della
+        diminuzione strumentale, sempre con l’intento di instaurare un via di comunicazione tra ‘noi’ e
+        ‘loro’ creando qualcosa di nuovo, più che con la vana illusione di restaurare un’opera perduta. La
+        particolarità del repertorio risiede nel fatto che, a fronte della generale assenza di contesto (della
+        maggior parte dei brani non si conosce né l’autore né la provenienza geografica originaria, quindi
+        gli studiosi sono stati in grado di determinare soltanto l’epoca di composizione e poco altro),
+        l’interprete è stimolato a inserirsi come terzo elemento in un dialogo ideale tra il compositore e il
+        copista, manipolando il materiale musicale senza tuttavia tradirne la natura, cioè attenendosi alle
+        informazioni note circa le pratiche performative dell’epoca.</p><p>
+        La mappa ideale dei nostri frammenti traccia un itinerario tra le pievi e le abbazie dell’Appennino
+        centrale, un crocevia di mondi tra Umbria, Toscana meridionale, Abruzzo, Marche e l’antica
+        Romagna. Il mosaico che ne scaturisce rivela un vero e proprio tesoro di varietà, dalla polifonia di
+        sapore arcaizzante fino alle composizioni francesi o di ispirazione franco-fiamminga, che
+        testimoniano la diffusione del cosiddetto ‘stile internazionale’ anche nei centri minori: questo
+        dettaglio è interessante perché contribuisce a testimoniare l’atmosfera cosmopolita che
+        permeava la cultura italiana a cavallo tra i due secoli, anche grazie alle vicende relative allo scisma
+        avignonese, che portarono ad uno scambio artistico di respiro “europeo”.</p><p>
+        Nel nostro programma, il mondo della polifonia liturgica si interseca, come avviene d’altronde
+        nelle grandi raccolte arsnovistiche, con la poesia profana intonata a tema amoroso; come trait
+        d’union, la lauda polifonica, genere d’elezione dei ceti urbani, in cui musica liturgica e secolare si
+        incontrano nella pratica del contrafactum.
+      </p>
+      
+      <h4 class="gallery-heading">Galleria fotografica</h4>
+      <div class="gallery-strip-wrap">
+        <button class="strip-arrow strip-left"  onclick="scrollStrip('marginaliaStrip', -320)" aria-label="Scorri a sinistra">&#8249;</button>
+        <div class="gallery-strip" id="marginaliaStrip">
+        <img src="../imgs/marginalia/marginalia-1.png" alt="Marginalia (1)" class="gallery-thumb" onclick="openGallery('marginalia', 0)" loading="lazy">
+        <img src="../imgs/marginalia/marginalia-2.png" alt="Marginalia (2)" class="gallery-thumb" onclick="openGallery('marginalia', 1)" loading="lazy">
+        <img src="../imgs/marginalia/marginalia-3.jpg" alt="Marginalia (3)" class="gallery-thumb" onclick="openGallery('marginalia', 2)" loading="lazy">
+        <img src="../imgs/marginalia/marginalia-4.jpg" alt="Marginalia (4)" class="gallery-thumb" onclick="openGallery('marginalia', 3)" loading="lazy">
+        <img src="../imgs/marginalia/marginalia-5.jpg" alt="Marginalia (5)" class="gallery-thumb" onclick="openGallery('marginalia', 4)" loading="lazy">
+        <img src="../imgs/marginalia/marginalia-6.jpg" alt="Marginalia (6)" class="gallery-thumb" onclick="openGallery('marginalia', 5)" loading="lazy">
+        </div>
+        <button class="strip-arrow strip-right" onclick="scrollStrip('marginaliaStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
+      </div>
+      <h4 class="yt-label">Estratto</h4>
+      <div class="yt-wrap"><div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UHS6Y1-KZVc" allowfullscreen loading="lazy" title="Partete core — lauda del XV secolo"></iframe></div></div>
+
+      <p><a href="http://www.associazionenoema.it/new/attivita/marginalia/" class="project-link" target="_blank" rel="noopener noreferrer">Marginalia — Festival dell'Ascensione, Milano, 4 maggio 2025 →</a>&emsp;<a href="http://www.associazionenoema.it/new/wp-content/uploads/2025/05/libretto-WEB-4-mag-2025-FRAGMENTA.pdf" class="project-link" target="_blank" rel="noopener noreferrer">Libretto di sala →</a></p>
+    </div>
+  </section>
+
+  <div class="parallax" id="parallax2"></div>
+
+  <section class="container-fluid" id="siobule">
+    <div class="container">
+      <h3>Progetto <em>Siobulé</em></h3>
+      <p><em>Siobulé</em> è il nome con cui il grammatico latino Varrone spiegava l'origine della parola "Sibilla": una traslitterazione dal greco che significa, in dialetto eolico, "consiglio di Dio". È anche il titolo scelto dall'Ensemble Fragmenta per un progetto che ruota attorno al <em>Paradis de la reine Sibylle</em> di Antoine de La Sale (1437–1442), racconto di viaggio immaginario tra le montagne di Norcia e la grotta dove — secondo la leggenda medievale — la Sibilla regna su una corte in cui tutte le lingue del mondo si parlano e si comprendono. Il punto di partenza è il territorio reale: i Monti Sibillini, terra d'origine di parte dell'ensemble, segnati dai terremoti del 2016. Da quella frattura nasce la domanda al centro del progetto: non come recuperare frammenti di una cultura perduta, ma come partecipare alla continuità viva di una tradizione. Come ricordava Mahler, la tradizione è trasmissione del fuoco, non adorazione delle ceneri.</p><p>Il repertorio mette in dialogo brani musicali tramandati da fonti frammentarie del XV secolo ritrovate tra Umbria e Marche, musiche tradizionali dello stesso territorio rielaborate dall'ensemble, pezzi antichi del Mediterraneo orientale — in particolare di Creta e dell'area ottomana — e composizioni originali. Un filo comune attraversa questi mondi sonori: gli strumenti a corda nelle loro forme più diverse, dal liuto medievale all'oud e al laouto cretese, fino alla nyckelharpa svedese e alla viole d'amour, entrambe dotate di corde simpatetiche come la politiki lyra. Completano il quadro alcuni strumenti a fiato e percussioni diffusi nel bacino mediterraneo, come il flauto doppio, il tamburello e le nacchere.</p><p>Alla musica si affianca il disegno in diretta di Alessandro de Carolis — autore anche delle fotografie in bianco e nero che documentano il territorio dei Sibillini — realizzato nello stile dei <em>marginalia</em> medievali contemporanei, che emergono dalle ombre e dalle pieghe di quelle stesse immagini per seguire il filo narrativo del racconto.</p>
+      <h4 class="gallery-heading">Galleria fotografica</h4>
+      <div class="gallery-strip-wrap">
+        <button class="strip-arrow strip-left"  onclick="scrollStrip('siobuleStrip', -320)" aria-label="Scorri a sinistra">&#8249;</button>
+        <div class="gallery-strip" id="siobuleStrip">
+        <img src="../imgs/siobule/siobule-1.jpg" alt="Siobulé (1)" class="gallery-thumb" onclick="openGallery('siobule', 0)" loading="lazy">
+        <img src="../imgs/siobule/siobule-2.jpg" alt="Siobulé (2)" class="gallery-thumb" onclick="openGallery('siobule', 1)" loading="lazy">
+        <img src="../imgs/siobule/siobule-3.jpg" alt="Siobulé (3)" class="gallery-thumb" onclick="openGallery('siobule', 2)" loading="lazy">
+        <img src="../imgs/siobule/siobule-4.jpg" alt="Siobulé (4)" class="gallery-thumb" onclick="openGallery('siobule', 3)" loading="lazy">
+        <img src="../imgs/siobule/siobule-5.jpg" alt="Siobulé (5)" class="gallery-thumb" onclick="openGallery('siobule', 4)" loading="lazy">
+        <img src="../imgs/siobule/siobule-6.jpg" alt="Siobulé (6)" class="gallery-thumb" onclick="openGallery('siobule', 5)" loading="lazy">
+        <img src="../imgs/siobule/siobule-7.jpg" alt="Siobulé (7)" class="gallery-thumb" onclick="openGallery('siobule', 6)" loading="lazy">
+        <img src="../imgs/siobule/siobule-8.jpg" alt="Siobulé (8)" class="gallery-thumb" onclick="openGallery('siobule', 7)" loading="lazy">
+        <img src="../imgs/siobule/siobule-9.jpg" alt="Siobulé (9)" class="gallery-thumb" onclick="openGallery('siobule', 8)" loading="lazy">
+        </div>
+        <button class="strip-arrow strip-right" onclick="scrollStrip('siobuleStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
+      </div>
+      <h4 class="gallery-heading">Teaser</h4>
+      <div class="text-center mt-4 mb-2">
+        <video controls preload="none" poster="../imgs/siobule/siobule-1.jpg"
+               style="max-width:100%; width:720px; border-radius:6px; box-shadow:0 4px 16px rgba(0,0,0,0.25);">
+          <source src="../imgs/siobule/siobule-teaser.mp4" type="video/mp4">
+        </video>
+      </div>
+      <p><a href="https://www.royaumont.com" class="project-link" target="_blank" rel="noopener noreferrer">Fondation Royaumont →</a></p>
+    </div>
+  </section>
+
+  
+
+
+  <!-- Gallery lightbox modal -->
+  <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-label="Chiudi">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+      <div class="modal-content bg-dark border-0">
+        <div class="modal-body p-0 text-center position-relative">
+          <button class="gallery-close" data-dismiss="modal" aria-label="Chiudi">&times;</button>
+          <button class="gallery-nav gallery-prev" onclick="galleryNav(-1)" aria-label="Precedente">&#8249;</button>
+          <img id="galleryModalImg" src="" alt="" class="img-fluid">
+          <button class="gallery-nav gallery-next" onclick="galleryNav(1)" aria-label="Successiva">&#8250;</button>
+          <div class="gallery-counter" id="galleryCounter"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    function scrollStrip(id, px) {
+      var el = document.getElementById(id);
+      if (el) el.scrollBy({ left: px, behavior: 'smooth' });
+    }
+
+    var galleries = {
+      marginalia: [
+        { src: '../imgs/marginalia/marginalia-1.png', alt: 'Marginalia (1)' },
+        { src: '../imgs/marginalia/marginalia-2.png', alt: 'Marginalia (2)' },
+        { src: '../imgs/marginalia/marginalia-3.jpg', alt: 'Marginalia (3)' },
+        { src: '../imgs/marginalia/marginalia-4.jpg', alt: 'Marginalia (4)' },
+        { src: '../imgs/marginalia/marginalia-5.jpg', alt: 'Marginalia (5)' },
+        { src: '../imgs/marginalia/marginalia-6.jpg', alt: 'Marginalia (6)' }
+      ],
+      siobule: [
+        { src: '../imgs/siobule/siobule-1.jpg', alt: 'Siobulé (1)' },
+        { src: '../imgs/siobule/siobule-2.jpg', alt: 'Siobulé (2)' },
+        { src: '../imgs/siobule/siobule-3.jpg', alt: 'Siobulé (3)' },
+        { src: '../imgs/siobule/siobule-4.jpg', alt: 'Siobulé (4)' },
+        { src: '../imgs/siobule/siobule-5.jpg', alt: 'Siobulé (5)' },
+        { src: '../imgs/siobule/siobule-6.jpg', alt: 'Siobulé (6)' },
+        { src: '../imgs/siobule/siobule-7.jpg', alt: 'Siobulé (7)' },
+        { src: '../imgs/siobule/siobule-8.jpg', alt: 'Siobulé (8)' },
+        { src: '../imgs/siobule/siobule-9.jpg', alt: 'Siobulé (9)' }
+      ]
+    };
+
+    var currentGallery = null;
+    var currentIndex   = 0;
+
+    function openGallery(galleryId, index) {
+      currentGallery = galleries[galleryId];
+      currentIndex   = index;
+      updateModalImage();
+      $('#galleryModal').modal('show');
+    }
+
+    function updateModalImage() {
+      var item = currentGallery[currentIndex];
+      document.getElementById('galleryModalImg').src = item.src;
+      document.getElementById('galleryModalImg').alt = item.alt;
+      document.getElementById('galleryCounter').textContent =
+        (currentIndex + 1) + ' / ' + currentGallery.length;
+    }
+
+    function galleryNav(dir) {
+      currentIndex = (currentIndex + dir + currentGallery.length) % currentGallery.length;
+      updateModalImage();
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (!document.getElementById('galleryModal').classList.contains('show')) return;
+      if (e.key === 'ArrowLeft')  galleryNav(-1);
+      if (e.key === 'ArrowRight') galleryNav(1);
+      if (e.key === 'Escape')     $('#galleryModal').modal('hide');
+    });
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    (function() {
+      var sections = ['marginalia','siobule'];
+      var links = document.querySelectorAll('.project-dotnav a');
+      function setActive() {
+        var scrollY = window.scrollY + 120;
+        var current = sections[0];
+        sections.forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el && el.offsetTop <= scrollY) current = id;
+        });
+        links.forEach(function(a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+        });
+      }
+      window.addEventListener('scroll', setActive, { passive: true });
+      setActive();
+    })();
+  </script>
+    <footer class="site-footer" style="background:#9caf88;">
+    <div class="footer-inner" style="color:#2a2a2a;">
+      <span class="footer-copy" style="color:#2a2a2a;">Foto: Clara Brunet, Alessandro de Carolis, Rebecca Maria Fantini, Danko Strahinić.</span>
+      <span class="footer-copy" style="color:#2a2a2a; opacity:0.6;">© 2025 Sara Maria Fantini. Tutti i diritti riservati.</span>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/in/sara-maria-fantini-5a789412b/" title="LinkedIn" style="color:#2a2a2a;"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.instagram.com/saram.fantini" title="Instagram" style="color:#2a2a2a;"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/saramaria.fantini" title="Facebook" style="color:#2a2a2a;"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.youtube.com/@saramariafantini8715" title="YouTube" target="_blank" rel="noopener noreferrer" style="color:#2a2a2a;"><i class="fab fa-youtube"></i></a>
+      </div>
+      <a href="contatti-it.html" class="footer-contact-link" style="color:#4a5e3a; border-bottom-color:#4a5e3a;">Contatti</a>
+    </div>
+  </footer>
+</body>
+</html>
