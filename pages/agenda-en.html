@@ -185,14 +185,6 @@
       .concert-body { padding-left: 20px; }
     }
 
-    /* ── Upcoming map ── */
-    #map-upcoming {
-      height: 340px;
-      border-radius: 8px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-      margin-bottom: 0.5rem;
-    }
-
     /* ── Archive map ── */
     #map-archive {
       height: 420px;
@@ -410,13 +402,6 @@
     <p class="no-concerts" id="no-upcoming" style="display:none;">No concerts currently scheduled. Check back soon!</p>
   </section>
 
-  <!-- ══ MAPPA PROSSIME DATE ══ -->
-  <section class="container pb-5" id="mappa-concerti">
-    <p class="section-label">Where</p>
-    <h2 class="section-title">Map of upcoming concerts</h2>
-    <div id="map-upcoming"></div>
-  </section>
-
   <!-- ══ ARCHIVIO ══ -->
   <section style="background:#e8f0e2; padding: 3rem 0;">
     <div class="container" id="archivio">
@@ -603,31 +588,6 @@
           '</div>';
       });
     }
-
-    /* ── upcoming map (commentata: ripristinare quando ci sono più date) ──
-    var greenIcon = L.divIcon({
-      className: '',
-      html: '<div style="width:14px;height:14px;border-radius:50%;background:#4a5e3a;border:2.5px solid #9caf88;box-shadow:0 1px 4px rgba(0,0,0,0.3);"></div>',
-      iconSize: [14,14], iconAnchor: [7,7]
-    });
-    var mapU = L.map('map-upcoming', { zoomControl: true, scrollWheelZoom: false });
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> © <a href="https://carto.com/">CARTO</a>',
-      subdomains: 'abcd', maxZoom: 19
-    }).addTo(mapU);
-    if (upcoming.length > 0) {
-      var bounds = [];
-      upcoming.forEach(function(c) {
-        var d = fmtDate(c.date);
-        var popup = '<div class="popup-date">' + fmtDateRange(c.date, c.date_end) + '</div>' +
-                    '<div class="popup-program">' + c.program + '</div>' +
-                    '<div class="popup-venue">' + c.venue + '<br>' + c.city + '</div>';
-        L.marker([c.lat, c.lng], {icon: greenIcon}).addTo(mapU).bindPopup(popup);
-        bounds.push([c.lat, c.lng]);
-      });
-      mapU.fitBounds(bounds, {padding: [40,40]});
-    } else { mapU.setView([44, 10], 4); }
-    ── fine mappa prossimi concerti ── */
 
     /* ── archive map ── */
     var mapA = L.map('map-archive', { zoomControl: true, scrollWheelZoom: false });
