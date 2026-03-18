@@ -45,7 +45,7 @@
     }
     .project-dotnav a { display: flex; align-items: center; gap: 8px; text-decoration: none; cursor: pointer; }
     .dotnav-label { font-family: 'Ysabeau', sans-serif; font-size: 0.78em; color: #9caf88;
-      opacity: 0; transform: translateX(6px); transition: opacity 0.2s, transform 0.2s; white-space: nowrap; pointer-events: none; }
+      opacity: 1; transform: translateX(0); transition: opacity 0.2s, transform 0.2s; white-space: nowrap; pointer-events: none; }
     .dotnav-dot { width: 9px; height: 9px; border-radius: 50%; background: #3a3a3a; border: 2px solid #666; transition: background 0.2s, transform 0.2s; flex-shrink: 0; }
     .project-dotnav a:hover .dotnav-label, .project-dotnav a.active .dotnav-label { opacity: 1; transform: translateX(0); }
     .project-dotnav a.active .dotnav-dot { background: #9caf88; border-color: #9caf88; transform: scale(1.35); }
@@ -178,7 +178,7 @@
     .ig-note a:hover { color: #fff; }
 
     /* ── SoundCloud ── */
-    .sc-wrap { margin-top: 0.5rem; }
+    .sc-wrap { margin-top: 0; }
     .audio-note { font-size: 0.78em; color: #444; font-style: italic; margin-top: 0.6rem; }
     @media (max-width: 576px) { .footer-inner { justify-content: center; text-align: center; } }
   </style>
@@ -269,14 +269,16 @@
   </section>
 
   <!-- ══ AUDIO ══ -->
-  <section class="media-section" id="audio">
-    <div class="container py-2">
-      <h2 class="section-title">Audio</h2>
-            <div class="sc-wrap">
-        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/user-950706152&color=%239caf88&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true">
-        </iframe>
-        
+  <section class="media-section" id="audio" style="background:#9caf88; padding: 3rem 0;">
+    <div class="container">
+      <div style="max-width:720px; margin:0 auto; padding: 0 1rem;">
+        <h2 style="font-family:'Lora',serif; font-size:clamp(1.8rem,4vw,2.8rem); font-weight:400; color:#060608; text-align:center; margin-bottom:1.8rem;">Audio</h2>
+        <div class="sc-wrap">
+          <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay"
+            src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/user-950706152&color=%239caf88&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+            style="border-radius:8px;">
+          </iframe>
+        </div>
       </div>
     </div>
   </section>
@@ -319,7 +321,7 @@
   <footer class="site-footer">
     <div class="footer-inner">
       <span class="footer-copy">Photos: Clara Brunet, Alessandro de Carolis, Rebecca Maria Fantini, Danko Strahinić.</span>
-      <span class="footer-copy">© 2025 Sara Maria Fantini. All rights reserved.</span>
+      <span class="footer-copy">© 2026 Sara Maria Fantini. All rights reserved.</span>
       <div class="footer-social">
         <a href="https://www.linkedin.com/in/sara-maria-fantini-5a789412b/" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
         <a href="https://www.instagram.com/saram.fantini" title="Instagram"><i class="fab fa-instagram"></i></a>
