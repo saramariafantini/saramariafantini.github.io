@@ -292,6 +292,672 @@
   <!-- ══ NAVBAR ══ -->
     <style>
     .navbar { background-color: #9caf88; font-family: 'Ysabeau', sans-serif; font-size: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .navbar-brand { font-size: 1rem; font-family: "Ysabeau", sans-serif; }
+    .navbar .nav-link { color: rgba(255,255,255,0.85) !important; transition: color 0.2s; }
+    .navbar .nav-link:hover, .navbar .nav-link.active { color: #fff !important; }
+    .dropdown-menu { background-color: #7a9470; border: none; border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.18); padding: 0.3rem 0; min-width: 160px; }
+    .dropdown-item { font-family: 'Ysabeau', sans-serif; color: #2a2a2a; font-size: 0.95em; padding: 0.45rem 1.1rem; }
+    .dropdown-item:hover, .dropdown-item:focus { background-color: #4a5e3a; color: #fff; }
+    .dropdown-item.disabled { color: #aaa; pointer-events: none; }
+    .dropdown-divider { border-color: rgba(255,255,255,0.15); margin: 0.2rem 0; }
+  </style>
+  <nav class="navbar navbar-expand-sm navbar-dark fixed-top" id="mainNavbar">
+    <a class="navbar-brand d-block d-sm-none" href="../index.html">
+      <img src="../imgs/favicon-rosa.ico" alt="Logo" style="width:20px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+      <a class="navbar-brand justify-content-center" href="../index.html">Home</a>
+      <ul class="navbar-nav text-md-nowrap">
+        <li class="nav-item"><a class="nav-link " href="home-en.html#bio">Sara Maria Fantini</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle " href="#" data-toggle="dropdown">Projects</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="fragmenta-en.html">Fragmenta</a><a class="dropdown-item" href="chordacordis-en.html">ChordaCordis</a><a class="dropdown-item" href="collaborazioni-en.html">Collaborazioni</a>
+          </div>
+        </li>
+        <li class="nav-item"><a class="nav-link " href="media-en.html">Media</a></li>
+        <li class="nav-item"><a class="nav-link active" href="agenda-en.html">Agenda</a></li>
+        <li class="nav-item"><a class="nav-link " href="contatti-en.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <div class="agenda-hero" style="margin-top:56px;">
+    <div class="agenda-hero-title">
+      <h1>Agenda</h1>
+      <p>Upcoming dates &amp; concert archive</p>
+    </div>
+  </div>
+
+  <!-- ══ PROSSIME DATE ══ -->
+  <section class="container py-5" id="prossime-date">
+    <p class="section-label">Calendar</p>
+    <h2 class="section-title">Upcoming dates</h2>
+
+    <!-- ╔══════════════════════════════════════════════════════════════╗
+         ║  HOW TO ADD A CONCERT                                ║
+         ║  Copy one of the blocks below and edit the values.       ║
+         ║  Set upcoming: true for future concerts,               ║
+         ║  upcoming: false for the archive.                            ║
+         ╚══════════════════════════════════════════════════════════════╝ -->
+    <div class="timeline" id="upcoming-timeline"></div>
+    <p class="no-concerts" id="no-upcoming" style="display:none;">No concerts currently scheduled. Check back soon!</p>
+  </section>
+
+  <!-- ══ ARCHIVIO ══ -->
+  <section style="background:#e8f0e2; padding: 3rem 0;">
+    <div class="container" id="archivio">
+      <p class="section-label">Archive</p>
+      <h2 class="section-title">Past concerts</h2>
+      <div id="map-archive"></div>
+      <div class="timeline-archive" id="archive-timeline"></div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="site-footer" style="background:#e8f0e2">
+    <div class="footer-inner" style="color:#2a2a2a;">
+      <span class="footer-copy" style="color:#2a2a2a;">Photos: Clara Brunet, Alessandro de Carolis, Rebecca Maria Fantini, Danko Strahinić.</span>
+      <span class="footer-copy" style="color:#2a2a2a; opacity:0.6;">© 2026 Sara Maria Fantini. All rights reserved.</span>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/in/sara-maria-fantini-5a789412b/" title="LinkedIn" style="color:#2a2a2a;"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.instagram.com/saram.fantini" title="Instagram" style="color:#2a2a2a;"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/saramaria.fantini" title="Facebook" style="color:#2a2a2a;"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.youtube.com/@saramariafantini8715" title="YouTube" target="_blank" rel="noopener noreferrer" style="color:#2a2a2a;"><i class="fab fa-youtube"></i></a>
+      </div>
+      <a href="contatti-en.html" class="footer-contact-link" style="color:#4a5e3a; border-bottom-color:#4a5e3a;">Contact</a>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+  /* ════════════════════════════════════════════════════════════════════
+     AGENDA — dati caricati da Google Sheets
+     Per aggiungere o modificare concerti, usare il foglio Google.
+     Il sito si aggiorna entro qualche minuto dal salvataggio.
+  ════════════════════════════════════════════════════════════════════ */
+
+  var SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUdrJfXjvEKnMsDzhOGtYW9f4cRE7iQ_YVOido6kxzLbi4yiLu4GrFz-UKcFOBDJ6Lj7NHtf5JQmRd/pub?gid=0&single=true&output=csv';
+
+  /* ── Fallback: usato se il foglio Google non è raggiungibile ── */
+  var FALLBACK_CONCERTS = [
+
+    /* ── PROSSIMI CONCERTI ── */
+    {
+      date: "2025-06-14",
+      program: "Marginalia",
+      venue: "Abbazia di Fossanova",
+      city: "Priverno (LT), Italia",
+      note: "Ensemble Fragmenta",
+      lat: 41.4867, lng: 13.1733,
+      upcoming: true,
+      instagram: "",
+      facebook: ""
+    },
+    {
+      date: "2025-07-19",
+      program: "Siobulé",
+      venue: "Festival de Musique Ancienne de Moissac",
+      city: "Moissac, Francia",
+      note: "",
+      lat: 44.1044, lng: 1.0836,
+      upcoming: true,
+      instagram: "",
+      facebook: ""
+    },
+    {
+      date: "2025-09-06",
+      program: "Trois Anneaux",
+      venue: "Chapelle des Pénitents Blancs",
+      city: "Avignon, Francia",
+      note: "Ensemble Oineroï",
+      lat: 43.9493, lng: 4.8059,
+      upcoming: true,
+      instagram: "",
+      facebook: ""
+    },
+
+    /* ── ARCHIVIO CONCERTI ──────────────────────────────────────────
+       I dati confermati da fonti web sono indicati con [✓].
+       Le date segnate [?] sono da verificare con Sara.
+    ────────────────────────────────────────────────────────────── */
+
+    /* [✓] Marginalia — Assisi, 7 agosto 2025
+       DeMusicAssisi — Palazzo Monte Frumentario, ore 20:30 */
+    {
+      date: "2025-08-07",
+      program: "Marginalia",
+      venue: "Palazzo Monte Frumentario — DeMusicAssisi",
+      city: "Assisi (PG), Italia",
+      note: "Ensemble Fragmenta",
+      lat: 43.0707, lng: 12.6156,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    /* [✓] Olla Vogala — Basilea, 15-21 aprile 2025
+       Jerusalem Trilogy, progetto di Christian Sutter
+       15 apr: Atelier du Monde | 18 apr + 21 apr: Titus Kirche */
+    {
+      date: "2025-04-15",
+      program: "Jerusalem Trilogy — Olla Vogala",
+      venue: "Atelier du Monde / Titus Kirche",
+      city: "Basilea, Svizzera",
+      note: "progetto di Christian Sutter",
+      lat: 47.5558, lng: 7.5908,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    /* [✓] Siobulé — prima assoluta, Spello, 24 aprile 2025
+       Centro Studi Adolfo Broegg, in ricordo di Adolfo Broegg */
+    {
+      date: "2025-04-24",
+      program: "Siobulé",
+      venue: "Centro Studi Europeo di Musica Medievale Adolfo Broegg",
+      city: "Spello (PG), Italia",
+      note: "prima assoluta — con Alessandro de Carolis, Federica Bocchini",
+      lat: 42.9893, lng: 12.6672,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    /* [✓] Festival dell'Ascensione, Milano, 4 maggio 2025 */
+    {
+      date: "2025-05-04",
+      program: "Marginalia",
+      venue: "Festival dell'Ascensione",
+      city: "Milano, Italia",
+      note: "Ensemble Fragmenta",
+      lat: 45.4642, lng: 9.1900,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    /* [✓] Marginalia, Genova — 1 dicembre 2024 */
+    {
+      date: "2024-12-01",
+      program: "Marginalia",
+      venue: "Abbazia di San Siro di Struppa",
+      city: "Genova, Italia",
+      note: "Ensemble Fragmenta",
+      lat: 44.3892, lng: 8.9202,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    /* [✓] Cantigas de Santa Maria — Stoccarda, 15 maggio 2024
+       Staatsarchiven Stuttgart */
+    {
+      date: "2024-05-15",
+      program: "Cantigas de Santa Maria",
+      venue: "Staatsarchiv Stuttgart",
+      city: "Stoccarda, Germania",
+      note: "",
+      lat: 48.7935, lng: 9.1829,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    /* [✓] Festival Medimus IX, Prizren — 31 agosto / 1 settembre 2024
+       con Rubens Rosa (Schola Cantorum Basiliensis, Basilea) */
+    {
+      date: "2024-09-01",
+      program: "Rubens Rosa",
+      venue: "Festival Medimus IX — Atrio della Chiesa del Santo Salvatore",
+      city: "Prizren, Kosovo",
+      note: "con Ensemble Rubens Rosa",
+      lat: 42.2139, lng: 20.7397,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    /* [✓] Marginalia — Certaldo, 21 novembre 2024
+       Convegno "Intorno al Decameron — La musica nella narrativa breve del medioevo" */
+    {
+      date: "2024-11-21",
+      program: "Marginalia",
+      venue: "Certaldo — Convegno Intorno al Decameron",
+      city: "Certaldo (FI), Italia",
+      note: "Ensemble Fragmenta",
+      lat: 43.5472, lng: 11.0418,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    /* [✓] Marginalia — Archivio di Stato di Siena, 24 novembre 2024 */
+    {
+      date: "2024-11-24",
+      program: "Marginalia",
+      venue: "Archivio di Stato di Siena",
+      city: "Siena, Italia",
+      note: "Ensemble Fragmenta",
+      lat: 43.3186, lng: 11.3307,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    /* [✓] Siobulé — Residenza artistica a Pigna, Corsica (CNCM VOCE)
+       Anno da precisare */
+    {
+      date: "2026-10-01",
+      program: "Siobulé",
+      venue: "CNCM VOCE",
+      city: "Pigna, Corsica, Francia",
+      note: "Ensemble Fragmenta — residenza artistica",
+      lat: 42.9736, lng: 9.1407,
+      upcoming: true,
+      instagram: "",
+      facebook: ""
+    },
+    /* [✓] Atelier di notazione medievale — Crémieu, Francia
+       con Benjamin Ingrao / Music'Astera (data da precisare) */
+    {
+      date: "2026-01-24",
+      program: "Atelier di notazione medievale",
+      venue: "Cité Médiévale de Crémieu",
+      city: "Crémieu, Francia",
+      note: "con Benjamin Ingrao — Music'Astera",
+      lat: 45.7288, lng: 5.2541,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    /* [✓] Nel Bel Giardino — Basilea, 5 giugno 2025
+       Italian secular music of the 14th century
+       Leonhardskirche, con Nóra Szabó, Dārta Paldina, dir. Emre Bostanci */
+    {
+      date: "2025-06-05",
+      program: "Nel Bel Giardino",
+      venue: "Leonhardskirche",
+      city: "Basilea, Svizzera",
+      note: "con Nóra Szabó, Dārta Paldina, Emre Bostanci",
+      lat: 47.5558, lng: 7.5908,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    /* [✓] Micrologus — Anversa, 23 agosto 2025
+       Laus Polyphonie, Li Gieus de Robin et Marion, AMUZ */
+    {
+      date: "2025-08-23",
+      program: "Li Gieus de Robin et Marion",
+      venue: "AMUZ — Laus Polyphonie",
+      city: "Anversa, Belgio",
+      note: "con Micrologus",
+      lat: 51.2194, lng: 4.4025,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    /* [✓] Rubens Rosa — Erice, 2 settembre 2025
+       Festival Internazionale di Musica Antica, Chiesa di Sant'Antonio */
+    {
+      date: "2025-09-02",
+      program: "Rubens Rosa",
+      venue: "Chiesa di Sant'Antonio — Festival Internazionale di Musica Antica",
+      city: "Erice (TP), Italia",
+      note: "con Colin Heller, Gabriele Miracle",
+      lat: 38.0386, lng: 12.5882,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    /* [✓] La Tempesta — Roma, 14 ottobre 2025
+       Teatro Palladium, concerto in musica e parole
+       con Michele Gazich, Juliano Abramovay, Sarra Douik, Maddalena Pennacchia */
+    {
+      date: "2025-10-14",
+      program: "La Tempesta",
+      venue: "Teatro Palladium",
+      city: "Roma, Italia",
+      note: "con Michele Gazich, Juliano Abramovay, Sarra Douik, Maddalena Pennacchia",
+      lat: 41.8551, lng: 12.4752,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    /* [✓] Rubens Rosa — Lille, 15 novembre 2025
+       Temple de Lille, Un Autre Souffle — musique des troubadours */
+    {
+      date: "2025-11-15",
+      program: "Rubens Rosa",
+      venue: "Temple de Lille — Un Autre Souffle",
+      city: "Lille, Francia",
+      note: "con Ensemble Rubens Rosa",
+      lat: 50.6292, lng: 3.0573,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    /* [✓] Trois Anneaux — creazione al Festival de Royaumont 2022 */
+    {
+      date: "2022-09-01",
+      program: "Trois Anneaux",
+      venue: "Festival de Royaumont",
+      city: "Asnières-sur-Oise, Francia",
+      note: "Ensemble Oineroï — prima assoluta",
+      lat: 49.1421, lng: 2.3634,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    },
+    /* [?] Aggiungere altri concerti passati */
+    {
+      date: "2024-06-21",
+      program: "ChordaCordis",
+      venue: "Kulturo Rümmingen",
+      city: "Rümmingen, Germania",
+      note: "",
+      lat: 47.6247, lng: 7.5892,
+      upcoming: false,
+      instagram: "",
+      facebook: ""
+    }
+  ];
+  /* ════ fine fallbacken">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sara Maria Fantini — concert agenda, upcoming dates and archive.">
+  <title>Agenda | Sara Maria Fantini</title>
+  <link rel="icon" type="image/x-icon" href="../imgs/favicon-rosa.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Lora&family=Ysabeau&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      overflow-x: hidden;
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 1.1em;
+      background-color: #f5f0e8;
+      color: #2a2a2a;
+      margin: 0; padding: 0;
+    }
+    h1,h2,h3,h4,h5,h6 { font-family: 'Lora', serif; }
+
+    /* ── Navbar ── */
+    /* ── Hero ── */
+    .agenda-hero {
+      background: url('../imgs/saraScura.jpg') center center / cover no-repeat;
+      min-height: 55vh;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 3rem;
+      position: relative;
+    }
+    .agenda-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%);
+    }
+    .agenda-hero-title {
+      position: relative;
+      z-index: 1;
+      color: #f9f4e0;
+      padding-left: 2rem;
+    }
+    .agenda-hero-title h1 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 400;
+      margin: 0;
+      letter-spacing: 0.04em;
+    }
+    .agenda-hero-title p {
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 1em;
+      opacity: 0.85;
+      margin: 0.3rem 0 0;
+    }
+    @media (max-width: 768px) {
+      .agenda-hero { min-height: 40vh; }
+    }
+
+    /* ── Section headers ── */
+    .section-label {
+      font-family: 'Lora', serif;
+      font-size: 0.78em;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #7a9470;
+      margin-bottom: 0.3rem;
+    }
+    .section-title {
+      font-size: 1.9em;
+      font-weight: 400;
+      color: #2a2a2a;
+      margin-bottom: 2.2rem;
+      border-bottom: 1.5px solid #c8d9bf;
+      padding-bottom: 0.6rem;
+    }
+
+    /* ── Timeline concerti ── */
+    .timeline { position: relative; padding-left: 0; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 90px;
+      top: 0; bottom: 0;
+      width: 1.5px;
+      background: #c8d9bf;
+    }
+    .concert-item {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2.4rem;
+      position: relative;
+      align-items: flex-start;
+    }
+    .concert-date {
+      flex: 0 0 90px;
+      text-align: right;
+      padding-right: 24px;
+      padding-top: 2px;
+    }
+    .concert-date .day {
+      font-family: 'Lora', serif;
+      font-size: 2em;
+      line-height: 1;
+      color: #4a5e3a;
+      display: block;
+    }
+    .concert-date .month-year {
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.72em;
+      color: #7a9470;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 84px;
+      top: 8px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #9caf88;
+      border: 2.5px solid #7a9470;
+      z-index: 1;
+    }
+    .concert-body {
+      flex: 1;
+      padding-left: 28px;
+      padding-top: 0;
+    }
+    .concert-program {
+      font-family: 'Lora', serif;
+      font-size: 1.05em;
+      color: #2a2a2a;
+      margin-bottom: 0.2rem;
+    }
+    .concert-venue {
+      font-size: 0.88em;
+      color: #5a5a5a;
+      margin-bottom: 0.15rem;
+    }
+    .concert-venue i { color: #9caf88; margin-right: 5px; }
+    .concert-note {
+      font-size: 0.82em;
+      color: #888;
+      font-style: italic;
+      margin-bottom: 0.4rem;
+    }
+    .concert-social a {
+      color: #9caf88;
+      font-size: 0.95em;
+      margin-right: 10px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .concert-social a:hover { color: #4a5e3a; }
+    .concert-map-link {
+      font-size: 0.82em;
+      color: #7a9470;
+      text-decoration: none;
+      border-bottom: 1px dotted #9caf88;
+      cursor: pointer;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      padding: 0;
+      font-family: 'Ysabeau', sans-serif;
+    }
+    .concert-map-link:hover { color: #4a5e3a; }
+    @media (max-width: 576px) {
+      .timeline::before { left: 60px; }
+      .concert-date { flex: 0 0 60px; padding-right: 16px; }
+      .concert-date .day { font-size: 1.5em; }
+      .timeline-dot { left: 54px; }
+      .concert-body { padding-left: 20px; }
+    }
+
+    /* ── Archive map ── */
+    #map-archive {
+      height: 420px;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      margin-bottom: 3rem;
+    }
+    .archive-note {
+      font-size: 0.82em;
+      color: #888;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+      .htl-hint-mobile  { display: block; }
+      .htl-header { flex-direction: column; align-items: flex-start; }
+    }
+
+
+    /* ── Archive timeline (mirrored) ── */
+    .timeline-archive { position: relative; margin-top: 4rem; padding-right: 4rem; }
+    .archive-item {
+      display: flex;
+      flex-direction: row-reverse;
+      margin-bottom: 0;
+      padding-bottom: 2.4rem;
+      position: relative;
+      align-items: flex-start;
+    }
+    /* Vertical line: right border on the body+dot wrapper */
+    .archive-item::after {
+      content: '';
+      position: absolute;
+      right: 90px;
+      top: 8px;
+      bottom: 0;
+      width: 1.5px;
+      background: #c8d9bf;
+      z-index: 0;
+    }
+    .timeline-archive > .archive-item:last-child::after {
+      display: none;
+    }
+    .archive-date {
+      flex: 0 0 90px;
+      text-align: left;
+      padding-left: 20px;
+      padding-top: 2px;
+    }
+    .archive-date .day { font-family:'Lora',serif; font-size:2em; line-height:1; color:#7a9470; display:block; }
+    .archive-date .month-year { font-family:'Ysabeau',sans-serif; font-size:0.72em; color:#9caf88; letter-spacing:0.1em; text-transform:uppercase; }
+    .archive-dot {
+      position: absolute;
+      right: 84px; top: 8px;
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      background: #c8d9bf;
+      border: 2.5px solid #9caf88;
+      z-index: 1;
+    }
+    .archive-body {
+      flex: 1;
+      padding-right: 28px;
+      text-align: right;
+    }
+    .archive-body .concert-program { font-family:'Lora',serif; font-size:1.05em; color:#2a2a2a; margin-bottom:0.2rem; }
+    .archive-body .concert-venue { font-size:0.88em; color:#5a5a5a; margin-bottom:0.15rem; }
+    .archive-body .concert-note { font-size:0.82em; color:#888; font-style:italic; }
+    @media (max-width:576px) {
+      .archive-item::after { right:60px; }
+      .archive-date { flex:0 0 60px; padding-left:12px; }
+      .archive-date .day { font-size:1.5em; }
+      .archive-dot { right:54px; }
+      .archive-body { padding-right:20px; }
+    }
+
+
+    /* ── Compact footer ── */
+    .site-footer { background-color: #e8f0e2; padding: 0.8rem 2rem; }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.4rem; max-width: 1140px; margin: 0 auto;
+      font-family: 'Ysabeau', sans-serif; font-size: 0.8em; color: #2a2a2a;
+    }
+    .footer-copy { opacity: 0.75; }
+    .footer-social a { color: #2a2a2a; margin-right: 0.55rem; font-size: 1.05em; transition: color 0.2s; }
+    .footer-social a:hover { color: #4a5e3a; }
+    .footer-contact-link { color: #4a5e3a; text-decoration: none; border-bottom: 1px dotted #4a5e3a; }
+    .footer-contact-link:hover { color: #2a2a2a; }
+    @media (max-width: 576px) { .footer-inner { justify-content: center; text-align: center; } }
+
+    /* ── Empty state ── */
+    .no-concerts {
+      text-align: center;
+      color: #aaa;
+      font-style: italic;
+      padding: 2rem 0;
+    }
+
+    /* ── Leaflet popup custom ── */
+    .leaflet-popup-content-wrapper {
+      border-radius: 6px;
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.95em;
+    }
+    .popup-date { font-size: 0.8em; color: #7a9470; letter-spacing: 0.08em; text-transform: uppercase; }
+    .popup-program { font-family: 'Lora', serif; font-size: 1em; margin: 2px 0; }
+    .popup-venue { font-size: 0.85em; color: #666; }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+    <style>
+    .navbar { background-color: #9caf88; font-family: 'Ysabeau', sans-serif; font-size: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .navbar-brand { font-size: 1rem; font-family: "Ysabeau", sans-serif; }
     .navbar .nav-link { color: rgba(255,255,255,0.85) !important; transition: color 0.2s; }
     .navbar .nav-link:hover, .navbar .nav-link.active { color: #fff !important; }
     .dropdown-menu { background-color: #7a9470; border: none; border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.18); padding: 0.3rem 0; min-width: 160px; }
