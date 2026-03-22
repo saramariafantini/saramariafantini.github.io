@@ -1321,6 +1321,10 @@
           '    <div class="concert-program">' + c.program + '</div>' +
           '    <div class="concert-venue">' + c.venue + ' — ' + c.city + '</div>' +
           (c.note ? '<div class="concert-note">' + c.note + '</div>' : '') +
+          (c.facebook || c.instagram ? '<div class="concert-social" style="text-align:right;">' +
+            (c.facebook ? '<a href="' + c.facebook + '" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook"></i></a>' : '') +
+            (c.instagram ? '<a href="' + c.instagram + '" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>' : '') +
+          '</div>' : '') +
           '  </div>' +
           '</div>';
       });
