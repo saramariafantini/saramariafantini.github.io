@@ -254,6 +254,41 @@
     }
 
 
+    /* ── Year group headers ── */
+    .year-group { margin-bottom: 0.5rem; }
+    .year-toggle {
+      display: flex; align-items: center; gap: 0.8rem;
+      cursor: pointer; user-select: none;
+      padding: 0.5rem 0;
+      border: none; background: none; width: 100%; text-align: left;
+    }
+    .year-label {
+      font-family: 'Lora', serif;
+      font-size: 1.4em;
+      font-weight: 400;
+      color: #7a9470;
+      transition: color 0.2s;
+    }
+    .year-toggle:hover .year-label { color: #4a5e3a; }
+    .year-count {
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.78em;
+      color: #aaa;
+      letter-spacing: 0.1em;
+    }
+    .year-chevron {
+      margin-left: auto;
+      font-size: 0.9em;
+      color: #9caf88;
+      transition: transform 0.25s;
+    }
+    .year-toggle.collapsed .year-chevron { transform: rotate(-90deg); }
+    .year-body {
+      transition: max-height 0.3s ease;
+      overflow: hidden;
+    }
+    .year-divider { border: none; border-top: 1px solid #c8d9bf; margin: 0.3rem 0 1.2rem; }
+
     /* ── Compact footer ── */
     .site-footer { background-color: #e8f0e2; padding: 0.8rem 2rem; }
     .footer-inner {
@@ -919,6 +954,41 @@
     }
 
 
+    /* ── Year group headers ── */
+    .year-group { margin-bottom: 0.5rem; }
+    .year-toggle {
+      display: flex; align-items: center; gap: 0.8rem;
+      cursor: pointer; user-select: none;
+      padding: 0.5rem 0;
+      border: none; background: none; width: 100%; text-align: left;
+    }
+    .year-label {
+      font-family: 'Lora', serif;
+      font-size: 1.4em;
+      font-weight: 400;
+      color: #7a9470;
+      transition: color 0.2s;
+    }
+    .year-toggle:hover .year-label { color: #4a5e3a; }
+    .year-count {
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.78em;
+      color: #aaa;
+      letter-spacing: 0.1em;
+    }
+    .year-chevron {
+      margin-left: auto;
+      font-size: 0.9em;
+      color: #9caf88;
+      transition: transform 0.25s;
+    }
+    .year-toggle.collapsed .year-chevron { transform: rotate(-90deg); }
+    .year-body {
+      transition: max-height 0.3s ease;
+      overflow: hidden;
+    }
+    .year-divider { border: none; border-top: 1px solid #c8d9bf; margin: 0.3rem 0 1.2rem; }
+
     /* ── Compact footer ── */
     .site-footer { background-color: #e8f0e2; padding: 0.8rem 2rem; }
     .footer-inner {
@@ -1209,36 +1279,80 @@
 
 
 
-  /* ── Archive vertical timeline (mirrored) ── */
+  /* ── Archive vertical timeline — grouped by year, collapsible ── */
   function buildArchiveTimeline(archive) {
     var tl = document.getElementById('archive-timeline');
     if (!tl) return;
     tl.innerHTML = '';
+
     var sorted = archive.slice().sort(function(a,b){ return a.date < b.date ? 1 : -1; });
+
+    // Group by year
+    var byYear = {}, years = [];
     sorted.forEach(function(c) {
-      var d = fmtDate(c.date);
-      var dateLabel = fmtDateRange(c.date, c.date_end);
-      var endLine = '';
-      if (c.date_end && c.date_end.match(/^\d{4}-\d{2}-\d{2}$/)) {
-        var de = fmtDate(c.date_end);
-        endLine = '<span class="month-year" style="display:block;">– ' + de.day + ' ' + de.month + ' ' + de.year + '</span>';
-      }
+      var y = c.date.substring(0, 4);
+      if (!byYear[y]) { byYear[y] = []; years.push(y); }
+      byYear[y].push(c);
+    });
+    years.sort(function(a,b){ return b - a; });
+
+    years.forEach(function(year, yi) {
+      var concerts = byYear[year];
+      var isOpen = (yi === 0);
+      var groupId = 'year-group-' + year;
+
+      var rows = '';
+      concerts.forEach(function(c) {
+        var d = fmtDate(c.date);
+        var endLine = '';
+        if (c.date_end && c.date_end.match(/^\d{4}-\d{2}-\d{2}$/)) {
+          var de = fmtDate(c.date_end);
+          endLine = '<span class="month-year" style="display:block;">– ' + de.day + ' ' + de.month + ' ' + de.year + '</span>';
+        }
+        rows +=
+          '<div class="archive-item">' +
+          '  <div class="archive-date">' +
+          '    <span class="day">' + d.day + '</span>' +
+          '    <span class="month-year">' + d.wd + ' ' + d.month + ' ' + d.year + '</span>' +
+          endLine +
+          '  </div>' +
+          '  <div class="archive-dot"></div>' +
+          '  <div class="archive-body">' +
+          '    <div class="concert-program">' + c.program + '</div>' +
+          '    <div class="concert-venue">' + c.venue + ' — ' + c.city + '</div>' +
+          (c.note ? '<div class="concert-note">' + c.note + '</div>' : '') +
+          '  </div>' +
+          '</div>';
+      });
+
       tl.innerHTML +=
-        '<div class="archive-item">' +
-        '  <div class="archive-date">' +
-        '    <span class="day">' + d.day + '</span>' +
-        '    <span class="month-year">' + d.wd + ' ' + d.month + ' ' + d.year + '</span>' +
-        endLine +
-        '  </div>' +
-        '  <div class="archive-dot"></div>' +
-        '  <div class="archive-body">' +
-        '    <div class="concert-program">' + c.program + '</div>' +
-        '    <div class="concert-venue">' + c.venue + ' — ' + c.city + '</div>' +
-        (c.note ? '<div class="concert-note">' + c.note + '</div>' : '') +
+        '<div class="year-group">' +
+        '  <button class="year-toggle' + (isOpen ? '' : ' collapsed') + '" onclick="toggleYear(\'' + groupId + '\', this)">' +
+        '    <span class="year-label">' + year + '</span>' +
+        '    <span class="year-count">' + concerts.length + ' concert' + (concerts.length === 1 ? '' : 's') + '</span>' +
+        '    <span class="year-chevron">&#8964;</span>' +
+        '  </button>' +
+        '  <hr class="year-divider">' +
+        '  <div class="timeline-archive year-body" id="' + groupId + '" style="max-height:' + (isOpen ? '9999px' : '0') + ';">' +
+        rows +
         '  </div>' +
         '</div>';
     });
   }
+
+  function toggleYear(id, btn) {
+    var body = document.getElementById(id);
+    var isOpen = body.style.maxHeight !== '0px' && body.style.maxHeight !== '0';
+    if (isOpen) {
+      body.style.maxHeight = '0';
+      btn.classList.add('collapsed');
+    } else {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      setTimeout(function(){ if (body.style.maxHeight !== '0px') body.style.maxHeight = '9999px'; }, 350);
+      btn.classList.remove('collapsed');
+    }
+  }
+
 
   /* ── fetch dal foglio Google, con fallback ── */
   document.getElementById('upcoming-timeline').innerHTML =
