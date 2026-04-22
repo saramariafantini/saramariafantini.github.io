@@ -59,9 +59,19 @@
         padding-right: 30px;
       }
 
-      @media (min-width: 768px) {
+      @media (min-width: 1024px) {
         .col-md-6 img {
           height: 100vh;
+          object-fit: cover;
+          object-position: center top;
+        }
+      }
+      @media (min-width: 768px) and (max-width: 1023px) {
+        .col-md-6 img {
+          height: 60vw;
+          width: 100%;
+          object-fit: cover;
+          object-position: center top;
         }
       }
 
