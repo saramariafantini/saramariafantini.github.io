@@ -147,6 +147,30 @@
     .gallery-item:hover img { transform: scale(1.04); opacity: 1; }
     .gallery-item.hidden { display: none; }
 
+    /* ── Mobile gallery: one horizontally-scrolling strip per category,
+       instead of the single-column grid a narrow screen forces otherwise ── */
+    .gallery-heading {
+      font-family: 'Lora', serif; font-size: 0.95em; text-align: left;
+      letter-spacing: 0.06em; text-transform: uppercase; color: #9caf88;
+      margin-top: 1.6rem; margin-bottom: 0.6rem;
+    }
+    .gallery-strip-wrap { position: relative; margin-bottom: 0.5rem; }
+    .gallery-strip {
+      display: flex; gap: 8px; overflow-x: auto; scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch; padding-bottom: 8px;
+      scrollbar-width: thin; scrollbar-color: #9caf88 #2a2a2c;
+    }
+    .gallery-strip::-webkit-scrollbar { height: 5px; }
+    .gallery-strip::-webkit-scrollbar-track { background: #2a2a2c; border-radius: 3px; }
+    .gallery-strip::-webkit-scrollbar-thumb { background: #9caf88; border-radius: 3px; }
+    .gallery-thumb {
+      flex: 0 0 auto; height: 160px; width: auto; object-fit: cover;
+      cursor: pointer; opacity: 0.85; border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      transition: opacity 0.2s;
+    }
+    .gallery-thumb:active { opacity: 1; }
+
     /* ── Lightbox ── */
     .lightbox-overlay {
       display: none; position: fixed; inset: 0; z-index: 2000;
@@ -326,20 +350,84 @@
   <section class="media-section" id="galleria">
     <div class="container py-2">
       <h2 class="section-title">Galerie photographique</h2>
-      <div class="gallery-filters"><button class="gallery-filter-btn active" data-filter="tutti">Toutes</button> <button class="gallery-filter-btn" data-filter="marginalia">Marginalia</button> <button class="gallery-filter-btn" data-filter="chordacordis">ChordaCordis</button> <button class="gallery-filter-btn" data-filter="troisanneaux">Trois Anneaux</button></div>
+      <!-- Mobile : une fascia scorrevole per categoria (toccare per aprire a piena grandezza). -->
+      <div class="d-block d-md-none">
+        <h4 class="gallery-heading">Fragmenta</h4>
+        <div class="gallery-strip-wrap">
+          <div class="gallery-strip" id="fragmentaStrip">
+            <img class="gallery-thumb" src="imgs/marginalia/lucca-codex.jpg" alt="Marginalia — Lucca Codex" onclick="openLightbox(0)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/marginalia/magl-1040-1.jpg" alt="Marginalia — Magl 1040" onclick="openLightbox(1)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/marginalia/magl-1040-2.jpg" alt="Marginalia — Magl 1040" onclick="openLightbox(2)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/marginalia/marginalia-certaldo.png" alt="Marginalia — Certaldo" onclick="openLightbox(3)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/marginalia/marginalia-milano.png" alt="Marginalia — Milano" onclick="openLightbox(4)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/marginalia/marginalia-programma.jpg" alt="Marginalia — Programma" onclick="openLightbox(5)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/siobule/siobule-1.jpg" alt="Siobulé (1)" onclick="openLightbox(6)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/siobule/siobule-2.jpg" alt="Siobulé (2)" onclick="openLightbox(7)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/siobule/siobule-3.jpg" alt="Siobulé (3)" onclick="openLightbox(8)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/siobule/siobule-4.jpg" alt="Siobulé (4)" onclick="openLightbox(9)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/siobule/siobule-5.jpg" alt="Siobulé (5)" onclick="openLightbox(10)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/siobule/siobule-6.jpg" alt="Siobulé (6)" onclick="openLightbox(11)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/siobule/siobule-7.jpg" alt="Siobulé (7)" onclick="openLightbox(12)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/siobule/siobule-8.jpg" alt="Siobulé (8)" onclick="openLightbox(13)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/siobule/siobule-9.jpg" alt="Siobulé (9)" onclick="openLightbox(14)" loading="lazy">
+          </div>
+        </div>
+        <h4 class="gallery-heading">ChordaCordis</h4>
+        <div class="gallery-strip-wrap">
+          <div class="gallery-strip" id="chordacordisStripMedia">
+            <img class="gallery-thumb" src="imgs/chordacordis/chordacordis-1.png" alt="ChordaCordis" onclick="openLightbox(15)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/chordacordis/chordacordis-2.jpg" alt="ChordaCordis" onclick="openLightbox(16)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/chordacordis/sara-colin-1.png" alt="ChordaCordis — Sara e Colin" onclick="openLightbox(17)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/chordacordis/sara-colin-cesab.jpg" alt="ChordaCordis — CESAB" onclick="openLightbox(18)" loading="lazy">
+          </div>
+        </div>
+        <h4 class="gallery-heading">Collaborations</h4>
+        <div class="gallery-strip-wrap">
+          <div class="gallery-strip" id="collaborazioniStrip">
+            <img class="gallery-thumb" src="imgs/troisanneaux/trois-anneaux-1.png" alt="Trois Anneaux (1)" onclick="openLightbox(19)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/troisanneaux/trois-anneaux-1.jpg" alt="Trois Anneaux (2)" onclick="openLightbox(20)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/troisanneaux/trois-anneaux-3.jpg" alt="Trois Anneaux (3)" onclick="openLightbox(21)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/troisanneaux/trois-anneaux-4.jpg" alt="Trois Anneaux (4)" onclick="openLightbox(22)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/troisanneaux/trois-anneaux-5.jpg" alt="Trois Anneaux (5)" onclick="openLightbox(23)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/troisanneaux/trois-anneaux-6.jpg" alt="Trois Anneaux (6)" onclick="openLightbox(24)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/troisanneaux/trois-anneaux-7.jpg" alt="Trois Anneaux (7)" onclick="openLightbox(25)" loading="lazy">
+            <img class="gallery-thumb" src="imgs/troisanneaux/trois-anneaux-8.jpg" alt="Trois Anneaux (8)" onclick="openLightbox(26)" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop/tablette : grille avec filtres (inchangée) -->
+      <div class="d-none d-md-block">
+      <div class="gallery-filters"><button class="gallery-filter-btn active" data-filter="tutti">Toutes</button> <button class="gallery-filter-btn" data-filter="fragmenta">Fragmenta</button> <button class="gallery-filter-btn" data-filter="chordacordis">ChordaCordis</button> <button class="gallery-filter-btn" data-filter="collaborazioni">Collaborations</button></div>
       <div class="gallery-grid" id="galleryGrid">
-        <div class="gallery-item" data-project="marginalia" onclick="openLightbox(0)"><img src="imgs/marginalia/lucca-codex.jpg" alt="Marginalia — Lucca Codex" loading="lazy"></div>
-        <div class="gallery-item" data-project="marginalia" onclick="openLightbox(1)"><img src="imgs/marginalia/magl-1040-1.jpg" alt="Marginalia — Magl 1040" loading="lazy"></div>
-        <div class="gallery-item" data-project="marginalia" onclick="openLightbox(2)"><img src="imgs/marginalia/magl-1040-2.jpg" alt="Marginalia — Magl 1040" loading="lazy"></div>
-        <div class="gallery-item" data-project="marginalia" onclick="openLightbox(3)"><img src="imgs/marginalia/marginalia-certaldo.png" alt="Marginalia — Certaldo" loading="lazy"></div>
-        <div class="gallery-item" data-project="marginalia" onclick="openLightbox(4)"><img src="imgs/marginalia/marginalia-milano.png" alt="Marginalia — Milano" loading="lazy"></div>
-        <div class="gallery-item" data-project="marginalia" onclick="openLightbox(5)"><img src="imgs/marginalia/marginalia-programma.jpg" alt="Marginalia — Programma" loading="lazy"></div>
-        <div class="gallery-item" data-project="chordacordis" onclick="openLightbox(6)"><img src="imgs/chordacordis/chordacordis-1.png" alt="ChordaCordis" loading="lazy"></div>
-        <div class="gallery-item" data-project="chordacordis" onclick="openLightbox(7)"><img src="imgs/chordacordis/chordacordis-2.jpg" alt="ChordaCordis" loading="lazy"></div>
-        <div class="gallery-item" data-project="chordacordis" onclick="openLightbox(8)"><img src="imgs/chordacordis/sara-colin-1.png" alt="ChordaCordis — Sara e Colin" loading="lazy"></div>
-        <div class="gallery-item" data-project="chordacordis" onclick="openLightbox(9)"><img src="imgs/chordacordis/sara-colin-cesab.jpg" alt="ChordaCordis — CESAB" loading="lazy"></div>
-        <div class="gallery-item" data-project="troisanneaux" onclick="openLightbox(10)"><img src="imgs/troisanneaux/trois-anneaux-1.jpg" alt="Trois Anneaux" loading="lazy"></div>
-        <div class="gallery-item" data-project="troisanneaux" onclick="openLightbox(11)"><img src="imgs/troisanneaux/trois-anneaux-2.jpg" alt="Trois Anneaux" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(0)"><img src="imgs/marginalia/lucca-codex.jpg" alt="Marginalia — Lucca Codex" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(1)"><img src="imgs/marginalia/magl-1040-1.jpg" alt="Marginalia — Magl 1040" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(2)"><img src="imgs/marginalia/magl-1040-2.jpg" alt="Marginalia — Magl 1040" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(3)"><img src="imgs/marginalia/marginalia-certaldo.png" alt="Marginalia — Certaldo" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(4)"><img src="imgs/marginalia/marginalia-milano.png" alt="Marginalia — Milano" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(5)"><img src="imgs/marginalia/marginalia-programma.jpg" alt="Marginalia — Programma" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(6)"><img src="imgs/siobule/siobule-1.jpg" alt="Siobulé (1)" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(7)"><img src="imgs/siobule/siobule-2.jpg" alt="Siobulé (2)" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(8)"><img src="imgs/siobule/siobule-3.jpg" alt="Siobulé (3)" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(9)"><img src="imgs/siobule/siobule-4.jpg" alt="Siobulé (4)" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(10)"><img src="imgs/siobule/siobule-5.jpg" alt="Siobulé (5)" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(11)"><img src="imgs/siobule/siobule-6.jpg" alt="Siobulé (6)" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(12)"><img src="imgs/siobule/siobule-7.jpg" alt="Siobulé (7)" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(13)"><img src="imgs/siobule/siobule-8.jpg" alt="Siobulé (8)" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(14)"><img src="imgs/siobule/siobule-9.jpg" alt="Siobulé (9)" loading="lazy"></div>
+        <div class="gallery-item" data-project="chordacordis" onclick="openLightbox(15)"><img src="imgs/chordacordis/chordacordis-1.png" alt="ChordaCordis" loading="lazy"></div>
+        <div class="gallery-item" data-project="chordacordis" onclick="openLightbox(16)"><img src="imgs/chordacordis/chordacordis-2.jpg" alt="ChordaCordis" loading="lazy"></div>
+        <div class="gallery-item" data-project="chordacordis" onclick="openLightbox(17)"><img src="imgs/chordacordis/sara-colin-1.png" alt="ChordaCordis — Sara e Colin" loading="lazy"></div>
+        <div class="gallery-item" data-project="chordacordis" onclick="openLightbox(18)"><img src="imgs/chordacordis/sara-colin-cesab.jpg" alt="ChordaCordis — CESAB" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(19)"><img src="imgs/troisanneaux/trois-anneaux-1.png" alt="Trois Anneaux (1)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(20)"><img src="imgs/troisanneaux/trois-anneaux-1.jpg" alt="Trois Anneaux (2)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(21)"><img src="imgs/troisanneaux/trois-anneaux-3.jpg" alt="Trois Anneaux (3)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(22)"><img src="imgs/troisanneaux/trois-anneaux-4.jpg" alt="Trois Anneaux (4)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(23)"><img src="imgs/troisanneaux/trois-anneaux-5.jpg" alt="Trois Anneaux (5)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(24)"><img src="imgs/troisanneaux/trois-anneaux-6.jpg" alt="Trois Anneaux (6)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(25)"><img src="imgs/troisanneaux/trois-anneaux-7.jpg" alt="Trois Anneaux (7)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(26)"><img src="imgs/troisanneaux/trois-anneaux-8.jpg" alt="Trois Anneaux (8)" loading="lazy"></div>
+      </div>
       </div>
     </div>
   </section>
@@ -427,18 +515,33 @@
 
   <script>
     var galleryData = [
-      {src: "imgs/marginalia/lucca-codex.jpg", alt: "Marginalia — Lucca Codex", project: "marginalia"},
-      {src: "imgs/marginalia/magl-1040-1.jpg", alt: "Marginalia — Magl 1040", project: "marginalia"},
-      {src: "imgs/marginalia/magl-1040-2.jpg", alt: "Marginalia — Magl 1040", project: "marginalia"},
-      {src: "imgs/marginalia/marginalia-certaldo.png", alt: "Marginalia — Certaldo", project: "marginalia"},
-      {src: "imgs/marginalia/marginalia-milano.png", alt: "Marginalia — Milano", project: "marginalia"},
-      {src: "imgs/marginalia/marginalia-programma.jpg", alt: "Marginalia — Programma", project: "marginalia"},
-      {src: "imgs/chordacordis/chordacordis-1.png", alt: "ChordaCordis", project: "chordacordis"},
-      {src: "imgs/chordacordis/chordacordis-2.jpg", alt: "ChordaCordis", project: "chordacordis"},
-      {src: "imgs/chordacordis/sara-colin-1.png", alt: "ChordaCordis — Sara e Colin", project: "chordacordis"},
-      {src: "imgs/chordacordis/sara-colin-cesab.jpg", alt: "ChordaCordis — CESAB", project: "chordacordis"},
-      {src: "imgs/troisanneaux/trois-anneaux-1.jpg", alt: "Trois Anneaux", project: "troisanneaux"},
-      {src: "imgs/troisanneaux/trois-anneaux-2.jpg", alt: "Trois Anneaux", project: "troisanneaux"}
+      {src: "imgs/marginalia/lucca-codex.jpg", alt: "Marginalia — Lucca Codex"},
+      {src: "imgs/marginalia/magl-1040-1.jpg", alt: "Marginalia — Magl 1040"},
+      {src: "imgs/marginalia/magl-1040-2.jpg", alt: "Marginalia — Magl 1040"},
+      {src: "imgs/marginalia/marginalia-certaldo.png", alt: "Marginalia — Certaldo"},
+      {src: "imgs/marginalia/marginalia-milano.png", alt: "Marginalia — Milano"},
+      {src: "imgs/marginalia/marginalia-programma.jpg", alt: "Marginalia — Programma"},
+      {src: "imgs/siobule/siobule-1.jpg", alt: "Siobulé (1)"},
+      {src: "imgs/siobule/siobule-2.jpg", alt: "Siobulé (2)"},
+      {src: "imgs/siobule/siobule-3.jpg", alt: "Siobulé (3)"},
+      {src: "imgs/siobule/siobule-4.jpg", alt: "Siobulé (4)"},
+      {src: "imgs/siobule/siobule-5.jpg", alt: "Siobulé (5)"},
+      {src: "imgs/siobule/siobule-6.jpg", alt: "Siobulé (6)"},
+      {src: "imgs/siobule/siobule-7.jpg", alt: "Siobulé (7)"},
+      {src: "imgs/siobule/siobule-8.jpg", alt: "Siobulé (8)"},
+      {src: "imgs/siobule/siobule-9.jpg", alt: "Siobulé (9)"},
+      {src: "imgs/chordacordis/chordacordis-1.png", alt: "ChordaCordis"},
+      {src: "imgs/chordacordis/chordacordis-2.jpg", alt: "ChordaCordis"},
+      {src: "imgs/chordacordis/sara-colin-1.png", alt: "ChordaCordis — Sara e Colin"},
+      {src: "imgs/chordacordis/sara-colin-cesab.jpg", alt: "ChordaCordis — CESAB"},
+      {src: "imgs/troisanneaux/trois-anneaux-1.png", alt: "Trois Anneaux (1)"},
+      {src: "imgs/troisanneaux/trois-anneaux-1.jpg", alt: "Trois Anneaux (2)"},
+      {src: "imgs/troisanneaux/trois-anneaux-3.jpg", alt: "Trois Anneaux (3)"},
+      {src: "imgs/troisanneaux/trois-anneaux-4.jpg", alt: "Trois Anneaux (4)"},
+      {src: "imgs/troisanneaux/trois-anneaux-5.jpg", alt: "Trois Anneaux (5)"},
+      {src: "imgs/troisanneaux/trois-anneaux-6.jpg", alt: "Trois Anneaux (6)"},
+      {src: "imgs/troisanneaux/trois-anneaux-7.jpg", alt: "Trois Anneaux (7)"},
+      {src: "imgs/troisanneaux/trois-anneaux-8.jpg", alt: "Trois Anneaux (8)"}
     ];
     var lbIndex = 0;
 
