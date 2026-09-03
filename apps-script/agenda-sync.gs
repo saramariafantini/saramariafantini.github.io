@@ -8,7 +8,7 @@
  * COSA FA
  * Ogni giorno legge il foglio Google dell'agenda e pubblica una copia
  * dei dati come agenda-data.json in questo repository, tramite le API
- * di GitHub. Il sito (pages/agenda-it/en/fr.html) legge quel file invece
+ * di GitHub. Il sito (agenda-it/en/fr.html) legge quel file invece
  * di contattare Google Sheets direttamente dal browser del visitatore —
  * questo evita che reti aziendali che bloccano docs.google.com
  * impediscano il caricamento dell'agenda.

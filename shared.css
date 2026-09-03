@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════════════
-   shared.css — navbar and footer styles common to every page in pages/.
+   shared.css — navbar and footer styles common to every page of the site.
    Page-specific colors come from CSS custom properties declared in a
    small :root block in each page's own <head> (search for "--nav-" or
    "--footer-" in that page to find/change its colors).
