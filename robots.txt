@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://saramariafantini.github.io/sitemap.xml
