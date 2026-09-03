@@ -85,6 +85,19 @@
       padding-bottom: 0.6rem;
     }
 
+    /* ── Centered content column: same generous side margins on every
+       screen size, full-width with a simple side margin on mobile ── */
+    .agenda-narrow {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      box-sizing: border-box;
+    }
+    @media (max-width: 576px) {
+      .agenda-narrow { padding-left: 1rem; padding-right: 1rem; }
+    }
+
     /* ── Timeline concerti ── */
     .timeline { position: relative; padding-left: 0; }
     .timeline::before {
@@ -195,7 +208,7 @@
     }
 
     /* ── Archive timeline (mirrored) ── */
-    .timeline-archive { position: relative; margin-top: 4rem; padding-right: 8rem; }
+    .timeline-archive { position: relative; margin-top: 4rem; }
     .archive-item {
       display: flex;
       flex-direction: row-reverse;
@@ -366,7 +379,7 @@
   </div>
 
   <!-- ══ PROCHAINES DATES ══ -->
-  <section class="container py-5" id="prossime-date">
+  <section class="agenda-narrow py-5" id="prossime-date">
     <p class="section-label">Calendrier</p>
     <h2 class="section-title">Prochaines dates</h2>
 
@@ -382,7 +395,7 @@
 
   <!-- ══ ARCHIVES ══ -->
   <section style="background:#e8f0e2; padding: 3rem 0;">
-    <div class="container" id="archivio" style="padding-right: 8rem;">
+    <div class="agenda-narrow" id="archivio">
       <p class="section-label">Archives</p>
       <h2 class="section-title">Concerts passés</h2>
       <div id="map-archive"></div>
@@ -527,9 +540,9 @@
     if (window._mapA) { window._mapA.remove(); window._mapA = null; }
     var mapA = L.map('map-archive', { zoomControl: true, scrollWheelZoom: false });
     window._mapA = mapA;
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> © <a href="https://carto.com/">CARTO</a>',
-      subdomains: 'abcd', maxZoom: 19
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      subdomains: 'abc', maxZoom: 19
     }).addTo(mapA);
     var archiveIcon = L.divIcon({
       className: '',
