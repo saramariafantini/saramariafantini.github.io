@@ -119,6 +119,97 @@
       color: #444; font-style: italic; font-size: 0.95em;
     }
 
+    /* ── Gallery ── */
+    .gallery-filters {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.6rem;
+    }
+    .gallery-filter-btn {
+      background: none; border: 1px solid #333; color: #888;
+      border-radius: 20px; padding: 0.3rem 1rem;
+      font-family: 'Ysabeau', sans-serif; font-size: 0.82em;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .gallery-filter-btn:hover { border-color: #9caf88; color: #9caf88; }
+    .gallery-filter-btn.active { background: #9caf88; border-color: #9caf88; color: #060608; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 8px;
+    }
+    .gallery-item {
+      overflow: hidden; border-radius: 4px; cursor: pointer;
+      aspect-ratio: 4/3; background: #111;
+    }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.3s, opacity 0.2s; opacity: 0.82;
+    }
+    .gallery-item:hover img { transform: scale(1.04); opacity: 1; }
+    .gallery-item.hidden { display: none; }
+
+    /* ── Lightbox ── */
+    .lightbox-overlay {
+      display: none; position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
+    }
+    .lightbox-overlay.open { display: flex; }
+    .lightbox-img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 3px; }
+    .lightbox-close {
+      position: absolute; top: 18px; right: 22px; font-size: 2rem;
+      color: #aaa; cursor: pointer; background: none; border: none; line-height: 1;
+    }
+    .lightbox-close:hover { color: #fff; }
+    .lightbox-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.08); color: #fff; border: none;
+      font-size: 2rem; padding: 0.2em 0.5em; cursor: pointer; border-radius: 3px;
+      transition: background 0.15s;
+    }
+    .lightbox-nav:hover { background: rgba(255,255,255,0.18); }
+    .lightbox-prev { left: 12px; }
+    .lightbox-next { right: 12px; }
+    .lightbox-caption {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      color: #aaa; font-family: 'Ysabeau', sans-serif; font-size: 0.85em;
+      white-space: nowrap;
+    }
+
+    /* ── Instagram grid ── */
+    .ig-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      justify-items: center;
+    }
+    .ig-col { width: 100%; max-width: 480px; }
+    .ig-note { color: #555; font-size: 0.9em; margin-top: 0.5rem; }
+    .ig-note a:hover { color: #fff; }
+    /* Instagram's own embed markup hardcodes min-width:326px, wider than some
+       phones (e.g. 320px): neutralize it so it can never force horizontal scroll. */
+    .ig-col blockquote.instagram-media { min-width: 0 !important; }
+
+    /* ── Facebook card ── */
+    .fb-col { grid-column: 1 / -1; display: flex; justify-content: center; }
+    .fb-card {
+      background: #111113; border: 1px solid #2a2a2a; box-sizing: border-box;
+      width: 100%; max-width: 480px;
+      padding: 2.6rem 1.8rem; text-align: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .fb-card-icon { font-size: 2.8rem; color: #9caf88; margin-bottom: 0.9rem; }
+    .fb-card-name { font-family: 'Lora', serif; font-size: 1.15em; color: #f9f4e0; margin: 0 0 0.35rem; }
+    .fb-card-desc { color: #aaa; font-size: 0.9em; margin: 0 0 1.5rem; }
+    .fb-card-btn {
+      display: inline-block; padding: 0.7rem 1.8rem; border: 1px solid #9caf88; color: #9caf88;
+      text-decoration: none; font-family: 'Ysabeau', sans-serif; font-size: 0.85em;
+      border-radius: 50px; transition: background 0.2s, color 0.2s;
+    }
+    .fb-card-btn:hover { background: #9caf88; color: #fff; }
+
+    /* ── SoundCloud ── */
+    .sc-wrap { margin-top: 0; }
+    .audio-note { font-size: 0.78em; color: #444; font-style: italic; margin-top: 0.6rem; }
+
   </style>
 </head>
 <body>
