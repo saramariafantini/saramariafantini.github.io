@@ -77,9 +77,15 @@
     <a class="navbar-brand d-block d-sm-none" href="index.html">
       <img src="imgs/favicon-rosa.ico" alt="Logo" style="width:20px;">
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="d-flex align-items-center d-sm-none">
+      <div class="dropdown lang-switch">
+        <a class="nav-link dropdown-toggle lang-current" href="#" data-toggle="dropdown">en</a>
+        <div class="dropdown-menu dropdown-menu-right lang-menu"><a class="dropdown-item" href="contatti-it.html">it</a><a class="dropdown-item" href="contatti-fr.html">fr</a></div>
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
     <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
       <a class="navbar-brand justify-content-center" href="index.html">Home</a>
       <ul class="navbar-nav text-md-nowrap">
@@ -93,6 +99,10 @@
         <li class="nav-item"><a class="nav-link " href="media-en.html">Media</a></li>
         <li class="nav-item"><a class="nav-link " href="agenda-en.html">Agenda</a></li>
         <li class="nav-item"><a class="nav-link active" href="contatti-en.html">Contact</a></li>
+        <li class="nav-item dropdown lang-switch d-none d-sm-block">
+          <a class="nav-link dropdown-toggle lang-current" href="#" data-toggle="dropdown">en</a>
+          <div class="dropdown-menu dropdown-menu-right lang-menu"><a class="dropdown-item" href="contatti-it.html">it</a><a class="dropdown-item" href="contatti-fr.html">fr</a></div>
+        </li>
       </ul>
     </div>
   </nav>
