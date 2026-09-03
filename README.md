@@ -182,6 +182,17 @@ campi elencato sopra.
   diversa dalla rosa usata dal resto del sito — non è un errore, è
   intenzionale.
 
+### Google Search Console
+
+Il sito è registrato su [Google Search Console](https://search.google.com/search-console),
+con proprietà verificata per il dominio `saramariafantini.com` (verifica
+DNS tramite record TXT su Cloudflare).
+
+Sitemap inviata: `https://saramariafantini.com/sitemap.xml` — va aggiornata
+manualmente in Search Console (rimuovi e reinvia la stessa URL) solo se
+cambia l'elenco delle pagine indicizzabili; le date di `<lastmod>` non
+richiedono invece nessuna azione.
+
 ## Cose particolari da ricordare
 
 - Il numero WhatsApp nella pagina Contatti non è scritto in chiaro
