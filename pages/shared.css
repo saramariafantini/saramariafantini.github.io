@@ -1,0 +1,72 @@
+/* ════════════════════════════════════════════════════════════════════
+   shared.css — navbar and footer styles common to every page in pages/.
+   Page-specific colors come from CSS custom properties declared in a
+   small :root block in each page's own <head> (search for "--nav-" or
+   "--footer-" in that page to find/change its colors).
+   index.html (the language-selector splash) has no navbar/footer and
+   does not use this file.
+════════════════════════════════════════════════════════════════════ */
+
+/* ── Navbar ── */
+.navbar {
+  background-color: var(--nav-bg);
+  font-family: 'Ysabeau', sans-serif;
+  font-size: 1rem;
+  box-shadow: var(--nav-shadow);
+}
+.navbar-brand { font-size: 1rem; font-family: 'Ysabeau', sans-serif; }
+.navbar .nav-link { color: rgba(255,255,255,0.85) !important; transition: color 0.2s; }
+.navbar .nav-link:hover, .navbar .nav-link.active { color: #fff !important; }
+.dropdown-menu {
+  background-color: var(--nav-dropdown-bg);
+  border: none;
+  border-radius: 6px;
+  box-shadow: var(--nav-dropdown-shadow);
+  padding: 0.3rem 0;
+  min-width: 160px;
+}
+.dropdown-item {
+  font-family: 'Ysabeau', sans-serif;
+  color: var(--nav-dropdown-item-color);
+  font-size: 0.95em;
+  padding: 0.45rem 1.1rem;
+}
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: var(--nav-dropdown-hover-bg);
+  color: var(--nav-dropdown-hover-color);
+}
+.dropdown-item.disabled { color: #aaa; pointer-events: none; }
+.dropdown-divider { border-color: rgba(255,255,255,0.15); margin: 0.2rem 0; }
+
+/* ── Compact footer ── */
+.site-footer { background-color: var(--footer-bg); padding: 0.8rem 2rem; }
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  max-width: 1140px;
+  margin: 0 auto;
+  font-family: 'Ysabeau', sans-serif;
+  font-size: 0.8em;
+  color: var(--footer-text);
+}
+.footer-copy { opacity: var(--footer-copy-opacity); }
+.footer-copy-dim { opacity: 0.6; }
+.footer-social a {
+  color: var(--footer-social);
+  margin-right: 0.55rem;
+  font-size: 1.05em;
+  transition: color 0.2s;
+}
+.footer-social a:hover { color: var(--footer-social-hover); }
+.footer-contact-link {
+  color: var(--footer-contact);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--footer-contact-border);
+}
+.footer-contact-link:hover { color: var(--footer-contact-hover); }
+@media (max-width: 576px) {
+  .footer-inner { justify-content: center; text-align: center; }
+}
