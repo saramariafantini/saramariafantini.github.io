@@ -325,13 +325,13 @@
   <!-- ══ NAVBAR ══ -->
     <style>
     :root {
-      --nav-bg: #9caf88;
+      --nav-bg: #060608;
       --nav-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      --nav-dropdown-bg: #7a9470;
+      --nav-dropdown-bg: #1a1a1c;
       --nav-dropdown-shadow: 0 4px 16px rgba(0,0,0,0.18);
-      --nav-dropdown-item-color: #2a2a2a;
-      --nav-dropdown-hover-bg: #4a5e3a;
-      --nav-dropdown-hover-color: #fff;
+      --nav-dropdown-item-color: #f9f4e0;
+      --nav-dropdown-hover-bg: #2a2a2c;
+      --nav-dropdown-hover-color: #9caf88;
       --footer-bg: #e8f0e2;
       --footer-text: #2a2a2a;
       --footer-copy-opacity: 0.75;
@@ -340,6 +340,15 @@
       --footer-contact: #4a5e3a;
       --footer-contact-border: #4a5e3a;
       --footer-contact-hover: #2a2a2a;
+    }
+    /* Dark navbar over the (dark) hero photo; switches to sage green once
+       scrolled past the hero into the light-background section below. */
+    .navbar.navbar-past-hero {
+      --nav-bg: #9caf88;
+      --nav-dropdown-bg: #7a9470;
+      --nav-dropdown-item-color: #2a2a2a;
+      --nav-dropdown-hover-bg: #4a5e3a;
+      --nav-dropdown-hover-color: #fff;
     }
   </style>
   <nav class="navbar navbar-expand-sm navbar-dark fixed-top" id="mainNavbar">
@@ -666,6 +675,21 @@
       initAgenda(FALLBACK_CONCERTS);
     });
 
+  </script>
+
+  <script>
+  /* ── Navbar: dark over the hero, sage green once scrolled past it ── */
+  (function() {
+    var hero = document.querySelector('.agenda-hero');
+    var nav = document.getElementById('mainNavbar');
+    if (!hero || !nav) return;
+    function onScroll() {
+      nav.classList.toggle('navbar-past-hero', window.scrollY >= hero.offsetHeight);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    onScroll();
+  })();
   </script>
 
 </body>

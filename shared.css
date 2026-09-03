@@ -13,6 +13,7 @@
   font-family: 'Ysabeau', sans-serif;
   font-size: 1rem;
   box-shadow: var(--nav-shadow);
+  transition: background-color 0.3s ease;
 }
 .navbar-brand { font-size: 1rem; font-family: 'Ysabeau', sans-serif; }
 .navbar-toggler { border: none; padding: 0.25rem 0.4rem; } /* just the three bars, no surrounding box */
