@@ -53,7 +53,6 @@
   color: var(--footer-text);
 }
 .footer-copy { opacity: var(--footer-copy-opacity); }
-.footer-copy-dim { opacity: 0.6; }
 .footer-social a {
   color: var(--footer-social);
   margin-right: 0.55rem;
