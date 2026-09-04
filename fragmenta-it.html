@@ -290,10 +290,10 @@
     .dotnav-label {
       font-family: 'Ysabeau', sans-serif;
       font-size: 0.78em;
-      color: #4a5e3a;
+      color: #33461f;
       opacity: 1;
       transform: translateX(0);
-      transition: opacity 0.2s, transform 0.2s;
+      transition: opacity 0.2s, transform 0.2s, color 0.25s, text-shadow 0.25s;
       white-space: nowrap;
       pointer-events: none;
     }
@@ -301,9 +301,9 @@
       width: 9px;
       height: 9px;
       border-radius: 50%;
-      background: #9caf88;
-      border: 2px solid #7a9470;
-      transition: background 0.2s, transform 0.2s;
+      background: #6d8f5b;
+      border: 2px solid #3a4d2e;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
       flex-shrink: 0;
     }
     .project-dotnav a:hover .dotnav-label,
@@ -312,11 +312,25 @@
       transform: translateX(0);
     }
     .project-dotnav a.active .dotnav-dot {
-      background: #4a5e3a;
+      background: #2f3d24;
       transform: scale(1.35);
     }
     .project-dotnav a:hover .dotnav-dot {
-      background: #7a9470;
+      background: #4a5e3a;
+    }
+    /* Sopra le immagini parallax scure: colori chiari per restare leggibili */
+    .project-dotnav.on-dark .dotnav-label {
+      color: #fdfaf3;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6), 0 0 8px rgba(0, 0, 0, 0.4);
+    }
+    .project-dotnav.on-dark .dotnav-dot {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.9);
+    }
+    .project-dotnav.on-dark a:hover .dotnav-dot,
+    .project-dotnav.on-dark a.active .dotnav-dot {
+      background: #fff;
+      border-color: #fff;
     }
     @media (max-width: 768px) {
       .project-dotnav { display: none; }
@@ -413,9 +427,9 @@
   </nav>
 
   <nav class="project-dotnav" id="projectDotnav" aria-label="Navigazione progetti">
-    <a href="#fontana"><span class="dotnav-label">Vai lavar cabelos...</span><span class="dotnav-dot"></span></a>
-    <a href="#marginalia"><span class="dotnav-label">Marginalia</span><span class="dotnav-dot"></span></a>
     <a href="#siobule"><span class="dotnav-label">Siobulé</span><span class="dotnav-dot"></span></a>
+    <a href="#marginalia"><span class="dotnav-label">Marginalia</span><span class="dotnav-dot"></span></a>
+    <a href="#fontana"><span class="dotnav-label">Vai lavar cabelos...</span><span class="dotnav-dot"></span></a>
   </nav>
 
   <div class="parallax" id="parallax1">
@@ -432,64 +446,6 @@
     </div>
   </section>
 
-
-  <!-- parte nuova -->
-  <section class="container-fluid" id="fontana">
-    <div class="container">
-      <h3>Progetto <em>Vai lavar cabelos na fontana fría</em></h3>
-      <p><em>Vai lavar cabelos na fontana fría</em> è il primo disco di Fragmenta, nato da una collaborazione con l'Università di Santiago de Compostela nell'ambito del progetto di ricerca sul patrimonio culturale della Galizia e del Portogallo settentrionale. L'album è dedicato alle origini della lirica iberica — le cantigas galego-portoghesi dei secoli XII e XIII, tra i più antichi repertori profani d’Europa. Sono canzoni di nostalgia, di attesa, di giovani donne che attingono acqua alla fontana; versi intimi sopravvissuti quasi per caso, che chiedono di essere cantati di nuovo.</p>
-      <p>La registrazione riunisce voce, liuto, chitarrino, citola, viella, ribeca, ghironda e tamburi a cornice — una costellazione di strumenti ricostruiti da fonti iconografiche medievali — suonati da me e da Giordano Ceccotti, Paolo Modugno, Miguel Abad Frutos. Da questo incontro tra ricerca e performance è nato qualcosa di più grande: una serie di concerti, un volume scientifico pubblicato dall'Università di Santiago de Compostela e il CD, uscito nell'ottobre 2019.</p>
-      
-      <h4 class="gallery-heading">Galleria fotografica</h4>
-      <div class="gallery-strip-wrap">
-        <button class="strip-arrow strip-left"  onclick="scrollStrip('fontanaStrip', -320)" aria-label="Scorri a sinistra">&#8249;</button>
-        <div class="gallery-strip" id="fontanaStrip">
-        <img src="imgs/fontana/fontana.jpg" alt="Fontana (1)" class="gallery-thumb" onclick="openGallery('fontana', 0)" loading="lazy">
-        <img src="imgs/fontana/fontana1.jpg" alt="Fontana (2)" class="gallery-thumb" onclick="openGallery('fontana', 1)" loading="lazy">
-        <img src="imgs/fontana/fontana2.jpg" alt="Fontana (3)" class="gallery-thumb" onclick="openGallery('fontana', 2)" loading="lazy">
-        <img src="imgs/fontana/fontana3.jpg" alt="Fontana (4)" class="gallery-thumb" onclick="openGallery('fontana', 3)" loading="lazy">
-        </div>
-        <button class="strip-arrow strip-right" onclick="scrollStrip('fontanaStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
-      </div>
-      <h4 class="yt-label">Estratto</h4>
-      <div style="max-width:700px;margin:auto;">
-        <iframe style="border: 0; width: 100%; max-width: 400px; height: 406px; display: block; margin: 0 auto;" src="https://bandcamp.com/EmbeddedPlayer/album=4028675364/size=large/bgcol=ffffff/linkcol=333333/artwork=small/transparent=true/" seamless><a href="https://lirica.bandcamp.com/album/vai-lavar-cabelos-na-fontana-fr-a-as-orixes-da-l-rica-hisp-nica">Vai lavar cabelos na fontana fría. As orixes da lírica hispánica by Lírica</a></iframe>
-      </div>
-    </div>
-  </section>
-
-  <div class="parallax" id="parallax3"></div>
-
-  <!-- fine parte nuova -->
-
-
-  <section class="container-fluid" id="marginalia">
-    <div class="container">
-      <h3>Progetto <em>Marginalia</em></h3>
-      <p>Il panorama musicale dell’Italia tra la fine del Trecento e l’inizio del Quattrocento è stato ricostruito sulla scorta dei pochi, grandi codici musicali sopravvissuti al tempo. Ne è uscita, agli occhi di molti, una storia agita da pochi protagonisti, che sembrano muoversi in un deserto sonoro, o quasi. Questo progetto dà voce a frammenti musicali riscoperti, spesso per caso, nei piatti di antichi registri notarili, nelle carte di rinforzo di incunaboli, nelle pagine sparse di manoscritti smembrati — tracce di un'Italia nascosta, mappata lungo l'Appennino.</p>
-      <p>Alcuni frammenti sono sopravvissuti integri; altri hanno richiesto una ricostruzione — colmare le voci mancanti, completare le lacune testuali, o trovare un percorso interpretativo alternativo attraverso la diminuzione strumentale. L'approccio non è mai quello del restauro, ma del dialogo: entrare nello spazio tra il compositore e il copista, trattare il materiale con cura ma anche con libertà. Il risultato è un mosaico di varietà inattesa, dalla polifonia arcaica a composizioni d'ispirazione francese e franco-fiamminga, testimonianza che lo spirito cosmopolita dell'epoca raggiunse persino i centri più piccoli — un mondo in cui sacro e profano, latino e volgare, musica liturgica e poesia d'amore si incontrano e si intrecciano.</p>
-
-      <h4 class="gallery-heading">Galleria fotografica</h4>
-      <div class="gallery-strip-wrap">
-        <button class="strip-arrow strip-left"  onclick="scrollStrip('marginaliaStrip', -320)" aria-label="Scorri a sinistra">&#8249;</button>
-        <div class="gallery-strip" id="marginaliaStrip">
-        <img src="imgs/marginalia/marginalia-1.png" alt="Marginalia (1)" class="gallery-thumb" onclick="openGallery('marginalia', 0)" loading="lazy">
-        <img src="imgs/marginalia/marginalia-2.png" alt="Marginalia (2)" class="gallery-thumb" onclick="openGallery('marginalia', 1)" loading="lazy">
-        <img src="imgs/marginalia/marginalia-3.jpg" alt="Marginalia (3)" class="gallery-thumb" onclick="openGallery('marginalia', 2)" loading="lazy">
-        <img src="imgs/marginalia/marginalia-4.jpg" alt="Marginalia (4)" class="gallery-thumb" onclick="openGallery('marginalia', 3)" loading="lazy">
-        <img src="imgs/marginalia/marginalia-5.jpg" alt="Marginalia (5)" class="gallery-thumb" onclick="openGallery('marginalia', 4)" loading="lazy">
-        <img src="imgs/marginalia/marginalia-6.jpg" alt="Marginalia (6)" class="gallery-thumb" onclick="openGallery('marginalia', 5)" loading="lazy">
-        </div>
-        <button class="strip-arrow strip-right" onclick="scrollStrip('marginaliaStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
-      </div>
-      <h4 class="yt-label">Estratto</h4>
-      <div class="yt-wrap"><div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UHS6Y1-KZVc" allowfullscreen loading="lazy" title="Partete core — lauda del XV secolo"></iframe></div></div>
-
-      <p><a href="http://www.associazionenoema.it/new/attivita/marginalia/" class="project-link" target="_blank" rel="noopener noreferrer">Marginalia — Festival dell'Ascensione, Milano, 4 maggio 2025 →</a>&emsp;<a href="http://www.associazionenoema.it/new/wp-content/uploads/2025/05/libretto-WEB-4-mag-2025-FRAGMENTA.pdf" class="project-link" target="_blank" rel="noopener noreferrer">Libretto di sala →</a></p>
-    </div>
-  </section>
-
-  <div class="parallax" id="parallax2"></div>
 
   <section class="container-fluid" id="siobule">
     <div class="container">
@@ -524,6 +480,66 @@
     </div>
   </section>
 
+  <div class="parallax" id="parallax3"></div>
+
+  <section class="container-fluid" id="marginalia">
+    <div class="container">
+      <h3>Progetto <em>Marginalia</em></h3>
+      <p>Il panorama musicale dell’Italia tra la fine del Trecento e l’inizio del Quattrocento è stato ricostruito sulla scorta dei pochi, grandi codici musicali sopravvissuti al tempo. Ne è uscita, agli occhi di molti, una storia agita da pochi protagonisti, che sembrano muoversi in un deserto sonoro, o quasi. Questo progetto dà voce a frammenti musicali riscoperti, spesso per caso, nei piatti di antichi registri notarili, nelle carte di rinforzo di incunaboli, nelle pagine sparse di manoscritti smembrati — tracce di un'Italia nascosta, mappata lungo l'Appennino.</p>
+      <p>Alcuni frammenti sono sopravvissuti integri; altri hanno richiesto una ricostruzione — colmare le voci mancanti, completare le lacune testuali, o trovare un percorso interpretativo alternativo attraverso la diminuzione strumentale. L'approccio non è mai quello del restauro, ma del dialogo: entrare nello spazio tra il compositore e il copista, trattare il materiale con cura ma anche con libertà. Il risultato è un mosaico di varietà inattesa, dalla polifonia arcaica a composizioni d'ispirazione francese e franco-fiamminga, testimonianza che lo spirito cosmopolita dell'epoca raggiunse persino i centri più piccoli — un mondo in cui sacro e profano, latino e volgare, musica liturgica e poesia d'amore si incontrano e si intrecciano.</p>
+
+      <h4 class="gallery-heading">Galleria fotografica</h4>
+      <div class="gallery-strip-wrap">
+        <button class="strip-arrow strip-left"  onclick="scrollStrip('marginaliaStrip', -320)" aria-label="Scorri a sinistra">&#8249;</button>
+        <div class="gallery-strip" id="marginaliaStrip">
+        <img src="imgs/marginalia/marginalia-1.png" alt="Marginalia (1)" class="gallery-thumb" onclick="openGallery('marginalia', 0)" loading="lazy">
+        <img src="imgs/marginalia/marginalia-2.png" alt="Marginalia (2)" class="gallery-thumb" onclick="openGallery('marginalia', 1)" loading="lazy">
+        <img src="imgs/marginalia/marginalia-3.jpg" alt="Marginalia (3)" class="gallery-thumb" onclick="openGallery('marginalia', 2)" loading="lazy">
+        <img src="imgs/marginalia/marginalia-4.jpg" alt="Marginalia (4)" class="gallery-thumb" onclick="openGallery('marginalia', 3)" loading="lazy">
+        <img src="imgs/marginalia/marginalia-5.jpg" alt="Marginalia (5)" class="gallery-thumb" onclick="openGallery('marginalia', 4)" loading="lazy">
+        <img src="imgs/marginalia/marginalia-6.jpg" alt="Marginalia (6)" class="gallery-thumb" onclick="openGallery('marginalia', 5)" loading="lazy">
+        </div>
+        <button class="strip-arrow strip-right" onclick="scrollStrip('marginaliaStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
+      </div>
+      <h4 class="yt-label">Estratto</h4>
+      <div class="yt-wrap"><div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UHS6Y1-KZVc" allowfullscreen loading="lazy" title="Partete core — lauda del XV secolo"></iframe></div></div>
+
+      <p><a href="http://www.associazionenoema.it/new/attivita/marginalia/" class="project-link" target="_blank" rel="noopener noreferrer">Marginalia — Festival dell'Ascensione, Milano, 4 maggio 2025 →</a>&emsp;<a href="http://www.associazionenoema.it/new/wp-content/uploads/2025/05/libretto-WEB-4-mag-2025-FRAGMENTA.pdf" class="project-link" target="_blank" rel="noopener noreferrer">Libretto di sala →</a></p>
+    </div>
+  </section>
+
+  <div class="parallax" id="parallax2"></div>
+
+  <!-- parte nuova -->
+  <section class="container-fluid" id="fontana">
+    <div class="container">
+      <h3>Progetto <em>Vai lavar cabelos na fontana fría</em></h3>
+      <p><em>Vai lavar cabelos na fontana fría</em> è il primo disco di Fragmenta, nato da una collaborazione con l'Università di Santiago de Compostela nell'ambito del progetto di ricerca sul patrimonio culturale della Galizia e del Portogallo settentrionale. L'album è dedicato alle origini della lirica iberica — le cantigas galego-portoghesi dei secoli XII e XIII, tra i più antichi repertori profani d’Europa. Sono canzoni di nostalgia, di attesa, di giovani donne che attingono acqua alla fontana; versi intimi sopravvissuti quasi per caso, che chiedono di essere cantati di nuovo.</p>
+      <p>La registrazione riunisce voce, liuto, chitarrino, citola, viella, ribeca, ghironda e tamburi a cornice — una costellazione di strumenti ricostruiti da fonti iconografiche medievali — suonati da me e da Giordano Ceccotti, Paolo Modugno, Miguel Abad Frutos. Da questo incontro tra ricerca e performance è nato qualcosa di più grande: una serie di concerti, un volume scientifico pubblicato dall'Università di Santiago de Compostela e il CD, uscito nell'ottobre 2019.</p>
+
+      <h4 class="gallery-heading">Galleria fotografica</h4>
+      <div class="gallery-strip-wrap">
+        <button class="strip-arrow strip-left"  onclick="scrollStrip('fontanaStrip', -320)" aria-label="Scorri a sinistra">&#8249;</button>
+        <div class="gallery-strip" id="fontanaStrip">
+        <img src="imgs/fontana/fontana.jpg" alt="Fontana (1)" class="gallery-thumb" onclick="openGallery('fontana', 0)" loading="lazy">
+        <img src="imgs/fontana/fontana1.jpg" alt="Fontana (2)" class="gallery-thumb" onclick="openGallery('fontana', 1)" loading="lazy">
+        <img src="imgs/fontana/fontana2.jpg" alt="Fontana (3)" class="gallery-thumb" onclick="openGallery('fontana', 2)" loading="lazy">
+        <img src="imgs/fontana/fontana3.jpg" alt="Fontana (4)" class="gallery-thumb" onclick="openGallery('fontana', 3)" loading="lazy">
+        <img src="imgs/fontana/Vai-lavar-cabelos.jpg" alt="Fontana (5)" class="gallery-thumb" onclick="openGallery('fontana', 4)" loading="lazy">
+        <img src="imgs/fontana/project_Vai-lavar.jpg" alt="Fontana (6)" class="gallery-thumb" onclick="openGallery('fontana', 5)" loading="lazy">
+        <img src="imgs/fontana/cd.jpg" alt="Fontana (7)" class="gallery-thumb" onclick="openGallery('fontana', 6)" loading="lazy">
+        <img src="imgs/fontana/project2_Vai-lavar.jpg" alt="Fontana (8)" class="gallery-thumb" onclick="openGallery('fontana', 7)" loading="lazy">
+        </div>
+        <button class="strip-arrow strip-right" onclick="scrollStrip('fontanaStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
+      </div>
+      <h4 class="yt-label">Estratto</h4>
+      <div style="max-width:700px;margin:auto;">
+        <iframe style="border: 0; width: 100%; max-width: 400px; height: 406px; display: block; margin: 0 auto;" src="https://bandcamp.com/EmbeddedPlayer/album=4028675364/size=large/bgcol=ffffff/linkcol=333333/artwork=small/transparent=true/" seamless><a href="https://lirica.bandcamp.com/album/vai-lavar-cabelos-na-fontana-fr-a-as-orixes-da-l-rica-hisp-nica">Vai lavar cabelos na fontana fría. As orixes da lírica hispánica by Lírica</a></iframe>
+      </div>
+    </div>
+  </section>
+  <!-- fine parte nuova -->
+
   
 
 
@@ -554,7 +570,11 @@
         { src: 'imgs/fontana/fontana.jpg', alt: 'Fontana (1)' },
         { src: 'imgs/fontana/fontana1.jpg', alt: 'Fontana (2)' },
         { src: 'imgs/fontana/fontana2.jpg', alt: 'Fontana (3)' },
-        { src: 'imgs/fontana/fontana3.jpg', alt: 'Fontana (4)' }
+        { src: 'imgs/fontana/fontana3.jpg', alt: 'Fontana (4)' },
+        { src: 'imgs/fontana/Vai-lavar-cabelos.jpg', alt: 'Fontana (5)' },
+        { src: 'imgs/fontana/project_Vai-lavar.jpg', alt: 'Fontana (6)' },
+        { src: 'imgs/fontana/cd.jpg', alt: 'Fontana (7)' },
+        { src: 'imgs/fontana/project2_Vai-lavar.jpg', alt: 'Fontana (8)' }
       ],
       marginalia: [
         { src: 'imgs/marginalia/marginalia-1.png', alt: 'Marginalia (1)' },
@@ -615,7 +635,7 @@
 
   <script>
     (function() {
-      var sections = ['fontana','marginalia','siobule'];
+      var sections = ['siobule','marginalia','fontana'];
       var links = document.querySelectorAll('.project-dotnav a');
       function setActive() {
         var scrollY = window.scrollY + 120;
@@ -630,6 +650,24 @@
       }
       window.addEventListener('scroll', setActive, { passive: true });
       setActive();
+    })();
+
+    (function() {
+      var dotnav = document.getElementById('projectDotnav');
+      var parallaxEls = document.querySelectorAll('.parallax');
+      if (!dotnav || !parallaxEls.length) return;
+      function updateOnDark() {
+        var y = window.innerHeight / 2;
+        var isDark = false;
+        for (var i = 0; i < parallaxEls.length; i++) {
+          var r = parallaxEls[i].getBoundingClientRect();
+          if (r.top <= y && r.bottom >= y) { isDark = true; break; }
+        }
+        dotnav.classList.toggle('on-dark', isDark);
+      }
+      window.addEventListener('scroll', updateOnDark, { passive: true });
+      window.addEventListener('resize', updateOnDark);
+      updateOnDark();
     })();
   </script>
 
