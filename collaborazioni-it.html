@@ -78,10 +78,11 @@
     }
 
     #parallax1 { background-image: url("imgs/trois-anneaux.jpg"); }
-    #parallax2 { background-image: url("imgs/chordacordis.png"); }
+    #parallax2 { background-image: url("imgs/troisanneaux/trois-anneaux-3.jpg"); }
     #parallax3 { background-image: url("imgs/marginalia.jpeg"); }
-    #parallax4 { background-image: url("imgs/rubensrosa.jpg"); }
+    #parallax4 { background-image: url("imgs/rubensrosa/rubensrosa.jpg"); }
     #parallax5 { background-image: url("imgs/trois-anneaux.jpg"); }
+    #parallax6 { background-image: url("imgs/laskiras/las_kiras-1.JPG"); }
 
     @media (max-width: 576px) {
       .social-icons-mobile i {
@@ -363,9 +364,14 @@
 
   <nav class="project-dotnav" id="projectDotnav" aria-label="Navigazione progetti">
     <a href="#troisanneaux"><span class="dotnav-label">Ensemble Oneiroï</span><span class="dotnav-dot"></span></a>
+    <!-- Sospesa su richiesta di Sara — ripristinare insieme alla sezione #micrologus più sotto
     <a href="#micrologus"><span class="dotnav-label">Micrologus</span><span class="dotnav-dot"></span></a>
+    -->
     <a href="#rubrosa"><span class="dotnav-label">Rubens Rosa</span><span class="dotnav-dot"></span></a>
+    <a href="#laskiras"><span class="dotnav-label">Las Kiras</span><span class="dotnav-dot"></span></a>
+    <!-- Sospesa su richiesta di Sara — ripristinare insieme alla sezione #chapelle più sotto
     <a href="#chapelle"><span class="dotnav-label">La Chapelle des Ducs de Savoie</span><span class="dotnav-dot"></span></a>
+    -->
   </nav>
 
   <div class="parallax" id="parallax1">
@@ -434,6 +440,18 @@
         { src: 'imgs/troisanneaux/trois-anneaux-6.jpg', alt: 'Trois Anneaux (6)' },
         { src: 'imgs/troisanneaux/trois-anneaux-7.jpg', alt: 'Trois Anneaux (7)' },
         { src: 'imgs/troisanneaux/trois-anneaux-8.jpg', alt: 'Trois Anneaux (8)' }
+      ],
+      rubrosa: [
+        { src: 'imgs/rubensrosa/rubensrosa.jpg', alt: 'Rubens Rosa (1)' },
+        { src: 'imgs/rubensrosa/rubens-rosa1.jpg', alt: 'Rubens Rosa (2)' },
+        { src: 'imgs/rubensrosa/rubens-rosa2.jpg', alt: 'Rubens Rosa (3)' },
+        { src: 'imgs/rubensrosa/rubens-rosa3.jpg', alt: 'Rubens Rosa (4)' },
+        { src: 'imgs/rubensrosa/rubens-rosa4.jpg', alt: 'Rubens Rosa (5)' }
+      ],
+      laskiras: [
+        { src: 'imgs/laskiras/las_kiras-1.JPG', alt: 'Las Kiras (1)' },
+        { src: 'imgs/laskiras/las_kiras-2.JPG', alt: 'Las Kiras (2)' },
+        { src: 'imgs/laskiras/las_kiras-3.JPG', alt: 'Las Kiras (3)' }
       ]
     };
 
@@ -475,7 +493,7 @@
 
   <script>
     (function() {
-      var sections = ['troisanneaux','micrologus','rubrosa','chapelle'];
+      var sections = ['troisanneaux','rubrosa','laskiras']; // 'micrologus','chapelle' sospesi — vedi sezioni commentate più sopra
       var links = document.querySelectorAll('.project-dotnav a');
       function setActive() {
         var scrollY = window.scrollY + 120;
@@ -513,6 +531,7 @@
 
   <div class="parallax" id="parallax2"></div>
 
+  <!-- Sezione Micrologus sospesa su richiesta di Sara (2026-09-05) — ripristinare insieme al link in dotnav e alla voce 'micrologus' nell'array "sections" più sotto
   <section class="container-fluid" id="micrologus">
     <div class="container">
       <h3><em>Micrologus</em></h3>
@@ -521,16 +540,58 @@
   </section>
 
   <div class="parallax" id="parallax3"></div>
+  -->
 
   <section class="container-fluid" id="rubrosa">
     <div class="container">
       <h3><em>Rubens Rosa</em></h3>
       <p>L'Ensemble Rubens Rosa è specializzato nella musica medievale e rinascimentale, con un interesse particolare per il repertorio trobadorico e per la polifonia vocale e strumentale del Medioevo europeo. Il progetto di punta dell'ensemble porta in scena la figura di Guiraut Riquier, uno degli ultimi trovatori, attraverso le sue canzoni e le <em>Cantigas de Santa Maria</em> ascoltate durante il suo esilio in Castiglia presso la corte di Alfonso il Saggio. Al suono della viella ad arco, della guiterne e del canto, l'ensemble restituisce con delicatezza e rigore un repertorio ai margini del mainstream della musica medievale. Sara Maria Fantini collabora con Rubens Rosa come interprete alla guiterne e al liuto medievale, portando alla formazione la sua esperienza specifica nel repertorio del Trecento italiano e mediterraneo.</p>
+      <h4 class="gallery-heading">Galleria fotografica</h4>
+      <div class="gallery-strip-wrap">
+        <button class="strip-arrow strip-left"  onclick="scrollStrip('rubrosaStrip', -320)" aria-label="Scorri a sinistra">&#8249;</button>
+        <div class="gallery-strip" id="rubrosaStrip">
+        <img src="imgs/rubensrosa/rubensrosa.jpg" alt="Rubens Rosa (1)" class="gallery-thumb" onclick="openGallery('rubrosa', 0)" loading="lazy">
+        <img src="imgs/rubensrosa/rubens-rosa1.jpg" alt="Rubens Rosa (2)" class="gallery-thumb" onclick="openGallery('rubrosa', 1)" loading="lazy">
+        <img src="imgs/rubensrosa/rubens-rosa2.jpg" alt="Rubens Rosa (3)" class="gallery-thumb" onclick="openGallery('rubrosa', 2)" loading="lazy">
+        <img src="imgs/rubensrosa/rubens-rosa3.jpg" alt="Rubens Rosa (4)" class="gallery-thumb" onclick="openGallery('rubrosa', 3)" loading="lazy">
+        <img src="imgs/rubensrosa/rubens-rosa4.jpg" alt="Rubens Rosa (5)" class="gallery-thumb" onclick="openGallery('rubrosa', 4)" loading="lazy">
+        </div>
+        <button class="strip-arrow strip-right" onclick="scrollStrip('rubrosaStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
+      </div>
     </div>
   </section>
 
   <div class="parallax" id="parallax4"></div>
 
+  <section class="container-fluid" id="laskiras">
+    <div class="container">
+      <h3><em>Las Kiras</em></h3>
+      <p>Las Kiras è un quartetto tutto al femminile nato dall'incontro tra Sara Maria Fantini (oud e chitarrino), Laia Blasco (canto), Berta Ares (viella e violino) e Ana Nicolás de Cabo (percussioni storiche e tradizionali). Berta Ares, Laia Blasco e Ana Nicolás suonano insieme da anni all'interno di BallArte Ensemble, dove hanno esplorato le possibilità sceniche dell'interpretazione della musica antica; con Sara Maria Fantini, conosciuta alla Schola Cantorum Basiliensis, condividono la passione per le musiche tradizionali e per il repertorio medievale, e l'interesse per ciò che nasce dal metterli in dialogo. Il gruppo si è formato attorno a un proposito comune: restituire ascolto alle donne che la storia della musica ha lasciato ai margini.</p>
+      <h4>Siamo tutte</h4>
+      <p><em>Voci di donne nel Mediterraneo medievale</em></p>
+      <p>Nel 1405 Christine de Pizan terminava <em>La città delle dame</em>, scritto in risposta all'immagine che circolava sul ruolo delle donne nel Medioevo: nel libro l'autrice raccoglie le storie di centosessantacinque donne per dimostrare che quel ruolo era una costruzione sociale, e che le donne potevano essere capaci e virtuose quanto gli uomini.</br>
+        Da quell'eredità nasce <em>Siamo tutte</em>, un viaggio musicale nel Mediterraneo medievale che raccoglie voci di donne di territori, culture e condizioni sociali diverse: le trobairitz occitane Castelloza e la Contessa di Dia, le poetesse andaluse Hamda bint Ziyād, Hafsa bint Hamdun e Wallada bint al-Mustakfi, e le parole della stessa Christine de Pizan. Il concerto intreccia repertori medievali e tradizioni vive del Mediterraneo — musica andalusa, sefardita, occitana e brani di trasmissione orale — con composizioni e arrangiamenti originali, tra cui alcuni brani firmati da Sara Maria Fantini, che attraversano lingue, confini e culture per mostrare quanto quelle esperienze continuino a risuonare oggi.</br>
+        <em>Siamo tutte</em> è in definitiva un invito ad ascoltare quelle voci dimenticate e a riconoscervi un'eredità comune: quella di donne che hanno scritto, cantato, amato, pensato e creato, lasciando una traccia che merita di tornare a farsi sentire.</p>
+      <p><em>Con Laia Blasco (canto), Berta Ares (viella e violino) e Ana Nicolás de Cabo (percussioni). Durata 60 minuti.</em></p>
+      <h4 class="gallery-heading">Galleria fotografica</h4>
+      <div class="gallery-strip-wrap">
+        <button class="strip-arrow strip-left"  onclick="scrollStrip('laskirasStrip', -320)" aria-label="Scorri a sinistra">&#8249;</button>
+        <div class="gallery-strip" id="laskirasStrip">
+        <img src="imgs/laskiras/las_kiras-1.JPG" alt="Las Kiras (1)" class="gallery-thumb" onclick="openGallery('laskiras', 0)" loading="lazy">
+        <img src="imgs/laskiras/las_kiras-2.JPG" alt="Las Kiras (2)" class="gallery-thumb" onclick="openGallery('laskiras', 1)" loading="lazy">
+        <img src="imgs/laskiras/las_kiras-3.JPG" alt="Las Kiras (3)" class="gallery-thumb" onclick="openGallery('laskiras', 2)" loading="lazy">
+        </div>
+        <button class="strip-arrow strip-right" onclick="scrollStrip('laskirasStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- parallax dopo Las Kiras -->
+  <!-- 
+  <div class="parallax" id="parallax6"></div>
+  -->
+
+  <!-- Sezione La Chapelle des Ducs de Savoie sospesa su richiesta di Sara (2026-09-05) — ripristinare insieme al link in dotnav e alla voce 'chapelle' nell'array "sections" più sotto
   <section class="container-fluid" id="chapelle">
     <div class="container">
       <h3><em>La Chapelle des Ducs de Savoie</em></h3>
@@ -539,6 +600,7 @@
   </section>
 
   <div class="parallax" id="parallax5"></div>
+  -->
 
     <footer class="site-footer">
     <div class="footer-inner">
