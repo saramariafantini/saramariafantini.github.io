@@ -146,6 +146,7 @@
     }
     .gallery-item:hover img { transform: scale(1.04); opacity: 1; }
     .gallery-item.hidden { display: none; }
+    .gallery-mobile-group.hidden { display: none; }
 
     /* ── Mobile gallery: one horizontally-scrolling strip per category,
        instead of the single-column grid a narrow screen forces otherwise ── */
@@ -350,99 +351,128 @@
   <section class="media-section" id="galleria">
     <div class="container py-2">
       <h2 class="section-title">Galleria fotografica</h2>
+      <div class="gallery-filters"><button class="gallery-filter-btn active" data-filter="tutti">Tutte</button> <button class="gallery-filter-btn" data-filter="fragmenta">Fragmenta</button> <button class="gallery-filter-btn" data-filter="chordacordis">ChordaCordis</button> <button class="gallery-filter-btn" data-filter="collaborazioni">Collaborazioni</button></div>
+
       <!-- Mobile: una fascia scorrevole per categoria (tocca per aprire a piena grandezza). -->
       <div class="d-block d-md-none">
-        <h4 class="gallery-heading">Fragmenta</h4>
-        <div class="gallery-strip-wrap">
-          <div class="gallery-strip" id="fragmentaStrip">
-            <img class="gallery-thumb" src="imgs/marginalia/lucca-codex.jpg" alt="Marginalia — Lucca Codex" onclick="openLightbox(0)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/marginalia/magl-1040-1.jpg" alt="Marginalia — Magl 1040" onclick="openLightbox(1)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/marginalia/magl-1040-2.jpg" alt="Marginalia — Magl 1040" onclick="openLightbox(2)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/marginalia/marginalia-certaldo.png" alt="Marginalia — Certaldo" onclick="openLightbox(3)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/marginalia/marginalia-milano.png" alt="Marginalia — Milano" onclick="openLightbox(4)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/marginalia/marginalia-programma.jpg" alt="Marginalia — Programma" onclick="openLightbox(5)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/siobule/siobule-1.jpg" alt="Siobulé (1)" onclick="openLightbox(6)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/siobule/siobule-2.jpg" alt="Siobulé (2)" onclick="openLightbox(7)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/siobule/siobule-3.jpg" alt="Siobulé (3)" onclick="openLightbox(8)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/siobule/siobule-4.jpg" alt="Siobulé (4)" onclick="openLightbox(9)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/siobule/siobule-5.jpg" alt="Siobulé (5)" onclick="openLightbox(10)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/siobule/siobule-6.jpg" alt="Siobulé (6)" onclick="openLightbox(11)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/siobule/siobule-7.jpg" alt="Siobulé (7)" onclick="openLightbox(12)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/siobule/siobule-8.jpg" alt="Siobulé (8)" onclick="openLightbox(13)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/siobule/siobule-9.jpg" alt="Siobulé (9)" onclick="openLightbox(14)" loading="lazy">
+        <div class="gallery-mobile-group">
+          <h4 class="gallery-heading">Sara Maria Fantini</h4>
+          <div class="gallery-strip-wrap">
+            <div class="gallery-strip">
+              <img class="gallery-thumb" data-idx="0" src="imgs/saraProfilo.png" alt="Sara Maria Fantini — ritratto" onclick="openLightbox(0)" loading="lazy">
+              <img class="gallery-thumb" data-idx="1" src="imgs/saraProfiloOud.jpg" alt="Sara Maria Fantini all'oud" onclick="openLightbox(1)" loading="lazy">
+              <img class="gallery-thumb" data-idx="2" src="imgs/saraScura.jpg" alt="Sara Maria Fantini al liuto" onclick="openLightbox(2)" loading="lazy">
+            </div>
           </div>
         </div>
-        <h4 class="gallery-heading">ChordaCordis</h4>
-        <div class="gallery-strip-wrap">
-          <div class="gallery-strip" id="chordacordisStripMedia">
-            <img class="gallery-thumb" src="imgs/chordacordis/chordacordis-1.png" alt="ChordaCordis" onclick="openLightbox(15)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/chordacordis/chordacordis-2.jpg" alt="ChordaCordis" onclick="openLightbox(16)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/chordacordis/sara-colin-1.png" alt="ChordaCordis — Sara e Colin" onclick="openLightbox(17)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/chordacordis/sara-colin-cesab.jpg" alt="ChordaCordis — CESAB" onclick="openLightbox(18)" loading="lazy">
+        <div class="gallery-mobile-group" data-project="fragmenta">
+          <h4 class="gallery-heading">Fragmenta</h4>
+          <div class="gallery-strip-wrap">
+            <div class="gallery-strip" id="fragmentaStrip">
+              <img class="gallery-thumb" data-idx="3" src="imgs/marginalia/lucca-codex.jpg" alt="Marginalia — Lucca Codex" onclick="openLightbox(3)" loading="lazy">
+              <img class="gallery-thumb" data-idx="4" src="imgs/marginalia/magl-1040-1.jpg" alt="Marginalia — Magl 1040" onclick="openLightbox(4)" loading="lazy">
+              <img class="gallery-thumb" data-idx="5" src="imgs/marginalia/magl-1040-2.jpg" alt="Marginalia — Magl 1040" onclick="openLightbox(5)" loading="lazy">
+              <img class="gallery-thumb" data-idx="6" src="imgs/marginalia/marginalia-certaldo.png" alt="Marginalia — Certaldo" onclick="openLightbox(6)" loading="lazy">
+              <img class="gallery-thumb" data-idx="7" src="imgs/marginalia/marginalia-milano.png" alt="Marginalia — Milano" onclick="openLightbox(7)" loading="lazy">
+              <img class="gallery-thumb" data-idx="8" src="imgs/marginalia/marginalia-programma.jpg" alt="Marginalia — Programma" onclick="openLightbox(8)" loading="lazy">
+              <img class="gallery-thumb" data-idx="9" src="imgs/siobule/siobule-1.jpg" alt="Siobulé (1)" onclick="openLightbox(9)" loading="lazy">
+              <img class="gallery-thumb" data-idx="10" src="imgs/siobule/siobule-2.jpg" alt="Siobulé (2)" onclick="openLightbox(10)" loading="lazy">
+              <img class="gallery-thumb" data-idx="11" src="imgs/siobule/siobule-3.jpg" alt="Siobulé (3)" onclick="openLightbox(11)" loading="lazy">
+              <img class="gallery-thumb" data-idx="12" src="imgs/siobule/siobule-4.jpg" alt="Siobulé (4)" onclick="openLightbox(12)" loading="lazy">
+              <img class="gallery-thumb" data-idx="13" src="imgs/siobule/siobule-5.jpg" alt="Siobulé (5)" onclick="openLightbox(13)" loading="lazy">
+              <img class="gallery-thumb" data-idx="14" src="imgs/siobule/siobule-6.jpg" alt="Siobulé (6)" onclick="openLightbox(14)" loading="lazy">
+              <img class="gallery-thumb" data-idx="15" src="imgs/siobule/siobule-7.jpg" alt="Siobulé (7)" onclick="openLightbox(15)" loading="lazy">
+              <img class="gallery-thumb" data-idx="16" src="imgs/siobule/siobule-8.jpg" alt="Siobulé (8)" onclick="openLightbox(16)" loading="lazy">
+              <img class="gallery-thumb" data-idx="17" src="imgs/siobule/siobule-9.jpg" alt="Siobulé (9)" onclick="openLightbox(17)" loading="lazy">
+            </div>
           </div>
         </div>
-        <h4 class="gallery-heading">Collaborazioni</h4>
-        <div class="gallery-strip-wrap">
-          <div class="gallery-strip" id="collaborazioniStrip">
-            <img class="gallery-thumb" src="imgs/troisanneaux/trois-anneaux-1.png" alt="Trois Anneaux (1)" onclick="openLightbox(19)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/troisanneaux/trois-anneaux-1.jpg" alt="Trois Anneaux (2)" onclick="openLightbox(20)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/troisanneaux/trois-anneaux-3.jpg" alt="Trois Anneaux (3)" onclick="openLightbox(21)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/troisanneaux/trois-anneaux-4.jpg" alt="Trois Anneaux (4)" onclick="openLightbox(22)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/troisanneaux/trois-anneaux-5.jpg" alt="Trois Anneaux (5)" onclick="openLightbox(23)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/troisanneaux/trois-anneaux-6.jpg" alt="Trois Anneaux (6)" onclick="openLightbox(24)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/troisanneaux/trois-anneaux-7.jpg" alt="Trois Anneaux (7)" onclick="openLightbox(25)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/troisanneaux/trois-anneaux-8.jpg" alt="Trois Anneaux (8)" onclick="openLightbox(26)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/rubensrosa/rubensrosa.jpg" alt="Rubens Rosa (1)" onclick="openLightbox(27)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/rubensrosa/rubens-rosa1.jpg" alt="Rubens Rosa (2)" onclick="openLightbox(28)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/rubensrosa/rubens-rosa2.jpg" alt="Rubens Rosa (3)" onclick="openLightbox(29)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/rubensrosa/rubens-rosa3.jpg" alt="Rubens Rosa (4)" onclick="openLightbox(30)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/rubensrosa/rubens-rosa4.jpg" alt="Rubens Rosa (5)" onclick="openLightbox(31)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/laskiras/las_kiras-1.JPG" alt="Las Kiras (1)" onclick="openLightbox(32)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/laskiras/las_kiras-2.JPG" alt="Las Kiras (2)" onclick="openLightbox(33)" loading="lazy">
-            <img class="gallery-thumb" src="imgs/laskiras/las_kiras-3.JPG" alt="Las Kiras (3)" onclick="openLightbox(34)" loading="lazy">
+        <div class="gallery-mobile-group" data-project="chordacordis">
+          <h4 class="gallery-heading">ChordaCordis</h4>
+          <div class="gallery-strip-wrap">
+            <div class="gallery-strip" id="chordacordisStripMedia">
+              <img class="gallery-thumb" data-idx="18" src="imgs/chordacordis/chordacordis-1.png" alt="ChordaCordis" onclick="openLightbox(18)" loading="lazy">
+              <img class="gallery-thumb" data-idx="19" src="imgs/chordacordis/chordacordis-2.jpg" alt="ChordaCordis" onclick="openLightbox(19)" loading="lazy">
+              <img class="gallery-thumb" data-idx="20" src="imgs/chordacordis/sara-colin-1.png" alt="ChordaCordis — Sara e Colin" onclick="openLightbox(20)" loading="lazy">
+              <img class="gallery-thumb" data-idx="21" src="imgs/chordacordis/sara-colin-cesab.jpg" alt="ChordaCordis — CESAB" onclick="openLightbox(21)" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="gallery-mobile-group" data-project="collaborazioni">
+          <h4 class="gallery-heading">Collaborazioni</h4>
+          <div class="gallery-strip-wrap">
+            <div class="gallery-strip" id="collaborazioniStrip">
+              <img class="gallery-thumb" data-idx="22" src="imgs/troisanneaux/trois-anneaux-1.png" alt="Trois Anneaux (1)" onclick="openLightbox(22)" loading="lazy">
+              <img class="gallery-thumb" data-idx="23" src="imgs/troisanneaux/trois-anneaux-1.jpg" alt="Trois Anneaux (2)" onclick="openLightbox(23)" loading="lazy">
+              <img class="gallery-thumb" data-idx="24" src="imgs/troisanneaux/trois-anneaux-3.jpg" alt="Trois Anneaux (3)" onclick="openLightbox(24)" loading="lazy">
+              <img class="gallery-thumb" data-idx="25" src="imgs/troisanneaux/trois-anneaux-4.jpg" alt="Trois Anneaux (4)" onclick="openLightbox(25)" loading="lazy">
+              <img class="gallery-thumb" data-idx="26" src="imgs/troisanneaux/trois-anneaux-5.jpg" alt="Trois Anneaux (5)" onclick="openLightbox(26)" loading="lazy">
+              <img class="gallery-thumb" data-idx="27" src="imgs/troisanneaux/trois-anneaux-6.jpg" alt="Trois Anneaux (6)" onclick="openLightbox(27)" loading="lazy">
+              <img class="gallery-thumb" data-idx="28" src="imgs/troisanneaux/trois-anneaux-7.jpg" alt="Trois Anneaux (7)" onclick="openLightbox(28)" loading="lazy">
+              <img class="gallery-thumb" data-idx="29" src="imgs/troisanneaux/trois-anneaux-8.jpg" alt="Trois Anneaux (8)" onclick="openLightbox(29)" loading="lazy">
+              <img class="gallery-thumb" data-idx="30" src="imgs/rubensrosa/rubensrosa.jpg" alt="Rubens Rosa (1)" onclick="openLightbox(30)" loading="lazy">
+              <img class="gallery-thumb" data-idx="31" src="imgs/rubensrosa/rubens-rosa1.jpg" alt="Rubens Rosa (2)" onclick="openLightbox(31)" loading="lazy">
+              <img class="gallery-thumb" data-idx="32" src="imgs/rubensrosa/rubens-rosa2.jpg" alt="Rubens Rosa (3)" onclick="openLightbox(32)" loading="lazy">
+              <img class="gallery-thumb" data-idx="33" src="imgs/rubensrosa/rubens-rosa3.jpg" alt="Rubens Rosa (4)" onclick="openLightbox(33)" loading="lazy">
+              <img class="gallery-thumb" data-idx="34" src="imgs/rubensrosa/rubens-rosa4.jpg" alt="Rubens Rosa (5)" onclick="openLightbox(34)" loading="lazy">
+              <img class="gallery-thumb" data-idx="35" src="imgs/laskiras/las_kiras-1.JPG" alt="Las Kiras (1)" onclick="openLightbox(35)" loading="lazy">
+              <img class="gallery-thumb" data-idx="36" src="imgs/laskiras/las_kiras-2.JPG" alt="Las Kiras (2)" onclick="openLightbox(36)" loading="lazy">
+              <img class="gallery-thumb" data-idx="37" src="imgs/laskiras/las_kiras-3.JPG" alt="Las Kiras (3)" onclick="openLightbox(37)" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="gallery-mobile-group">
+          <h4 class="gallery-heading">Sara Maria Fantini</h4>
+          <div class="gallery-strip-wrap">
+            <div class="gallery-strip">
+              <img class="gallery-thumb" data-idx="38" src="imgs/sara+natalie.jpg" alt="Sara Maria Fantini e Natalie" onclick="openLightbox(38)" loading="lazy">
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Desktop/tablet: griglia con filtri (invariata) ── -->
+      <!-- Desktop/tablet: griglia con filtri ── -->
       <div class="d-none d-md-block">
-      <div class="gallery-filters"><button class="gallery-filter-btn active" data-filter="tutti">Tutte</button> <button class="gallery-filter-btn" data-filter="fragmenta">Fragmenta</button> <button class="gallery-filter-btn" data-filter="chordacordis">ChordaCordis</button> <button class="gallery-filter-btn" data-filter="collaborazioni">Collaborazioni</button></div>
       <div class="gallery-grid" id="galleryGrid">
-        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(0)"><img src="imgs/marginalia/lucca-codex.jpg" alt="Marginalia — Lucca Codex" loading="lazy"></div>
-        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(1)"><img src="imgs/marginalia/magl-1040-1.jpg" alt="Marginalia — Magl 1040" loading="lazy"></div>
-        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(2)"><img src="imgs/marginalia/magl-1040-2.jpg" alt="Marginalia — Magl 1040" loading="lazy"></div>
-        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(3)"><img src="imgs/marginalia/marginalia-certaldo.png" alt="Marginalia — Certaldo" loading="lazy"></div>
-        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(4)"><img src="imgs/marginalia/marginalia-milano.png" alt="Marginalia — Milano" loading="lazy"></div>
-        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(5)"><img src="imgs/marginalia/marginalia-programma.jpg" alt="Marginalia — Programma" loading="lazy"></div>
-        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(6)"><img src="imgs/siobule/siobule-1.jpg" alt="Siobulé (1)" loading="lazy"></div>
-        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(7)"><img src="imgs/siobule/siobule-2.jpg" alt="Siobulé (2)" loading="lazy"></div>
-        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(8)"><img src="imgs/siobule/siobule-3.jpg" alt="Siobulé (3)" loading="lazy"></div>
-        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(9)"><img src="imgs/siobule/siobule-4.jpg" alt="Siobulé (4)" loading="lazy"></div>
-        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(10)"><img src="imgs/siobule/siobule-5.jpg" alt="Siobulé (5)" loading="lazy"></div>
-        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(11)"><img src="imgs/siobule/siobule-6.jpg" alt="Siobulé (6)" loading="lazy"></div>
-        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(12)"><img src="imgs/siobule/siobule-7.jpg" alt="Siobulé (7)" loading="lazy"></div>
-        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(13)"><img src="imgs/siobule/siobule-8.jpg" alt="Siobulé (8)" loading="lazy"></div>
-        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(14)"><img src="imgs/siobule/siobule-9.jpg" alt="Siobulé (9)" loading="lazy"></div>
-        <div class="gallery-item" data-project="chordacordis" onclick="openLightbox(15)"><img src="imgs/chordacordis/chordacordis-1.png" alt="ChordaCordis" loading="lazy"></div>
-        <div class="gallery-item" data-project="chordacordis" onclick="openLightbox(16)"><img src="imgs/chordacordis/chordacordis-2.jpg" alt="ChordaCordis" loading="lazy"></div>
-        <div class="gallery-item" data-project="chordacordis" onclick="openLightbox(17)"><img src="imgs/chordacordis/sara-colin-1.png" alt="ChordaCordis — Sara e Colin" loading="lazy"></div>
-        <div class="gallery-item" data-project="chordacordis" onclick="openLightbox(18)"><img src="imgs/chordacordis/sara-colin-cesab.jpg" alt="ChordaCordis — CESAB" loading="lazy"></div>
-        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(19)"><img src="imgs/troisanneaux/trois-anneaux-1.png" alt="Trois Anneaux (1)" loading="lazy"></div>
-        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(20)"><img src="imgs/troisanneaux/trois-anneaux-1.jpg" alt="Trois Anneaux (2)" loading="lazy"></div>
-        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(21)"><img src="imgs/troisanneaux/trois-anneaux-3.jpg" alt="Trois Anneaux (3)" loading="lazy"></div>
-        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(22)"><img src="imgs/troisanneaux/trois-anneaux-4.jpg" alt="Trois Anneaux (4)" loading="lazy"></div>
-        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(23)"><img src="imgs/troisanneaux/trois-anneaux-5.jpg" alt="Trois Anneaux (5)" loading="lazy"></div>
-        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(24)"><img src="imgs/troisanneaux/trois-anneaux-6.jpg" alt="Trois Anneaux (6)" loading="lazy"></div>
-        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(25)"><img src="imgs/troisanneaux/trois-anneaux-7.jpg" alt="Trois Anneaux (7)" loading="lazy"></div>
-        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(26)"><img src="imgs/troisanneaux/trois-anneaux-8.jpg" alt="Trois Anneaux (8)" loading="lazy"></div>
-        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(27)"><img src="imgs/rubensrosa/rubensrosa.jpg" alt="Rubens Rosa (1)" loading="lazy"></div>
-        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(28)"><img src="imgs/rubensrosa/rubens-rosa1.jpg" alt="Rubens Rosa (2)" loading="lazy"></div>
-        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(29)"><img src="imgs/rubensrosa/rubens-rosa2.jpg" alt="Rubens Rosa (3)" loading="lazy"></div>
-        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(30)"><img src="imgs/rubensrosa/rubens-rosa3.jpg" alt="Rubens Rosa (4)" loading="lazy"></div>
-        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(31)"><img src="imgs/rubensrosa/rubens-rosa4.jpg" alt="Rubens Rosa (5)" loading="lazy"></div>
-        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(32)"><img src="imgs/laskiras/las_kiras-1.JPG" alt="Las Kiras (1)" loading="lazy"></div>
-        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(33)"><img src="imgs/laskiras/las_kiras-2.JPG" alt="Las Kiras (2)" loading="lazy"></div>
-        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(34)"><img src="imgs/laskiras/las_kiras-3.JPG" alt="Las Kiras (3)" loading="lazy"></div>
+        <div class="gallery-item" onclick="openLightbox(0)"><img src="imgs/saraProfilo.png" alt="Sara Maria Fantini — ritratto" loading="lazy"></div>
+        <div class="gallery-item" onclick="openLightbox(1)"><img src="imgs/saraProfiloOud.jpg" alt="Sara Maria Fantini all'oud" loading="lazy"></div>
+        <div class="gallery-item" onclick="openLightbox(2)"><img src="imgs/saraScura.jpg" alt="Sara Maria Fantini al liuto" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(3)"><img src="imgs/marginalia/lucca-codex.jpg" alt="Marginalia — Lucca Codex" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(4)"><img src="imgs/marginalia/magl-1040-1.jpg" alt="Marginalia — Magl 1040" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(5)"><img src="imgs/marginalia/magl-1040-2.jpg" alt="Marginalia — Magl 1040" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(6)"><img src="imgs/marginalia/marginalia-certaldo.png" alt="Marginalia — Certaldo" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(7)"><img src="imgs/marginalia/marginalia-milano.png" alt="Marginalia — Milano" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(8)"><img src="imgs/marginalia/marginalia-programma.jpg" alt="Marginalia — Programma" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(9)"><img src="imgs/siobule/siobule-1.jpg" alt="Siobulé (1)" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(10)"><img src="imgs/siobule/siobule-2.jpg" alt="Siobulé (2)" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(11)"><img src="imgs/siobule/siobule-3.jpg" alt="Siobulé (3)" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(12)"><img src="imgs/siobule/siobule-4.jpg" alt="Siobulé (4)" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(13)"><img src="imgs/siobule/siobule-5.jpg" alt="Siobulé (5)" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(14)"><img src="imgs/siobule/siobule-6.jpg" alt="Siobulé (6)" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(15)"><img src="imgs/siobule/siobule-7.jpg" alt="Siobulé (7)" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(16)"><img src="imgs/siobule/siobule-8.jpg" alt="Siobulé (8)" loading="lazy"></div>
+        <div class="gallery-item" data-project="fragmenta" onclick="openLightbox(17)"><img src="imgs/siobule/siobule-9.jpg" alt="Siobulé (9)" loading="lazy"></div>
+        <div class="gallery-item" data-project="chordacordis" onclick="openLightbox(18)"><img src="imgs/chordacordis/chordacordis-1.png" alt="ChordaCordis" loading="lazy"></div>
+        <div class="gallery-item" data-project="chordacordis" onclick="openLightbox(19)"><img src="imgs/chordacordis/chordacordis-2.jpg" alt="ChordaCordis" loading="lazy"></div>
+        <div class="gallery-item" data-project="chordacordis" onclick="openLightbox(20)"><img src="imgs/chordacordis/sara-colin-1.png" alt="ChordaCordis — Sara e Colin" loading="lazy"></div>
+        <div class="gallery-item" data-project="chordacordis" onclick="openLightbox(21)"><img src="imgs/chordacordis/sara-colin-cesab.jpg" alt="ChordaCordis — CESAB" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(22)"><img src="imgs/troisanneaux/trois-anneaux-1.png" alt="Trois Anneaux (1)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(23)"><img src="imgs/troisanneaux/trois-anneaux-1.jpg" alt="Trois Anneaux (2)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(24)"><img src="imgs/troisanneaux/trois-anneaux-3.jpg" alt="Trois Anneaux (3)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(25)"><img src="imgs/troisanneaux/trois-anneaux-4.jpg" alt="Trois Anneaux (4)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(26)"><img src="imgs/troisanneaux/trois-anneaux-5.jpg" alt="Trois Anneaux (5)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(27)"><img src="imgs/troisanneaux/trois-anneaux-6.jpg" alt="Trois Anneaux (6)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(28)"><img src="imgs/troisanneaux/trois-anneaux-7.jpg" alt="Trois Anneaux (7)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(29)"><img src="imgs/troisanneaux/trois-anneaux-8.jpg" alt="Trois Anneaux (8)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(30)"><img src="imgs/rubensrosa/rubensrosa.jpg" alt="Rubens Rosa (1)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(31)"><img src="imgs/rubensrosa/rubens-rosa1.jpg" alt="Rubens Rosa (2)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(32)"><img src="imgs/rubensrosa/rubens-rosa2.jpg" alt="Rubens Rosa (3)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(33)"><img src="imgs/rubensrosa/rubens-rosa3.jpg" alt="Rubens Rosa (4)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(34)"><img src="imgs/rubensrosa/rubens-rosa4.jpg" alt="Rubens Rosa (5)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(35)"><img src="imgs/laskiras/las_kiras-1.JPG" alt="Las Kiras (1)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(36)"><img src="imgs/laskiras/las_kiras-2.JPG" alt="Las Kiras (2)" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" onclick="openLightbox(37)"><img src="imgs/laskiras/las_kiras-3.JPG" alt="Las Kiras (3)" loading="lazy"></div>
+        <div class="gallery-item" onclick="openLightbox(38)"><img src="imgs/sara+natalie.jpg" alt="Sara Maria Fantini e Natalie" loading="lazy"></div>
       </div>
       </div>
     </div>
@@ -531,6 +561,9 @@
 
   <script>
     var galleryData = [
+      {src: "imgs/saraProfilo.png", alt: "Sara Maria Fantini — ritratto"},
+      {src: "imgs/saraProfiloOud.jpg", alt: "Sara Maria Fantini all'oud"},
+      {src: "imgs/saraScura.jpg", alt: "Sara Maria Fantini al liuto"},
       {src: "imgs/marginalia/lucca-codex.jpg", alt: "Marginalia — Lucca Codex"},
       {src: "imgs/marginalia/magl-1040-1.jpg", alt: "Marginalia — Magl 1040"},
       {src: "imgs/marginalia/magl-1040-2.jpg", alt: "Marginalia — Magl 1040"},
@@ -565,7 +598,8 @@
       {src: "imgs/rubensrosa/rubens-rosa4.jpg", alt: "Rubens Rosa (5)"},
       {src: "imgs/laskiras/las_kiras-1.JPG", alt: "Las Kiras (1)"},
       {src: "imgs/laskiras/las_kiras-2.JPG", alt: "Las Kiras (2)"},
-      {src: "imgs/laskiras/las_kiras-3.JPG", alt: "Las Kiras (3)"}
+      {src: "imgs/laskiras/las_kiras-3.JPG", alt: "Las Kiras (3)"},
+      {src: "imgs/sara+natalie.jpg", alt: "Sara Maria Fantini e Natalie"}
     ];
     var lbIndex = 0;
 
@@ -591,23 +625,37 @@
       if (e.target === this) closeLightbox();
     });
 
-    // Gallery filter
+    // Gallery filter (desktop grid + mobile strips share the same underlying order)
     document.querySelectorAll('.gallery-filter-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
         document.querySelectorAll('.gallery-filter-btn').forEach(function(b) { b.classList.remove('active'); });
         this.classList.add('active');
         var filter = this.dataset.filter;
-        // Reindex visible items for lightbox
+        // Show/hide the matching mobile category strips
+        document.querySelectorAll('.gallery-mobile-group').forEach(function(group) {
+          var show = filter === 'tutti' || group.dataset.project === filter;
+          group.classList.toggle('hidden', !show);
+        });
+        // Reindex visible desktop items for the lightbox, tracking orig -> new index
+        var origToNew = {};
         galleryData = [];
-        document.querySelectorAll('.gallery-item').forEach(function(item, i) {
+        document.querySelectorAll('.gallery-item').forEach(function(item) {
           var show = filter === 'tutti' || item.dataset.project === filter;
           item.classList.toggle('hidden', !show);
           if (show) {
             var img = item.querySelector('img');
             var idx = galleryData.length;
             var origIdx = parseInt(item.dataset.origIdx);
+            origToNew[origIdx] = idx;
             item.onclick = (function(n) { return function() { openLightbox(n); }; })(idx);
             galleryData.push({src: img.src, alt: img.alt});
+          }
+        });
+        // Apply the same remapping to the mobile thumbnails
+        document.querySelectorAll('.gallery-thumb[data-idx]').forEach(function(thumb) {
+          var origIdx = parseInt(thumb.dataset.idx);
+          if (origToNew.hasOwnProperty(origIdx)) {
+            thumb.onclick = (function(n) { return function() { openLightbox(n); }; })(origToNew[origIdx]);
           }
         });
       });
