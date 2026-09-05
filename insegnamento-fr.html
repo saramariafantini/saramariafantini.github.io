@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Sara Maria Fantini — Enseignement et recherche : activités pédagogiques, projets de recherche musicologique et conférences.">
+  <link rel="canonical" href="https://saramariafantini.com/insegnamento-fr.html">
+  <link rel="alternate" hreflang="it" href="https://saramariafantini.com/insegnamento-it.html">
+  <link rel="alternate" hreflang="en" href="https://saramariafantini.com/insegnamento-en.html">
+  <link rel="alternate" hreflang="fr" href="https://saramariafantini.com/insegnamento-fr.html">
+  <link rel="alternate" hreflang="x-default" href="https://saramariafantini.com/insegnamento-en.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enseignement et recherche | Sara Maria Fantini</title>
+  <link rel="icon" type="image/x-icon" href="imgs/favicon-rosa.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="imgs/favicon-rosa-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="imgs/favicon-rosa-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="imgs/favicon-rosa-180x180.png">
+  <link rel="icon" type="image/png" sizes="180x180" href="imgs/favicon-rosa-180x180.png">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lora&family=Ysabeau&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="shared.css">
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      overflow-x: hidden;
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 1.2em;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Lora', serif;
+    }
+
+    h3 {
+      padding: 2em 0 1em;
+      font-size: 1.5em;
+      text-align: center;
+    }
+    /* Titres de catégorie ("Enseignement et recherche", "Conférences") — h4 sans classe, mis en valeur */
+    h4 {
+      color: #4a5e3a;
+      text-align: center;
+    }
+    .container-fluid {
+      background-color: #9caf88;
+      color: #060608;
+      padding: 50px 0;
+    }
+
+    .container p {
+      text-align: justify;
+    }
+    .disclaimer {
+      opacity: 0.65;
+    }
+
+    .parallax {
+      position: relative;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .parallax { min-height: 50vh; background-attachment: scroll; }
+    }
+
+    .parallax-title h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      color: antiquewhite;
+    }
+
+    #parallax1 { background-image: url("imgs/marginalia.jpeg"); }
+    #parallax2 { background-image: url("imgs/Sara_Chirac2-crop.jpg"); background-size: contain; background-color: #000; }
+    @media (max-width: 768px) {
+      #parallax2 { background-size: cover; }
+    }
+
+    h4.gallery-heading {
+      font-family: 'Lora', serif;
+      font-size: 0.95em;
+      text-align: center;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #4a5e3a;
+      margin-top: 2rem;
+      margin-bottom: 0.6rem;
+      padding: 0;
+    }
+
+    /* ── Gallery strip ── */
+    .gallery-strip-wrap {
+      position: relative;
+      margin-top: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .gallery-strip {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: #7a9470 #c8d9bf;
+    }
+    .gallery-strip::-webkit-scrollbar { height: 5px; }
+    .gallery-strip::-webkit-scrollbar-track { background: #c8d9bf; border-radius: 3px; }
+    .gallery-strip::-webkit-scrollbar-thumb { background: #7a9470; border-radius: 3px; }
+    .gallery-thumb {
+      flex: 0 0 auto;
+      height: 200px;
+      width: auto;
+      object-fit: cover;
+      cursor: pointer;
+      opacity: 0.85;
+      transition: opacity 0.25s, transform 0.25s;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    .gallery-thumb:hover {
+      opacity: 1;
+      transform: scale(1.02);
+    }
+    .strip-arrow {
+      display: none;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-60%);
+      background: rgba(156,175,136,0.85);
+      color: #fff;
+      border: none;
+      font-size: 1.8rem;
+      padding: 0.1em 0.45em;
+      cursor: pointer;
+      z-index: 5;
+      line-height: 1;
+      border-radius: 3px;
+      transition: background 0.2s;
+    }
+    .strip-arrow:hover { background: rgba(100,120,88,0.95); }
+    .strip-left  { left:  0; }
+    .strip-right { right: 0; }
+    @media (min-width: 768px) {
+      .strip-arrow { display: block; }
+      .gallery-thumb { height: 220px; }
+    }
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      font-size: 2.5rem;
+      padding: 0.15em 0.5em;
+      cursor: pointer;
+      z-index: 10;
+      line-height: 1;
+      border-radius: 4px;
+    }
+    .gallery-nav:hover { background: rgba(0,0,0,0.85); }
+    .gallery-prev { left: 10px; }
+    .gallery-next { right: 10px; }
+    .gallery-close {
+      position: absolute;
+      top: 8px;
+      right: 14px;
+      color: #fff;
+      font-size: 2rem;
+      opacity: 0.8;
+      z-index: 10;
+      background: none;
+      border: none;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .gallery-close:hover { opacity: 1; }
+    #galleryModalImg {
+      max-height: 80vh;
+      width: 100%;
+      object-fit: contain;
+    }
+    .gallery-counter {
+      color: #ccc;
+      font-size: 0.9rem;
+      padding: 6px 0 4px;
+    }
+
+    /* ── Liste chronologique (CV) ── */
+    .cv-list {
+      margin-top: 1.2rem;
+    }
+    .cv-entry {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(6,6,8,0.15);
+    }
+    .cv-entry:last-child {
+      border-bottom: none;
+    }
+    .cv-entry p {
+      margin: 0.25rem 0;
+    }
+    .container .cv-entry p {
+      text-align: left;
+    }
+    .cv-when {
+      font-family: 'Lora', serif;
+      font-weight: 700;
+      color: #4a5e3a;
+    }
+    .cv-where {
+      font-weight: 700;
+    }
+
+    /* ── Lien projet (en savoir plus) ── */
+    .project-link {
+      display: inline-block;
+      margin-top: 1.2rem;
+      margin-bottom: 0.4rem;
+      font-family: 'Ysabeau', sans-serif;
+      font-size: 0.95em;
+      color: #4a5e3a;
+      text-decoration: none;
+      border-bottom: 1px solid #4a5e3a;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .project-link:hover { color: #2a3e22; border-color: #2a3e22; }
+
+  </style>
+</head>
+<body>
+    <style>
+    :root {
+      --nav-bg: #9caf88;
+      --nav-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      --nav-dropdown-bg: #7a9470;
+      --nav-dropdown-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      --nav-dropdown-item-color: #2a2a2a;
+      --nav-dropdown-hover-bg: #4a5e3a;
+      --nav-dropdown-hover-color: #fff;
+      --footer-bg: #9caf88;
+      --footer-text: #2a2a2a;
+      --footer-copy-opacity: 0.7;
+      --footer-social: #2a2a2a;
+      --footer-social-hover: #4a5e3a;
+      --footer-contact: #2a2a2a;
+      --footer-contact-border: #4a5e3a;
+      --footer-contact-hover: #4a5e3a;
+    }
+  </style>
+  <nav class="navbar navbar-expand-sm navbar-dark fixed-top" id="mainNavbar">
+    <a class="navbar-brand d-block d-sm-none" href="index.html">
+      <img src="imgs/favicon-rosa.ico" alt="Logo" style="width:20px;">
+    </a>
+    <div class="d-flex align-items-center d-sm-none">
+      <div class="dropdown lang-switch">
+        <a class="nav-link dropdown-toggle lang-current" href="#" data-toggle="dropdown">fr</a>
+        <div class="dropdown-menu dropdown-menu-right lang-menu"><a class="dropdown-item" href="insegnamento-it.html">it</a><a class="dropdown-item" href="insegnamento-en.html">en</a></div>
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+      <a class="navbar-brand justify-content-center" href="index.html">Home</a>
+      <ul class="navbar-nav text-md-nowrap">
+        <li class="nav-item"><a class="nav-link " href="home-fr.html#bio">Sara Maria Fantini</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle " href="#" data-toggle="dropdown">Projets</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="fragmenta-fr.html">Fragmenta</a><a class="dropdown-item" href="chordacordis-fr.html">ChordaCordis</a><a class="dropdown-item" href="collaborazioni-fr.html">Collaborations</a><a class="dropdown-item" href="insegnamento-fr.html">Enseignement et recherche</a>
+          </div>
+        </li>
+        <li class="nav-item"><a class="nav-link " href="media-fr.html">Media</a></li>
+        <li class="nav-item"><a class="nav-link " href="agenda-fr.html">Agenda</a></li>
+        <li class="nav-item"><a class="nav-link " href="contatti-fr.html">Contact</a></li>
+        <li class="nav-item dropdown lang-switch d-none d-sm-block">
+          <a class="nav-link dropdown-toggle lang-current" href="#" data-toggle="dropdown">fr</a>
+          <div class="dropdown-menu dropdown-menu-right lang-menu"><a class="dropdown-item" href="insegnamento-it.html">it</a><a class="dropdown-item" href="insegnamento-en.html">en</a></div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="parallax" id="parallax1">
+    <div class="parallax-title">
+      <h1>Enseignement et recherche</h1>
+    </div>
+  </div>
+
+  <section class="container-fluid" id="insegnamento">
+    <div class="container">
+      <p class="disclaimer"><em>Les titres des projets, cours et interventions sont conservés dans leur langue d'origine.</br></br></em></p>
+
+      <h4>Enseignement et recherche</h4>
+      <div class="cv-list">
+        <div class="cv-entry">
+          <p><span class="cv-when">2026 – aujourd'hui</span> · <span class="cv-where">Haute école de musique de Genève, Genève (CH)</span></p>
+          <p>Assistante artistique et de recherche au sein du projet REIMAGE (Fonds national suisse de la recherche scientifique).</p>
+          <p><a href="https://data.snf.ch/grants/grant/10004439" class="project-link" target="_blank" rel="noopener noreferrer">data.snf.ch/grants/grant/10004439 →</a></p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">2026 – aujourd'hui</span> · <span class="cv-where">Jetse Academie, Bruxelles (BE)</span></p>
+          <p>Enseignante invitée de musique médiévale.</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">2026</span> · <span class="cv-where">Cité médiévale de Crémieu / Bourgoin-Jallieu (FR)</span></p>
+          <p>Atelier Music'astera : lecture et interprétation de la notation médiévale (avec Benjamin Ingrao).</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">2024 – 2025</span> · <span class="cv-where">Abbaye de Royaumont (FR)</span></p>
+          <p>CREAC « Décaméron au Lycée » : atelier de création artistique pour des élèves de lycée.</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">2023 – 2024</span> · <span class="cv-where">Conservatoire Hector Berlioz, Bourgoin-Jallieu (FR)</span></p>
+          <p>Enseignante de musique médiévale dans le cadre des Journées des Musiques Anciennes (avec Baptiste Chopin).</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">2022 – 2023</span> · <span class="cv-where">Fondation Royaumont, Viarmes (FR)</span></p>
+          <p>Projet « En scène » : diffusion et enseignement théorique et pratique de la musique médiévale auprès des élèves des conservatoires du Val-d'Oise.</p>
+          <p>Co-directrice du stage « Perfectionnement de la pratique vocale médiévale – Ars Nova italien », avec Patrizia Bovi (Ensemble Micrologus).</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">2021</span> · <span class="cv-where">Fondation Royaumont, Viarmes (FR) / Centro Studi Adolfo Broegg, Spello (IT)</span></p>
+          <p>Assistante de Patrizia Bovi (Ensemble Micrologus) pour le stage « Chanter l'Ars Nova italien ».</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">2018 – 2019</span> · <span class="cv-where">Universidade de Santiago de Compostela (ES)</span></p>
+          <p>Enregistrement de pièces transmises par le Codex Calixtinus et le Pergaminho Vindel.</p>
+          <p>Recherche musicologique dans le cadre du projet « Patrimonio cultural da Eurorrexión Galicia-Norte de Portugal: valoración e innovación. GEOARPAD III, Piloto I – LÍRICA », dirigé par le Prof. Mariña Arbor Aldea.</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">2018</span> · <span class="cv-where">Abbaye de Sant'Antimo, Montalcino (IT)</span></p>
+          <p>Co-directrice du stage « Per amore cantare : i grandi laudari toscani », avec Francesca Breschi (Ensemble Dialogo).</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">2016 – 2018</span> · <span class="cv-where">Fondazione Ezio Franceschini, Florence (IT)</span></p>
+          <p>Collaboratrice au volume 2016-2017 de la revue Medioevo Musicale.</p>
+          <p>Rédaction et révision de notices bibliographiques pour la base de données MEM.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="parallax" id="parallax2"></div>
+
+  <section class="container-fluid" id="conferences">
+    <div class="container">
+      <h4>Conférences</h4>
+      <div class="cv-list">
+        <div class="cv-entry">
+          <p><span class="cv-when">3 août 2023</span> · <span class="cv-where">Centro Studi Adolfo Broegg, Spello (IT)</span></p>
+          <p>Communication « Musical Microcosms in the Reina Codex. A Practical Guide to the Ars Nova Manuscripts ». XIVe cours international de musique médiévale.</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">9 mars 2023</span> · <span class="cv-where">Schola Cantorum Basiliensis, Bâle (CH)</span></p>
+          <p>Donnerstag-Akademie « The Fourteenth-Century Siciliana: Problems and Proposals between Edition and Performance Practice ».</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">28 avril 2022</span> · <span class="cv-where">Université de Lausanne, Lausanne (CH)</span></p>
+          <p>Conférence-concert « Flamenca et la musique du Moyen Âge. Déconstruction d'une reconstruction ».</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">5 juillet 2019</span> · <span class="cv-where">Schola Cantorum Basiliensis, Bâle (CH)</span></p>
+          <p>Conférence-concert « Editing and Performing the Fourteenth-Century Siciliane », avec Patrizia Bovi (Ensemble Micrologus). 47e Medieval and Renaissance Music Conference (MedRen 2019).</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">4 juin 2019</span> · <span class="cv-where">Abbaye de Morimondo (IT)</span></p>
+          <p>Conférence-concert « Le addizioni tardive dello Chansonnier du Roi : segno, suono, performance », avec Alexandros Hatzikiriakos. Colloque international « Philologie et musicologie – Lingua e musica nei corpora cantati del Medioevo e del Rinascimento » (4e rencontre franco-italienne).</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">25 mai 2019</span> · <span class="cv-where">Bologne (IT)</span></p>
+          <p>Communication « La Siciliana trecentesca : problemi e proposte tra edizione e performance ». XXIIIe rencontre des doctorants italiens en musicologie.</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">12 novembre 2018</span> · <span class="cv-where">Fondazione Ezio Franceschini, Florence (IT)</span></p>
+          <p>Conférence-concert « Dall'edizione critica all'esecuzione musicale : il caso di Nicolò del Preposto », avec le Prof. Antonio Calvia et Patrizia Bovi (Ensemble Micrologus). Journée d'étude « Musica viva : per Clemente Terni nel centenario della nascita ».</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">20 juin 2018</span> · <span class="cv-where">Université de Bologne (IT)</span></p>
+          <p>Communication « Con novo guardo che move d'Amore : itinerario nell'universo sonoro dantesco ». Colloque AlmaDante 2018.</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">20 juillet 2017</span> · <span class="cv-where">Centro Studi Adolfo Broegg, Spello (IT)</span></p>
+          <p>Communication « Stella mi doni lume : per un'indagine delle relazioni intertestuali tra Nicolò del Preposto e Lorenzo da Firenze ». VIIIe cours international de musique médiévale.</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">8 juillet 2017</span> · <span class="cv-where">Prague (CZ)</span></p>
+          <p>Communication « Sovra la riva d'un corrente fiume : Literary and Political References in Lorenzo Masini's Madrigals ». 45e Medieval and Renaissance Music Conference (MedRen 2017).</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">16 décembre 2016</span> · <span class="cv-where">Certaldo Alto (IT)</span></p>
+          <p>Communication « Amor m'indusse ov'i' cantar sentia : musica e poesia nell'opera di Lorenzo da Firenze ». Colloque international « Ars Nova tra musica e letteratura: temi e problemi di filologia e critica ».</p>
+        </div>
+        <div class="cv-entry">
+          <p><span class="cv-when">7 octobre 2016</span> · <span class="cv-where">Terni (IT)</span></p>
+          <p>Conférence-concert « Diverse voci fanno dolci suoni : riferimenti musicali nella Divina Commedia », organisée par la Società Dante Alighieri.</p>
+        </div>
+      </div>
+
+      <h4 class="gallery-heading">Galerie photo</h4>
+      <div class="gallery-strip-wrap">
+        <button class="strip-arrow strip-left"  onclick="scrollStrip('insegnamentoStrip', -320)" aria-label="Scorri a sinistra">&#8249;</button>
+        <div class="gallery-strip" id="insegnamentoStrip">
+        <img src="imgs/enseignement/foto-enseignement.-1.jpeg" alt="Enseignement et recherche (1)" class="gallery-thumb" onclick="openGallery('insegnamento', 0)" loading="lazy">
+        <img src="imgs/enseignement/foto-enseignement.-2.jpg" alt="Enseignement et recherche (2)" class="gallery-thumb" onclick="openGallery('insegnamento', 1)" loading="lazy">
+        <img src="imgs/enseignement/foto-enseignement.-3.jpg" alt="Enseignement et recherche (3)" class="gallery-thumb" onclick="openGallery('insegnamento', 2)" loading="lazy">
+        <img src="imgs/enseignement/foto-enseignement.-4.jpeg" alt="Enseignement et recherche (4)" class="gallery-thumb" onclick="openGallery('insegnamento', 3)" loading="lazy">
+        <img src="imgs/enseignement/teaching1.jpg" alt="Enseignement et recherche (5)" class="gallery-thumb" onclick="openGallery('insegnamento', 4)" loading="lazy">
+        <img src="imgs/enseignement/teaching2.jpg" alt="Enseignement et recherche (6)" class="gallery-thumb" onclick="openGallery('insegnamento', 5)" loading="lazy">
+        <img src="imgs/enseignement/teaching3.jpg" alt="Enseignement et recherche (7)" class="gallery-thumb" onclick="openGallery('insegnamento', 6)" loading="lazy">
+        <img src="imgs/enseignement/teaching4.jpg" alt="Enseignement et recherche (8)" class="gallery-thumb" onclick="openGallery('insegnamento', 7)" loading="lazy">
+        <img src="imgs/enseignement/conference.jpg" alt="Enseignement et recherche (9)" class="gallery-thumb" onclick="openGallery('insegnamento', 8)" loading="lazy">
+        <img src="imgs/enseignement/conference2.jpg" alt="Enseignement et recherche (10)" class="gallery-thumb" onclick="openGallery('insegnamento', 9)" loading="lazy">
+        <img src="imgs/enseignement/conference3.jpg" alt="Enseignement et recherche (11)" class="gallery-thumb" onclick="openGallery('insegnamento', 10)" loading="lazy">
+        <img src="imgs/enseignement/conference4.jpg" alt="Enseignement et recherche (12)" class="gallery-thumb" onclick="openGallery('insegnamento', 11)" loading="lazy">
+        <img src="imgs/enseignement/conference5.jpg" alt="Enseignement et recherche (13)" class="gallery-thumb" onclick="openGallery('insegnamento', 12)" loading="lazy">
+        </div>
+        <button class="strip-arrow strip-right" onclick="scrollStrip('insegnamentoStrip',  320)" aria-label="Scorri a destra">&#8250;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery lightbox modal -->
+  <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-label="Close">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+      <div class="modal-content bg-dark border-0">
+        <div class="modal-body p-0 text-center position-relative">
+          <button class="gallery-close" data-dismiss="modal" aria-label="Close">&times;</button>
+          <button class="gallery-nav gallery-prev" onclick="galleryNav(-1)" aria-label="Précédente">&#8249;</button>
+          <img id="galleryModalImg" src="" alt="" class="img-fluid">
+          <button class="gallery-nav gallery-next" onclick="galleryNav(1)" aria-label="Suivante">&#8250;</button>
+          <div class="gallery-counter" id="galleryCounter"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function scrollStrip(id, px) {
+      var el = document.getElementById(id);
+      if (el) el.scrollBy({ left: px, behavior: 'smooth' });
+    }
+
+    var galleries = {
+      insegnamento: [
+        { src: 'imgs/enseignement/foto-enseignement.-1.jpeg', alt: 'Enseignement et recherche (1)' },
+        { src: 'imgs/enseignement/foto-enseignement.-2.jpg', alt: 'Enseignement et recherche (2)' },
+        { src: 'imgs/enseignement/foto-enseignement.-3.jpg', alt: 'Enseignement et recherche (3)' },
+        { src: 'imgs/enseignement/foto-enseignement.-4.jpeg', alt: 'Enseignement et recherche (4)' },
+        { src: 'imgs/enseignement/teaching1.jpg', alt: 'Enseignement et recherche (5)' },
+        { src: 'imgs/enseignement/teaching2.jpg', alt: 'Enseignement et recherche (6)' },
+        { src: 'imgs/enseignement/teaching3.jpg', alt: 'Enseignement et recherche (7)' },
+        { src: 'imgs/enseignement/teaching4.jpg', alt: 'Enseignement et recherche (8)' },
+        { src: 'imgs/enseignement/conference.jpg', alt: 'Enseignement et recherche (9)' },
+        { src: 'imgs/enseignement/conference2.jpg', alt: 'Enseignement et recherche (10)' },
+        { src: 'imgs/enseignement/conference3.jpg', alt: 'Enseignement et recherche (11)' },
+        { src: 'imgs/enseignement/conference4.jpg', alt: 'Enseignement et recherche (12)' },
+        { src: 'imgs/enseignement/conference5.jpg', alt: 'Enseignement et recherche (13)' }
+      ]
+    };
+
+    var currentGallery = null;
+    var currentIndex   = 0;
+
+    function openGallery(galleryId, index) {
+      currentGallery = galleries[galleryId];
+      currentIndex   = index;
+      updateModalImage();
+      $('#galleryModal').modal('show');
+    }
+
+    function updateModalImage() {
+      var item = currentGallery[currentIndex];
+      document.getElementById('galleryModalImg').src = item.src;
+      document.getElementById('galleryModalImg').alt = item.alt;
+      document.getElementById('galleryCounter').textContent =
+        (currentIndex + 1) + ' / ' + currentGallery.length;
+    }
+
+    function galleryNav(dir) {
+      currentIndex = (currentIndex + dir + currentGallery.length) % currentGallery.length;
+      updateModalImage();
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (!document.getElementById('galleryModal').classList.contains('show')) return;
+      if (e.key === 'ArrowLeft')  galleryNav(-1);
+      if (e.key === 'ArrowRight') galleryNav(1);
+      if (e.key === 'Escape')     $('#galleryModal').modal('hide');
+    });
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-copy">Photos : Clara Brunet, Alessandro de Carolis, Rebecca Maria Fantini, Danko Strahinić.</span>
+      <span class="footer-copy">© 2026 Sara Maria Fantini. Tous droits réservés.</span>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/in/sara-maria-fantini-5a789412b/" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.instagram.com/saram.fantini" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/saramaria.fantini" title="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.youtube.com/@saramariafantini8715" title="YouTube" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+      </div>
+      <a href="contatti-fr.html" class="footer-contact-link">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>
